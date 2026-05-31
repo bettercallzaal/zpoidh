@@ -4,14 +4,35 @@ Source of truth for every BCZ-issued POIDH bounty. Rounds, judging pages, brand 
 
 **Active bounty:** [Round 3 - Best ad for ZABAL Gamez](https://poidh.xyz/base/bounty/1180) (open through Sun Jun 14, 2026)
 
-**Live surfaces (still on `bettercallzaal.com` during the R3 window):**
+**Live surfaces (all verified 200 on 2026-05-31, BCZ canonical during R3 window):**
 - Hub: https://bettercallzaal.com/poidh.html
 - Best practices: https://bettercallzaal.com/poidh-bounty-best-practices.html
 - R2 judging: https://bettercallzaal.com/poidh-round2-judging.html
-- Brand kit: https://bettercallzaal.com/assets/zabal-games-brand/
+- R3 judging (scaffold ready, populates as submissions land): https://bettercallzaal.com/poidh-round3-judging.html
+- Brand kit landing: https://bettercallzaal.com/assets/zabal-games-brand/
+- Brand kit promo MP3 (50s): https://bettercallzaal.com/assets/zabal-games-brand/zabal-gamez-promo.mp3
 - EB leaderboard feed: https://bettercallzaal.com/poidh-leaderboard.json
 
-After R3 closes + winner cast, those URLs cut over to redirect into this repo's Vercel deploy.
+After R3 closes + winner cast, those URLs cut over to redirect into this repo's Vercel deploy. Until then BCZ stays canonical so the live bounty 1180 description never breaks.
+
+## Session closeout 2026-05-31 (everything that landed)
+
+All PRs from the R3 prep + zpoidh launch session merged. Live state:
+
+| Repo | PR | What |
+|---|---|---|
+| BCZ | #16 | R3 prep folder + best-practices page + binaural beat MP3 (merged earlier) |
+| BCZ | #17 | Replace binaural with synth promo (merged, superseded by #18) |
+| BCZ | #18 | Real production promo MP3 + full brand kit rebuild (12 files) |
+| BCZ | #19 | index.html for `/assets/zabal-games-brand/` folder URL (fixes Vercel directory 404) |
+| BCZ | **#20** | R3 judging scaffold + zpoidh cross-links from nexus, poidh hub, best-practices, brand kit README |
+| ZAOOS | #718 | Doc 768 - POIDH bounty best practices + R3 draft seed |
+| ZAOOS | #724 | Doc 769 - ZAODEVZ/zabalgames repo audit |
+| ZAOOS | #761 | Doc 786 - ZABAL Gamez brand kit rebuild audit |
+| ZAODEVZ/zabalgames | #33 | llms.txt R3 bounty section (so any LLM reading zabalgamez.com gets bounty context) |
+| zpoidh | initial | This repo's first 47 files + landing + vercel.json |
+
+R3 bounty 1180 LIVE on POIDH through Sun Jun 14. Brand kit fully shipped. zpoidh repo is the canonical home for everything POIDH going forward.
 
 ---
 
