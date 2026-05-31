@@ -1,0 +1,39 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/round/:n", "destination": "/rounds/r:n/README.md" },
+    { "source": "/round/:n/judging", "destination": "/rounds/r:n/judging.html" },
+    { "source": "/best-practices", "destination": "/docs/bounty-best-practices.html" },
+    { "source": "/hub", "destination": "/docs/poidh-hub.html" },
+    { "source": "/leaderboard", "destination": "/data/leaderboard.json" },
+    { "source": "/zabal-gamez-brand", "destination": "/assets/brand-kits/zabal-games/index.html" },
+    { "source": "/zabal-gamez-brand/:file", "destination": "/assets/brand-kits/zabal-games/:file" }
+  ],
+  "headers": [
+    {
+      "source": "/assets/brand-kits/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/data/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/data/leaderboard.json",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=60, must-revalidate" }
+      ]
+    }
+  ],
+  "redirects": []
+}

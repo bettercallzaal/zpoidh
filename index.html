@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>zpoidh - BCZ POIDH bounty ops</title>
+  <meta name="description" content="Source of truth for every BCZ-issued POIDH bounty. Rounds, judging pages, brand kits, leaderboard, the canonical bar. Currently R3 active: Best ad for ZABAL Gamez through Sun Jun 14, 2026.">
+  <link rel="canonical" href="https://zpoidh.com/">
+  <meta property="og:title" content="zpoidh">
+  <meta property="og:description" content="BCZ POIDH bounty ops. R3 ZABAL Gamez ad bounty live through Sun Jun 14.">
+  <meta property="og:url" content="https://zpoidh.com/">
+  <link rel="icon" type="image/png" href="/assets/brand-kits/zabal-games/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#070709;--surface:#111115;--surface-2:#16161c;
+      --orange:#ff6b35;--cyan:#00e5ff;--gold:#f5c842;--pink:#ff3d6e;--zabal:#a78bfa;
+      --text:#e4e2dd;--text-muted:#8a8895;--text-dim:#4e4c57;
+      --border:#1f1e26;--border-hover:#2f2d3a;--radius:8px;
+    }
+    body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse 800px 600px at 15% -10%,rgba(167,139,250,0.12),transparent 60%),radial-gradient(ellipse 700px 500px at 90% 10%,rgba(0,229,255,0.10),transparent 60%),radial-gradient(ellipse 600px 400px at 50% 100%,rgba(255,107,53,0.08),transparent 60%)}
+    a{color:var(--cyan);text-decoration:none;transition:color 0.15s}
+    a:hover{color:var(--orange)}
+    .container{max-width:960px;margin:0 auto;padding:0 1.5rem}
+    .topnav{padding:1.25rem 0;border-bottom:1px solid var(--border)}
+    .topnav-inner{display:flex;gap:1.5rem;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .topnav .brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text)}
+    .topnav nav{display:flex;gap:1.25rem;flex-wrap:wrap}
+    .topnav nav a{color:var(--text-muted);font-size:0.9rem}
+    .topnav nav a:hover{color:var(--text)}
+    .hero{padding:3rem 0 2rem;border-bottom:1px solid var(--border)}
+    .badge{display:inline-block;padding:0.25rem 0.625rem;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;background:rgba(167,139,250,0.16);border:1px solid rgba(167,139,250,0.4);color:var(--zabal)}
+    h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1;margin:0.75rem 0 0.5rem;background:linear-gradient(135deg,#ff6b35,#ff3d6e,#00e5ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    h2{font-family:'Syne',sans-serif;font-weight:700;font-size:1.4rem;margin:2.5rem 0 1rem;color:var(--text)}
+    p.sub{color:var(--text-muted);max-width:640px;font-size:1rem}
+    p.sub strong{color:var(--text);font-weight:500}
+    .grid{display:grid;gap:0.75rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:0.5rem 0 1.5rem}
+    .card{padding:1rem 1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:all 0.15s;color:var(--text);display:flex;flex-direction:column;gap:0.35rem}
+    .card:hover{border-color:var(--cyan);transform:translateY(-2px);background:var(--surface-2);color:var(--text)}
+    .card .label{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--cyan)}
+    .card .desc{font-size:0.85rem;color:var(--text-muted)}
+    .card.active{border-color:var(--gold)}
+    .card.active .label{color:var(--gold)}
+    table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.9rem}
+    th,td{padding:0.55rem 0.75rem;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+    th{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted)}
+    .pill{display:inline-block;padding:0.15rem 0.5rem;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:0.7rem}
+    .pill.live{background:rgba(245,200,66,0.16);color:var(--gold);border:1px solid rgba(245,200,66,0.4)}
+    .pill.done{background:rgba(74,222,128,0.12);color:#4ade80;border:1px solid rgba(74,222,128,0.3)}
+    footer{padding:2.5rem 0;border-top:1px solid var(--border);margin-top:3rem;text-align:center;color:var(--text-muted);font-size:0.85rem}
+    footer .lifeline{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-dim);margin-top:0.4rem}
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <div class="container topnav-inner">
+      <a class="brand" href="/">zpoidh</a>
+      <nav>
+        <a href="https://github.com/bettercallzaal/zpoidh" target="_blank" rel="noopener">repo</a>
+        <a href="/best-practices">best practices</a>
+        <a href="/leaderboard">leaderboard json</a>
+        <a href="https://bettercallzaal.com" target="_blank" rel="noopener">bcz</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <span class="badge">BCZ POIDH bounty ops</span>
+      <h1>zpoidh</h1>
+      <p class="sub">Source of truth for every BCZ-issued POIDH bounty. Rounds, judging pages, brand kits, leaderboard refresh, the canonical bar, the lessons learned. <strong>Active right now: Round 3 - Best ad for ZABAL Gamez (closes Sun Jun 14).</strong></p>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Active</h2>
+    <div class="grid">
+      <a class="card active" href="https://poidh.xyz/base/bounty/1180" target="_blank" rel="noopener">
+        <span class="label">R3 / bounty 1180 <span class="pill live">LIVE</span></span>
+        <strong>Best ad for ZABAL Gamez</strong>
+        <span class="desc">Any format. 0.0125 ETH on Base. OPEN bounty. Closes 11:59pm PT Sun Jun 14, 2026.</span>
+      </a>
+    </div>
+
+    <h2>Rounds</h2>
+    <table>
+      <thead><tr><th>Round</th><th>Bounty</th><th>Source</th><th>Prize</th><th>Winner</th><th>Submissions</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="/round/1">R1</a></td>
+          <td><a href="https://poidh.xyz/base/bounty/1151" target="_blank" rel="noopener">1151</a></td>
+          <td>BCZ YapZ Ep 17 (Hannah / Farm Drop clip-up)</td>
+          <td>0.0105 ETH</td>
+          <td>@cryptfi-mariano</td>
+          <td>11 / 10</td>
+        </tr>
+        <tr>
+          <td><a href="/round/2">R2</a></td>
+          <td><a href="https://poidh.xyz/base/bounty/1166" target="_blank" rel="noopener">1166</a></td>
+          <td>BCZ YapZ Ep 19 (Best 60s POIDH ad w/ Kenny)</td>
+          <td>0.0105 ETH</td>
+          <td>@joeyofdeus / Monksage</td>
+          <td>8 / 7</td>
+        </tr>
+        <tr>
+          <td><a href="/round/3">R3</a></td>
+          <td><a href="https://poidh.xyz/base/bounty/1180" target="_blank" rel="noopener">1180</a></td>
+          <td>ZABAL Gamez ad (any format)</td>
+          <td>0.0125 ETH</td>
+          <td><span class="pill live">LIVE</span></td>
+          <td>open</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Resources</h2>
+    <div class="grid">
+      <a class="card" href="/best-practices">
+        <span class="label">docs/bounty-best-practices.html</span>
+        <span class="desc">The canonical bar. Cite this from every bounty cast. Floor rules + rubric + audio rule + binaural beat sources.</span>
+      </a>
+      <a class="card" href="https://github.com/bettercallzaal/zpoidh/blob/main/docs/how-to-draft-next-bounty.md" target="_blank" rel="noopener">
+        <span class="label">docs/how-to-draft-next-bounty.md</span>
+        <span class="desc">11-step playbook for the next round. Prereqs, basics, description, cast, judging, on-chain finalize, gotchas.</span>
+      </a>
+      <a class="card" href="/zabal-gamez-brand">
+        <span class="label">assets/brand-kits/zabal-games/</span>
+        <span class="desc">CC-BY brand kit: arcade logo, palette + arcade palette, official 50s promo MP3, phrases + glossary, asset inventory, embed cards.</span>
+      </a>
+      <a class="card" href="https://github.com/bettercallzaal/zpoidh/tree/main/rounds/_template" target="_blank" rel="noopener">
+        <span class="label">rounds/_template/</span>
+        <span class="desc">Starter files for the next round: description, promo cast, cast templates for winner + catalytic DMs.</span>
+      </a>
+      <a class="card" href="/hub">
+        <span class="label">docs/poidh-hub.html</span>
+        <span class="desc">Source of the live hub UI (mirrored from bettercallzaal.com/poidh.html).</span>
+      </a>
+      <a class="card" href="/leaderboard">
+        <span class="label">data/leaderboard.json</span>
+        <span class="desc">EB-pulled feed in strict format [{address, score}]. Score = count of BCZ POIDH bounties submitted to.</span>
+      </a>
+    </div>
+
+    <h2>Audio rule (every BCZ POIDH bounty)</h2>
+    <p>No random library music or ambient pads under spoken dialog. If you want non-silence, use the official campaign promo MP3 (e.g. <a href="/zabal-gamez-brand/zabal-gamez-promo.mp3">zabal-gamez-promo.mp3</a>), original source-episode audio, or one clear instrumental that does not compete with dialog. Layered melodic music over spoken dialog = automatic floor fail.</p>
+
+    <h2>Score-by-count compounding</h2>
+    <p>Every BCZ POIDH submitter lands on slot 8 of $ZABAL Empire on Empire Builder. Score = count of BCZ POIDH bounties they have submitted to. Two-round submitters at score 2 (@joeyofdeus, @cryptfi-mariano). Submit to R3 = compound to 3.</p>
+  </main>
+
+  <footer>
+    <div class="container">
+      zpoidh - BCZ POIDH bounty ops - MIT (code) + CC-BY 4.0 (brand kits)
+      <div class="lifeline">Maintained by Zaal / BetterCallZaal. Issuer wallet: 0x7234c36a71ec237c2ae7698e8916e0735001e9af on Base.</div>
+    </div>
+  </footer>
+</body>
+</html>
