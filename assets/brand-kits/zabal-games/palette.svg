@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 540" width="1080" height="540">
+  <rect width="1080" height="540" fill="#070709"/>
+  <text x="540" y="60" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="36" font-weight="700" fill="#e4e2dd" text-anchor="middle">ZABAL Games palette</text>
+  <text x="540" y="100" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="16" fill="#8a8895" text-anchor="middle">Dark void + cyan accent + orange energy</text>
+
+  <g transform="translate(80,160)">
+    <rect width="180" height="180" fill="#070709" stroke="#8a8895" stroke-width="1"/>
+    <text x="90" y="220" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#e4e2dd" text-anchor="middle">--bg</text>
+    <text x="90" y="240" font-family="-apple-system,sans-serif" font-size="12" fill="#8a8895" text-anchor="middle">#070709</text>
+  </g>
+
+  <g transform="translate(280,160)">
+    <rect width="180" height="180" fill="#e4e2dd"/>
+    <text x="90" y="220" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#e4e2dd" text-anchor="middle">--text</text>
+    <text x="90" y="240" font-family="-apple-system,sans-serif" font-size="12" fill="#8a8895" text-anchor="middle">#e4e2dd</text>
+  </g>
+
+  <g transform="translate(480,160)">
+    <rect width="180" height="180" fill="#8a8895"/>
+    <text x="90" y="220" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#e4e2dd" text-anchor="middle">--text-muted</text>
+    <text x="90" y="240" font-family="-apple-system,sans-serif" font-size="12" fill="#8a8895" text-anchor="middle">#8a8895</text>
+  </g>
+
+  <g transform="translate(680,160)">
+    <rect width="180" height="180" fill="#00e5ff"/>
+    <text x="90" y="220" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#e4e2dd" text-anchor="middle">--cyan</text>
+    <text x="90" y="240" font-family="-apple-system,sans-serif" font-size="12" fill="#8a8895" text-anchor="middle">#00e5ff</text>
+  </g>
+
+  <g transform="translate(880,160)">
+    <rect width="120" height="180" fill="#ff6b35"/>
+    <text x="60" y="220" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#e4e2dd" text-anchor="middle">--orange</text>
+    <text x="60" y="240" font-family="-apple-system,sans-serif" font-size="12" fill="#8a8895" text-anchor="middle">#ff6b35</text>
+  </g>
+
+  <text x="540" y="420" font-family="-apple-system,sans-serif" font-size="18" fill="#e4e2dd" text-anchor="middle">CC-BY 4.0 - keep "ZABAL Games" + zabalgames.com visible</text>
+  <text x="540" y="450" font-family="-apple-system,sans-serif" font-size="14" fill="#00e5ff" text-anchor="middle">github.com/bettercallzaal/bettercallzaalwebsite/tree/main/assets/zabal-games-brand</text>
+</svg>

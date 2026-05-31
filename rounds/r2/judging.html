@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POIDH Round 2 (Bounty 1166) - Submission Judging - BetterCallZaal</title>
+  <meta name="description" content="Per-submission judging for POIDH bounty 1166 'Best 60s POIDH ad from Ep 19 w/ Kenny'. Floor checks + rubric scores + verdict for all 8 submissions.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://bettercallzaal.com/poidh-round2-judging.html">
+  <meta property="og:title" content="POIDH Round 2 (1166) - Submission Judging">
+  <meta property="og:description" content="Floor rules + rubric scores for all 8 submissions to bounty 1166. Floor PASS/FAIL on each; rubric on Distribution/Craft/Substance/Bonus.">
+  <meta property="og:url" content="https://bettercallzaal.com/poidh-round2-judging.html">
+  <meta property="og:image" content="https://bettercallzaal.com/assets/icon.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="/assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #070709;
+      --surface: #111115;
+      --surface-2: #16161c;
+      --orange: #ff6b35;
+      --cyan: #00e5ff;
+      --gold: #f5c842;
+      --pink: #ff3d6e;
+      --poidh-blue: #2a81d5;
+      --zabal: #a78bfa;
+      --green: #4ade80;
+      --yellow: #facc15;
+      --red: #f87171;
+      --gradient-main: linear-gradient(135deg, #ff6b35, #ff3d6e, #00e5ff);
+      --gradient-zabal: linear-gradient(135deg, #a78bfa, #00e5ff);
+      --text: #e4e2dd;
+      --text-muted: #8a8895;
+      --text-dim: #4e4c57;
+      --border: #1f1e26;
+      --border-hover: #2f2d3a;
+      --radius: 8px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 800px 600px at 15% -10%, rgba(167,139,250,0.14), transparent 60%),
+        radial-gradient(ellipse 700px 500px at 90% 10%, rgba(0,229,255,0.10), transparent 60%),
+        radial-gradient(ellipse 600px 400px at 50% 100%, rgba(255,107,53,0.08), transparent 60%);
+      z-index: -1;
+    }
+    a { color: var(--cyan); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--orange); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Top nav */
+    .topnav { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+    .topnav-inner { display: flex; gap: 1.5rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    .topnav a.brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--text); letter-spacing: -0.01em; }
+    .topnav nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .topnav nav a { color: var(--text-muted); font-size: 0.9rem; }
+    .topnav nav a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero { padding: 3rem 0 2rem; border-bottom: 1px solid var(--border); }
+    .badge {
+      display: inline-block; padding: 0.25rem 0.625rem; border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+      background: rgba(42,129,213,0.16); border: 1px solid rgba(42,129,213,0.4); color: var(--poidh-blue);
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.1; margin: 0.75rem 0 0.5rem;
+      background: var(--gradient-main); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p.sub { color: var(--text-muted); max-width: 720px; font-size: 1rem; }
+    .hero-meta { margin-top: 1rem; display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+    .hero-meta strong { color: var(--text); font-weight: 500; }
+
+    /* Floor rules box */
+    .floor-card {
+      margin: 2rem 0; padding: 1.5rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .floor-card h2 { font-family: 'Syne', sans-serif; font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text); }
+    .floor-card .floor-note { color: var(--text-dim); font-size: 0.8rem; font-style: italic; }
+    .floor-card ol { margin: 0.75rem 0 1rem 1.25rem; }
+    .floor-card ol li { margin: 0.25rem 0; }
+    .rubric-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 0.75rem; }
+    .rubric-pill {
+      padding: 0.65rem 0.85rem; border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--surface-2);
+    }
+    .rubric-pill .r-name { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--gold); font-size: 0.85rem; letter-spacing: 0.05em; }
+    .rubric-pill .r-ex { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+    /* Summary banner */
+    .summary { margin: 1.5rem 0 2.5rem; padding: 1.25rem; background: var(--surface-2); border: 1px solid var(--border-hover); border-radius: var(--radius); display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; }
+    .summary .stat { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+    .summary .stat strong { display: block; font-size: 1.4rem; font-family: 'Syne', sans-serif; font-weight: 700; color: var(--cyan); }
+    .summary .stat.fail strong { color: var(--red); }
+    .summary .stat.strong strong { color: var(--green); }
+    .summary .stat.weak strong { color: var(--yellow); }
+
+    /* Submissions list */
+    section.submissions { padding: 0 0 4rem; }
+    .sub-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      margin-bottom: 1.5rem; overflow: hidden;
+    }
+    .sub-card.verdict-STRONG_CANDIDATE { border-left: 4px solid var(--green); }
+    .sub-card.verdict-FLOOR_PASS_WEAK_RUBRIC { border-left: 4px solid var(--yellow); }
+    .sub-card.verdict-BORDERLINE_DURATION { border-left: 4px solid var(--yellow); }
+    .sub-card.verdict-FLOOR_FAIL { border-left: 4px solid var(--red); opacity: 0.78; }
+    .sub-card.verdict-FLOOR_FAIL_DURATION { border-left: 4px solid var(--red); opacity: 0.85; }
+    .sub-head {
+      display: flex; gap: 1rem; padding: 1.25rem 1.5rem; align-items: center; flex-wrap: wrap; border-bottom: 1px solid var(--border);
+    }
+    .sub-head .avatar {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--surface-2); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-dim);
+      border: 1px solid var(--border-hover); overflow: hidden;
+    }
+    .sub-head .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .sub-head .who { flex: 1; min-width: 200px; }
+    .sub-head .who .name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .sub-head .who .handles { font-size: 0.78rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; word-break: break-all; }
+    .sub-head .verdict-badge {
+      padding: 0.4rem 0.75rem; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;
+      border: 1px solid var(--border-hover);
+    }
+    .verdict-badge.STRONG_CANDIDATE { background: rgba(74,222,128,0.12); color: var(--green); border-color: rgba(74,222,128,0.4); }
+    .verdict-badge.FLOOR_PASS_WEAK_RUBRIC { background: rgba(250,204,21,0.12); color: var(--yellow); border-color: rgba(250,204,21,0.4); }
+    .verdict-badge.BORDERLINE_DURATION { background: rgba(250,204,21,0.12); color: var(--yellow); border-color: rgba(250,204,21,0.4); }
+    .verdict-badge.FLOOR_FAIL { background: rgba(248,113,113,0.12); color: var(--red); border-color: rgba(248,113,113,0.4); }
+    .verdict-badge.FLOOR_FAIL_DURATION { background: rgba(248,113,113,0.12); color: var(--red); border-color: rgba(248,113,113,0.4); }
+
+    .sub-body { padding: 1.25rem 1.5rem; display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 800px) {
+      .sub-body { grid-template-columns: 260px 1fr; }
+    }
+    .media-block { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; align-self: start; }
+    .media-block video, .media-block img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; background: #000; }
+    .media-block.no-media { padding: 2rem 1rem; text-align: center; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
+    .media-block .media-cap { padding: 0.5rem 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-muted); display: flex; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+
+    .analysis h3 { font-family: 'Syne', sans-serif; font-size: 0.85rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 0.5rem; }
+    .analysis .x-text {
+      padding: 0.85rem 1rem; background: var(--surface-2); border-left: 3px solid var(--poidh-blue); border-radius: 4px;
+      font-size: 0.9rem; color: var(--text); margin-bottom: 1rem; font-style: italic;
+    }
+    .analysis .x-text.no-text { color: var(--text-dim); font-style: italic; }
+    .meta-row { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; }
+    .meta-row span strong { color: var(--text); font-weight: 500; }
+
+    .floor-checks { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .floor-chip {
+      padding: 0.35rem 0.7rem; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em;
+      border: 1px solid var(--border-hover);
+    }
+    .floor-chip.PASS { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+    .floor-chip.FAIL { background: rgba(248,113,113,0.1); color: var(--red); border-color: rgba(248,113,113,0.3); }
+    .floor-chip.UNKNOWN { background: rgba(167,139,250,0.1); color: var(--zabal); border-color: rgba(167,139,250,0.3); }
+    .floor-chip.LIKELY { background: rgba(245,200,66,0.1); color: var(--gold); border-color: rgba(245,200,66,0.3); }
+
+    .rubric-list { display: grid; gap: 0.6rem; }
+    .rubric-list .rl {
+      padding: 0.65rem 0.85rem; background: var(--surface-2); border-radius: 4px; border: 1px solid var(--border);
+    }
+    .rubric-list .rl .rl-cat { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--cyan); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .rubric-list .rl .rl-body { font-size: 0.85rem; color: var(--text); margin-top: 0.2rem; }
+
+    .claude-notes {
+      margin-top: 1rem; padding: 0.85rem 1rem;
+      background: rgba(167,139,250,0.06); border-left: 3px solid var(--zabal); border-radius: 4px;
+      font-size: 0.85rem; color: var(--text);
+    }
+    .claude-notes .cn-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--zabal); display: block; margin-bottom: 0.25rem;
+    }
+
+    /* Pros / cons two-col */
+    .proscons { display: grid; gap: 0.75rem; grid-template-columns: 1fr; margin-bottom: 1rem; }
+    @media (min-width: 700px) { .proscons { grid-template-columns: 1fr 1fr; } }
+    .pclist { padding: 0.85rem 1rem; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--border); }
+    .pclist.pick { border-left: 3px solid var(--green); }
+    .pclist.skip { border-left: 3px solid var(--red); }
+    .pclist .pc-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.4rem; }
+    .pclist.pick .pc-label { color: var(--green); }
+    .pclist.skip .pc-label { color: var(--red); }
+    .pclist ul { margin: 0; padding-left: 1.1rem; }
+    .pclist li { font-size: 0.85rem; margin: 0.35rem 0; color: var(--text); }
+
+    .unknowns {
+      margin-bottom: 1rem; padding: 0.75rem 0.9rem; border-radius: 4px;
+      background: rgba(167,139,250,0.06); border-left: 3px solid var(--zabal);
+      font-size: 0.82rem; color: var(--text);
+    }
+    .unknowns .u-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--zabal); display: block; margin-bottom: 0.3rem; }
+    .unknowns ul { margin: 0; padding-left: 1.1rem; }
+    .unknowns li { margin: 0.2rem 0; }
+
+    .scenarios { display: grid; gap: 0.6rem; grid-template-columns: 1fr; margin-bottom: 1rem; }
+    @media (min-width: 700px) { .scenarios { grid-template-columns: 1fr 1fr; } }
+    .scen { padding: 0.7rem 0.9rem; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--border); font-size: 0.85rem; }
+    .scen.lands { border-left: 3px solid var(--green); }
+    .scen.fails { border-left: 3px solid var(--yellow); }
+    .scen .s-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.3rem; }
+    .scen.lands .s-label { color: var(--green); }
+    .scen.fails .s-label { color: var(--yellow); }
+
+    .pick-score-pill {
+      display: inline-flex; align-items: baseline; gap: 0.3rem;
+      padding: 0.3rem 0.65rem; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em;
+      background: var(--surface-2); border: 1px solid var(--border-hover); color: var(--text-muted); margin-right: 0.5rem;
+    }
+    .pick-score-pill strong { font-family: 'Syne', sans-serif; font-size: 0.95rem; color: var(--gold); }
+
+    /* Decision matrix */
+    .decision-matrix {
+      margin: 1.5rem 0 2.5rem; padding: 1.25rem; background: var(--surface); border: 1px solid var(--border-hover); border-radius: var(--radius);
+    }
+    .decision-matrix h2 { font-family: 'Syne', sans-serif; font-size: 1rem; margin-bottom: 0.6rem; color: var(--text); }
+    .decision-matrix .dm-row {
+      display: flex; gap: 1rem; flex-wrap: wrap; padding: 0.6rem 0; border-bottom: 1px dashed var(--border); align-items: baseline;
+    }
+    .decision-matrix .dm-row:last-child { border-bottom: 0; }
+    .decision-matrix .dm-if { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--cyan); min-width: 240px; }
+    .decision-matrix .dm-pick { font-size: 0.9rem; color: var(--text); flex: 1; }
+    .decision-matrix .dm-logic {
+      margin-top: 0.75rem; padding: 0.75rem; background: var(--surface-2); border-radius: 4px; font-size: 0.85rem; color: var(--text);
+      border-left: 3px solid var(--gold);
+    }
+
+    /* Compare table */
+    .compare-wrap { margin: 2rem 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .compare-wrap h2 { font-family: 'Syne', sans-serif; font-size: 1rem; padding: 1rem 1.25rem 0.5rem; color: var(--text); }
+    .compare-wrap .compare-note { padding: 0 1.25rem 0.5rem; font-size: 0.78rem; color: var(--text-muted); }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .compare-table thead th {
+      text-align: left; padding: 0.65rem 0.85rem; background: var(--surface-2); color: var(--text); font-weight: 600;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+      cursor: pointer; user-select: none; border-bottom: 1px solid var(--border-hover);
+    }
+    .compare-table thead th:hover { color: var(--cyan); }
+    .compare-table thead th .sort-ind { color: var(--text-dim); margin-left: 0.3rem; }
+    .compare-table tbody td { padding: 0.6rem 0.85rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .compare-table tbody tr:hover { background: rgba(0,229,255,0.04); }
+    .compare-table tbody tr.row-strong td:first-child { border-left: 3px solid var(--green); }
+    .compare-table tbody tr.row-weak td:first-child { border-left: 3px solid var(--yellow); }
+    .compare-table tbody tr.row-fail td:first-child { border-left: 3px solid var(--red); opacity: 0.7; }
+    .compare-table .num { font-family: 'JetBrains Mono', monospace; }
+    .compare-table .compare-handle a { color: var(--cyan); }
+    .compare-table tbody tr { cursor: pointer; }
+
+    /* Cast template cards */
+    .templates-wrap { margin: 2rem 0; padding: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .templates-wrap h2 { font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--text); margin-bottom: 0.5rem; }
+    .templates-wrap p.t-note { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .tpl-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+    @media (min-width: 760px) { .tpl-grid { grid-template-columns: 1fr 1fr; } }
+    .tpl-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; padding: 0.85rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .tpl-card .tpl-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); }
+    .tpl-card .tpl-body {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text);
+      background: var(--bg); border: 1px solid var(--border); padding: 0.7rem 0.85rem; border-radius: 4px;
+      white-space: pre-wrap; line-height: 1.5; max-height: 240px; overflow-y: auto;
+    }
+    .tpl-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tpl-actions button, .tpl-actions a {
+      padding: 0.45rem 0.85rem; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.05em;
+      background: var(--surface); color: var(--cyan); border: 1px solid var(--border-hover); cursor: pointer; text-decoration: none;
+      transition: all 0.15s;
+    }
+    .tpl-actions button:hover, .tpl-actions a:hover { background: var(--cyan); color: var(--bg); border-color: var(--cyan); }
+    .tpl-actions button.copied { background: var(--green); color: var(--bg); border-color: var(--green); }
+
+    /* POIDH frame embed */
+    .poidh-frame-wrap { margin: 2rem 0; padding: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .poidh-frame-wrap h2 { font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--text); margin-bottom: 0.5rem; }
+    .poidh-frame-wrap p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .poidh-frame-card {
+      display: flex; gap: 1rem; padding: 1rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px;
+      align-items: center; text-decoration: none; color: var(--text); transition: border-color 0.15s;
+    }
+    .poidh-frame-card:hover { border-color: var(--poidh-blue); }
+    .poidh-frame-card img { width: 96px; height: 96px; border-radius: 8px; object-fit: contain; background: var(--bg); padding: 6px; }
+    .poidh-frame-card .pf-body .pf-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .poidh-frame-card .pf-body .pf-sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .poidh-frame-card .pf-body .pf-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--poidh-blue); margin-top: 0.5rem; }
+
+    /* Public voting block */
+    .vote-wrap { margin: 2rem 0; padding: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .vote-wrap h2 { font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--text); margin-bottom: 0.5rem; }
+    .vote-wrap p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .vote-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+    .vote-actions a {
+      padding: 0.55rem 1rem; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.05em;
+      text-decoration: none; transition: all 0.15s; display: inline-flex; gap: 0.4rem; align-items: center;
+    }
+    .vote-actions a.farcaster { background: rgba(124,58,237,0.16); color: #c4b5fd; border: 1px solid rgba(124,58,237,0.5); }
+    .vote-actions a.x { background: rgba(0,0,0,0.4); color: var(--text); border: 1px solid var(--border-hover); }
+    .vote-actions a:hover { transform: translateY(-1px); }
+    .vote-results { margin-top: 1rem; padding: 0.85rem 1rem; background: var(--surface-2); border-radius: 4px; font-size: 0.82rem; color: var(--text-muted); }
+    .vote-results .vr-empty { font-style: italic; color: var(--text-dim); }
+
+    /* Winner-pick form */
+    .pick-form-wrap { margin: 2rem 0; padding: 1.25rem; background: var(--surface); border: 1px solid var(--border-hover); border-radius: var(--radius); }
+    .pick-form-wrap h2 { font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--text); margin-bottom: 0.5rem; }
+    .pick-form-wrap p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .pick-radios { display: grid; gap: 0.5rem; grid-template-columns: 1fr; margin-bottom: 1rem; }
+    @media (min-width: 700px) { .pick-radios { grid-template-columns: 1fr 1fr; } }
+    .pick-radios label {
+      display: flex; gap: 0.6rem; align-items: center; padding: 0.6rem 0.85rem;
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; transition: all 0.15s;
+      font-size: 0.85rem;
+    }
+    .pick-radios label:hover { border-color: var(--cyan); }
+    .pick-radios label.checked { background: rgba(0,229,255,0.08); border-color: var(--cyan); }
+    .pick-radios input[type=radio] { accent-color: var(--cyan); }
+    .pick-radios .pr-pick-score { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-muted); margin-left: auto; }
+    .pick-form-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+    .pick-form-actions button {
+      padding: 0.55rem 1.1rem; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.05em;
+      background: var(--gold); color: var(--bg); border: 0; cursor: pointer; font-weight: 600; transition: all 0.15s;
+    }
+    .pick-form-actions button:hover { transform: translateY(-1px); }
+    .pick-output {
+      margin-top: 1rem; padding: 0.85rem 1rem; background: var(--bg); border: 1px solid var(--border-hover); border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text); white-space: pre-wrap; word-break: break-all;
+      max-height: 200px; overflow-y: auto;
+    }
+
+    /* Duration auto-detect */
+    .floor-chip.computed-pass { background: rgba(74,222,128,0.16); color: var(--green); border-color: rgba(74,222,128,0.5); }
+    .floor-chip.computed-fail { background: rgba(248,113,113,0.16); color: var(--red); border-color: rgba(248,113,113,0.5); }
+    .floor-chip.computed-near { background: rgba(245,200,66,0.16); color: var(--gold); border-color: rgba(245,200,66,0.5); }
+
+    .sub-links { padding: 0.85rem 1.5rem; background: var(--surface-2); border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+    .sub-links a { color: var(--cyan); }
+
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+    footer .lifeline { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <div class="container topnav-inner">
+      <a class="brand" href="/">BetterCallZaal</a>
+      <nav>
+        <a href="/nexus.html">Nexus</a>
+        <a href="/poidh.html">POIDH Hub</a>
+        <a href="https://poidh.xyz/base/bounty/1166" target="_blank" rel="noopener">Bounty 1166</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <span class="badge" id="round-badge">Round 2 - Judging</span>
+      <h1 id="hero-title">Bounty 1166 Judging</h1>
+      <p class="sub" id="hero-sub">Floor checks + rubric scores for every submission. Auto-verified what could be auto-verified; flagged the rest for manual playback.</p>
+      <div class="hero-meta" id="hero-meta"></div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="floor-card" id="floor-card">
+      <h2>The bar (floor rules)</h2>
+      <p class="floor-note">Miss any of these and you're not in the running. Auto-checks done on URL + tags; duration + edit quality need manual playback.</p>
+      <ol id="floor-list"></ol>
+      <h2 style="margin-top:1rem">Rubric (more boxes ticked = stronger judging weight)</h2>
+      <div class="rubric-grid" id="rubric-grid"></div>
+    </div>
+
+    <div class="summary" id="summary"></div>
+
+    <div class="poidh-frame-wrap">
+      <h2>The bounty itself</h2>
+      <p>Tap to open the POIDH mini-app for bounty 1166. Read the brief, watch submissions in their POIDH frames, leave POIDH-native feedback.</p>
+      <a class="poidh-frame-card" id="poidh-frame-card" href="https://poidh.xyz/base/bounty/1166" target="_blank" rel="noopener">
+        <img src="https://poidh.xyz/Logo_poidh.svg" alt="POIDH" onerror="this.style.display='none'">
+        <div class="pf-body">
+          <div class="pf-title" id="pfc-title">Best 60s POIDH ad from Ep 19 w/ Kenny</div>
+          <div class="pf-sub" id="pfc-sub">poidh.xyz/base/bounty/1166 - 0.0105 ETH on Base - 8 claims</div>
+          <div class="pf-meta">launch POIDH mini-app</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="decision-matrix" id="decision-matrix"></div>
+
+    <div class="compare-wrap">
+      <h2>Compare all submissions</h2>
+      <div class="compare-note">Click any column to sort. Tap a row to jump to its full card.</div>
+      <div style="overflow-x:auto">
+        <table class="compare-table" id="compare-table">
+          <thead><tr>
+            <th data-sort="rank">Rank<span class="sort-ind"></span></th>
+            <th data-sort="handle">Handle<span class="sort-ind"></span></th>
+            <th data-sort="pick_score">Pick<span class="sort-ind"></span></th>
+            <th data-sort="duration_sec">Sec<span class="sort-ind"></span></th>
+            <th data-sort="likes">Likes<span class="sort-ind"></span></th>
+            <th data-sort="tag_count">Tags<span class="sort-ind"></span></th>
+            <th data-sort="claim_id">Claim<span class="sort-ind"></span></th>
+            <th data-sort="verdict">Verdict<span class="sort-ind"></span></th>
+          </tr></thead>
+          <tbody id="compare-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <section class="submissions">
+    <div class="container" id="submissions-list"></div>
+  </section>
+
+  <div class="container">
+    <div class="pick-form-wrap">
+      <h2>Pick the winner</h2>
+      <p>Tap one of the 8 claims, then copy the JSON patch or fire a Farcaster cast intent with the winner pre-filled.</p>
+      <div class="pick-radios" id="pick-radios"></div>
+      <div class="pick-form-actions">
+        <button id="pick-copy-json">Copy JSON patch</button>
+        <button id="pick-copy-cast">Copy winner cast text</button>
+        <a id="pick-fc-intent" href="#" target="_blank" rel="noopener" style="padding:0.55rem 1.1rem;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.05em;background:#7c3aed;color:#fff;text-decoration:none;font-weight:600;display:none">Open Farcaster cast intent</a>
+        <a id="pick-x-intent" href="#" target="_blank" rel="noopener" style="padding:0.55rem 1.1rem;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.05em;background:#000;color:#fff;text-decoration:none;font-weight:600;display:none;border:1px solid var(--border-hover)">Open X post intent</a>
+      </div>
+      <div class="pick-output" id="pick-output" style="display:none"></div>
+    </div>
+
+    <div class="vote-wrap">
+      <h2>Public vote (community input)</h2>
+      <p>Fire a Farcaster cast that asks ZAO + /poidh to reply with their pick. Tallies show up here once you paste the cast URL back in - or just eyeball the reply thread on Farcaster.</p>
+      <div class="vote-actions">
+        <a class="farcaster" id="vote-fc-intent" href="#" target="_blank" rel="noopener">Open kickoff cast intent (Farcaster)</a>
+        <a class="x" id="vote-x-intent" href="#" target="_blank" rel="noopener">Open kickoff post intent (X)</a>
+      </div>
+      <div class="vote-results">
+        <span class="vr-empty">No cast URL pasted yet. Once the kickoff cast is live, paste it into the JSON's <code>community_vote.cast_url</code> field; tally rendering goes here.</span>
+      </div>
+    </div>
+
+    <div class="templates-wrap">
+      <h2>Pre-drafted cast templates</h2>
+      <p class="t-note">Copy any of these and paste into /poidh + /zao + X (Firefly). Winner template auto-fills once you pick a winner above. All templates are paste-ready, no edits required.</p>
+      <div class="tpl-grid" id="tpl-grid"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      Generated by Claude from poidh-round2-judging.json. Floor checks via x.com syndication API. Zaal confirms final verdict.
+      <div class="lifeline" id="generated-note"></div>
+    </div>
+  </footer>
+
+  <script>
+    const FLOOR_LABELS = {
+      x_post: "X post URL submitted",
+      tag_bcz: "Tagged @bettercallzaal",
+      duration: "45-60 seconds",
+      edited: "Edited (not raw)"
+    };
+    const RUBRIC_LABELS = {
+      distribution: "Distribution",
+      craft: "Craft",
+      substance: "Substance",
+      bonus: "Bonus"
+    };
+
+    function escapeHtml(s) {
+      if (s == null) return "";
+      return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    }
+
+    async function render() {
+      const list = document.getElementById('submissions-list');
+      let data;
+      try {
+        const r = await fetch('/poidh-round2-judging.json', { cache: 'no-store' });
+        data = await r.json();
+      } catch (e) {
+        list.innerHTML = '<p style="color:var(--red)">Failed to load judging data: ' + escapeHtml(e.message) + '</p>';
+        return;
+      }
+
+      document.title = `POIDH Round ${data.round} (Bounty ${data.bounty_id}) - Submission Judging - BetterCallZaal`;
+      document.getElementById('round-badge').textContent = `Round ${data.round} - Judging`;
+      document.getElementById('hero-title').textContent = `Bounty ${data.bounty_id} - ${data.bounty_title}`;
+      document.getElementById('hero-sub').textContent = data.judging_note;
+      document.getElementById('hero-meta').innerHTML = `
+        <span><strong>Deadline:</strong> ${escapeHtml(data.deadline_pt)}</span>
+        <span><strong>Winner cast:</strong> ${escapeHtml(data.winner_cast_target)}</span>
+        <span><strong>Prize:</strong> ${data.amount_eth_at_judging} ETH</span>
+        <span><strong>Submissions:</strong> ${data.submissions.length}</span>
+        <span><a href="${data.bounty_url}" target="_blank" rel="noopener">view on POIDH</a></span>
+      `;
+
+      const floorList = document.getElementById('floor-list');
+      floorList.innerHTML = data.floor_rules.map(r =>
+        `<li><strong>${escapeHtml(r.label)}</strong>${r.auto_checkable ? '' : ' <span style="color:var(--text-dim);font-size:0.78rem">(manual playback)</span>'}</li>`
+      ).join('');
+
+      const rubricGrid = document.getElementById('rubric-grid');
+      rubricGrid.innerHTML = data.rubric_tiers.map(r =>
+        `<div class="rubric-pill"><div class="r-name">${escapeHtml(r.label)}</div><div class="r-ex">${escapeHtml(r.examples)}</div></div>`
+      ).join('');
+
+      const s = data.claude_summary;
+      // Support both old + new summary shape
+      const strong = s.strong_candidates_strict || s.strong_candidates || [];
+      const weak = s.borderline_duration || s.weak_floor_pass || [];
+      const failsDur = s.floor_fails_duration || [];
+      const failsOther = s.floor_fails_other || s.floor_fails || [];
+      const finalists = s.recommended_finalists_strict || s.recommended_finalists || [];
+
+      const summary = document.getElementById('summary');
+      summary.innerHTML = `
+        <div class="stat strong"><strong>${strong.length}</strong> strong (strict floor)</div>
+        <div class="stat weak"><strong>${weak.length}</strong> borderline duration</div>
+        <div class="stat fail"><strong>${failsDur.length + failsOther.length}</strong> floor fail</div>
+        <div class="stat"><strong>${data.submissions.length}</strong> total submissions</div>
+        ${s.recommended_winner ? `<div class="stat strong"><strong>${s.recommended_winner}</strong> recommended winner</div>` : ''}
+      `;
+
+      document.getElementById('generated-note').textContent = `Judging generated ${data.judging_generated_at}${data.durations_resolved_at ? `, durations resolved ${data.durations_resolved_at}` : ''}. ${s.recommended_winner ? `Recommended winner: claim ${s.recommended_winner}.` : `Recommended finalists: ${finalists.join(', ')}.`}`;
+
+      const dmEl = document.getElementById('decision-matrix');
+      const dm = s.pick_decision_matrix || {};
+      const dmRows = Object.entries(dm).map(([k, v]) => {
+        const ifLabel = k.replace(/^if_optimizing_for_/, '').replace(/_/g, ' ');
+        return `<div class="dm-row"><span class="dm-if">if optimizing for ${escapeHtml(ifLabel)}</span><span class="dm-pick">${escapeHtml(v)}</span></div>`;
+      }).join('');
+      dmEl.innerHTML = `
+        <h2>Decision matrix - which submission depends on what you want</h2>
+        ${dmRows}
+        <div class="dm-logic"><strong>Logic:</strong> ${escapeHtml(s.recommended_winner_pick_logic || '')}</div>
+      `;
+
+      const byId = Object.fromEntries(data.submissions.map(x => [x.claim_id, x]));
+
+      // Compare table
+      renderCompareTable(data);
+
+      // Cast templates
+      renderTemplates(data);
+
+      // Winner-pick form
+      renderPickForm(data);
+
+      // Voting intents
+      wireVoteIntents(data);
+
+      // Sub list (cards) - order by new groups then by old groups fallback
+      const order2 = [
+        ...(s.strong_candidates_strict || s.strong_candidates || []),
+        ...(s.borderline_duration || s.weak_floor_pass || []),
+        ...(s.floor_fails_duration || []),
+        ...(s.floor_fails_other || s.floor_fails || [])
+      ];
+      const order = order2.length ? order2 : data.submissions.map(x => x.claim_id);
+      list.innerHTML = order.map(id => {
+        const sub = byId[id];
+        if (!sub) return '';
+        const verdict = sub.claude_verdict;
+        const initials = (sub.fc_handle || sub.x_handle || sub.display_name || '??').slice(0, 2).toUpperCase();
+        const avatarHtml = `<div class="avatar"><span>${escapeHtml(initials)}</span></div>`;
+
+        const localThumb = `/assets/round2-thumbs/${sub.claim_id}.jpg`;
+        const mediaHtml = sub.media_mp4
+          ? `<div class="media-block">
+              <video src="${sub.media_mp4}" poster="${localThumb}" controls preload="none" onerror="this.poster='${sub.media_thumb || ''}'"></video>
+              <div class="media-cap">
+                <span>${sub.duration_sec ? sub.duration_sec.toFixed(1) + 's' : 'video preview'}</span>
+                <span><a href="${sub.x_url}" target="_blank" rel="noopener">view on X</a></span>
+              </div>
+            </div>`
+          : `<div class="media-block no-media">No X video link in submission</div>`;
+
+        const floorChipsHtml = Object.entries(sub.floor_checks).map(([k, v]) =>
+          `<span class="floor-chip ${v}">${FLOOR_LABELS[k] || k}: ${v}</span>`
+        ).join('');
+
+        const rubricHtml = Object.entries(sub.rubric_score).map(([k, v]) =>
+          `<div class="rl"><div class="rl-cat">${RUBRIC_LABELS[k] || k}</div><div class="rl-body">${escapeHtml(v)}</div></div>`
+        ).join('');
+
+        const mentionsHtml = (sub.mentions || []).map(m => `<span><strong>${escapeHtml(m)}</strong></span>`).join('');
+
+        return `
+          <article class="sub-card verdict-${verdict}" id="claim-${sub.claim_id}">
+            <header class="sub-head">
+              ${avatarHtml}
+              <div class="who">
+                <div class="name">${escapeHtml(sub.display_name || sub.fc_handle || sub.x_handle || 'unknown')}</div>
+                <div class="handles">
+                  ${sub.fc_handle ? `FC @${escapeHtml(sub.fc_handle)} - ` : ''}
+                  ${sub.x_handle ? `X @${escapeHtml(sub.x_handle)} - ` : ''}
+                  ${escapeHtml(sub.wallet.slice(0,10))}...${escapeHtml(sub.wallet.slice(-6))}
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem">
+                ${typeof sub.pick_score === 'number' ? `<span class="pick-score-pill">pick score <strong>${sub.pick_score}</strong>/10</span>` : ''}
+                <span class="verdict-badge ${verdict}">${verdict.replace(/_/g, ' ')}</span>
+              </div>
+            </header>
+            <div class="sub-body">
+              ${mediaHtml}
+              <div class="analysis">
+                <h3>X copy</h3>
+                <div class="x-text${sub.x_text ? '' : ' no-text'}">${sub.x_text ? escapeHtml(sub.x_text) : 'No X post linked - submission contained text only'}</div>
+                <div class="meta-row">
+                  ${sub.x_favs != null ? `<span><strong>${sub.x_favs}</strong> likes</span>` : ''}
+                  ${sub.x_replies != null ? `<span><strong>${sub.x_replies}</strong> replies</span>` : ''}
+                  ${sub.x_created ? `<span><strong>Posted:</strong> ${escapeHtml(sub.x_created.slice(0,10))}</span>` : ''}
+                  ${mentionsHtml ? `<span><strong>Tags:</strong> ${mentionsHtml}</span>` : ''}
+                </div>
+                <h3>Floor checks</h3>
+                <div class="floor-checks">${floorChipsHtml}</div>
+                <h3>Why pick / why skip</h3>
+                <div class="proscons">
+                  <div class="pclist pick">
+                    <span class="pc-label">Why pick</span>
+                    <ul>${(sub.why_pick || []).map(x => `<li>${escapeHtml(x)}</li>`).join('')}</ul>
+                  </div>
+                  <div class="pclist skip">
+                    <span class="pc-label">Why skip</span>
+                    <ul>${(sub.why_skip || []).map(x => `<li>${escapeHtml(x)}</li>`).join('')}</ul>
+                  </div>
+                </div>
+                ${sub.key_unknowns && sub.key_unknowns.length ? `
+                <div class="unknowns">
+                  <span class="u-label">Key unknowns (need manual playback)</span>
+                  <ul>${sub.key_unknowns.map(x => `<li>${escapeHtml(x)}</li>`).join('')}</ul>
+                </div>` : ''}
+                <div class="scenarios">
+                  ${sub.if_video_lands ? `<div class="scen lands"><span class="s-label">If video lands</span>${escapeHtml(sub.if_video_lands)}</div>` : ''}
+                  ${sub.if_video_doesnt ? `<div class="scen fails"><span class="s-label">If video doesn't land</span>${escapeHtml(sub.if_video_doesnt)}</div>` : ''}
+                </div>
+                <h3>Rubric notes</h3>
+                <div class="rubric-list">${rubricHtml}</div>
+                ${sub.claude_notes ? `<div class="claude-notes">
+                  <span class="cn-label">Claude verdict + notes</span>
+                  ${escapeHtml(sub.claude_notes)}
+                </div>` : ''}
+              </div>
+            </div>
+            <div class="sub-links">
+              <a href="${sub.poidh_claim_url}" target="_blank" rel="noopener">POIDH bounty page</a>
+              ${sub.x_url ? `<a href="${sub.x_url}" target="_blank" rel="noopener">X post</a>` : ''}
+              <a href="https://basescan.org/address/${sub.wallet}" target="_blank" rel="noopener">basescan</a>
+              <span style="color:var(--text-dim)">claim id ${sub.claim_id}</span>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Apply server-resolved durations first (authoritative)
+      data.submissions.forEach(sub => {
+        if (typeof sub.duration_sec === 'number') {
+          updateDurationUI(sub.claim_id, sub.duration_sec);
+        }
+      });
+      // Fall back to client detection only for submissions without server data
+      detectDurations(data);
+
+      // Round 1 outcome banner (top of cards section)
+      if (data.round_1_outcome) {
+        const r1 = data.round_1_outcome;
+        const banner = document.createElement('div');
+        banner.style.cssText = 'margin:0 0 1.5rem;padding:1rem 1.25rem;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.3);border-radius:8px;font-size:0.85rem;color:var(--text);';
+        banner.innerHTML = `<strong style="color:var(--green);font-family:Syne,sans-serif">Round 1 closed:</strong> winner = @${escapeHtml(r1.winner_handle)} (claim ${r1.winner_claim_id}). Confirmed accepted on-chain ${escapeHtml(r1.accepted_at_check)}. <span style="color:var(--text-muted);font-size:0.78rem;display:block;margin-top:0.3rem">${escapeHtml(r1.note)}</span>`;
+        list.insertBefore(banner, list.firstChild);
+      }
+    }
+
+    // ============== Compare table ==============
+    function renderCompareTable(data) {
+      const tbody = document.getElementById('compare-tbody');
+      const rows = data.submissions.map((sub, i) => {
+        const verdict = sub.claude_verdict;
+        const rowClass = verdict === 'STRONG_CANDIDATE' ? 'row-strong' : (verdict === 'FLOOR_FAIL' ? 'row-fail' : 'row-weak');
+        const handle = sub.fc_handle || sub.x_handle || sub.display_name || '??';
+        const tagCount = (sub.mentions || []).length;
+        return {
+          rank: i + 1,
+          rowClass,
+          claim_id: sub.claim_id,
+          handle,
+          pick_score: typeof sub.pick_score === 'number' ? sub.pick_score : -1,
+          duration_sec: null, // filled by detectDurations later
+          likes: sub.x_favs != null ? sub.x_favs : -1,
+          tag_count: tagCount,
+          verdict,
+          x_url: sub.x_url,
+          display_name: sub.display_name
+        };
+      });
+      tbody._rows = rows;
+      drawCompareRows();
+      const ths = document.querySelectorAll('#compare-table thead th');
+      ths.forEach(th => {
+        th.addEventListener('click', () => {
+          const key = th.dataset.sort;
+          const dir = th._dir === 'desc' ? 'asc' : 'desc';
+          ths.forEach(o => { o._dir = null; o.querySelector('.sort-ind').textContent = ''; });
+          th._dir = dir;
+          th.querySelector('.sort-ind').textContent = dir === 'desc' ? ' v' : ' ^';
+          tbody._rows.sort((a, b) => {
+            const av = a[key], bv = b[key];
+            if (av == null && bv == null) return 0;
+            if (av == null) return 1;
+            if (bv == null) return -1;
+            if (typeof av === 'number' && typeof bv === 'number') return dir === 'desc' ? bv - av : av - bv;
+            return dir === 'desc' ? String(bv).localeCompare(String(av)) : String(av).localeCompare(String(bv));
+          });
+          drawCompareRows();
+        });
+      });
+    }
+    function drawCompareRows() {
+      const tbody = document.getElementById('compare-tbody');
+      tbody.innerHTML = (tbody._rows || []).map((r, i) => `
+        <tr class="${r.rowClass}" data-claim="${r.claim_id}">
+          <td class="num">${i + 1}</td>
+          <td class="compare-handle">${r.x_url ? `<a href="${r.x_url}" target="_blank" rel="noopener">@${escapeHtml(r.handle)}</a>` : escapeHtml(r.handle)}</td>
+          <td class="num">${r.pick_score >= 0 ? r.pick_score + '/10' : '-'}</td>
+          <td class="num" data-duration-cell="${r.claim_id}">${r.duration_sec != null ? r.duration_sec.toFixed(1) + 's' : '?'}</td>
+          <td class="num">${r.likes >= 0 ? r.likes : '-'}</td>
+          <td class="num">${r.tag_count}</td>
+          <td class="num">${r.claim_id}</td>
+          <td><span class="verdict-badge ${r.verdict}" style="font-size:0.65rem;padding:0.2rem 0.5rem">${r.verdict.replace(/_/g,' ')}</span></td>
+        </tr>
+      `).join('');
+      tbody.querySelectorAll('tr').forEach(tr => {
+        tr.addEventListener('click', e => {
+          if (e.target.closest('a')) return;
+          const id = tr.dataset.claim;
+          const target = document.getElementById('claim-' + id);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    }
+
+    // ============== Auto-detect durations ==============
+    function detectDurations(data) {
+      data.submissions.forEach(sub => {
+        if (!sub.media_mp4) return;
+        const v = document.createElement('video');
+        v.preload = 'metadata';
+        v.crossOrigin = 'anonymous';
+        v.muted = true;
+        v.src = sub.media_mp4;
+        v.addEventListener('loadedmetadata', () => {
+          const sec = v.duration;
+          if (!sec || !isFinite(sec)) return;
+          updateDurationUI(sub.claim_id, sec);
+        }, { once: true });
+        v.addEventListener('error', () => {}, { once: true });
+      });
+    }
+    function updateDurationUI(claimId, sec) {
+      // 45-60s = pass, 35-65s = near, else fail
+      const inRange = sec >= 45 && sec <= 60;
+      const near = (sec >= 35 && sec < 45) || (sec > 60 && sec <= 65);
+      const cls = inRange ? 'computed-pass' : (near ? 'computed-near' : 'computed-fail');
+      const label = `${sec.toFixed(1)}s ${inRange ? 'PASS' : (near ? 'NEAR' : 'FAIL')}`;
+      // Update card chip
+      const card = document.getElementById('claim-' + claimId);
+      if (card) {
+        const chips = card.querySelectorAll('.floor-chip');
+        chips.forEach(c => {
+          if (c.textContent.includes('45-60 seconds')) {
+            c.className = 'floor-chip ' + cls;
+            c.textContent = `45-60 seconds: ${label}`;
+          }
+        });
+      }
+      // Update compare table cell + sortable data
+      const tbody = document.getElementById('compare-tbody');
+      if (tbody && tbody._rows) {
+        const row = tbody._rows.find(r => r.claim_id === claimId);
+        if (row) row.duration_sec = sec;
+        const cell = tbody.querySelector(`[data-duration-cell="${claimId}"]`);
+        if (cell) {
+          cell.textContent = sec.toFixed(1) + 's';
+          cell.style.color = inRange ? 'var(--green)' : (near ? 'var(--gold)' : 'var(--red)');
+        }
+      }
+    }
+
+    // ============== Cast templates ==============
+    function renderTemplates(data) {
+      const grid = document.getElementById('tpl-grid');
+      const submissions = data.submissions;
+      const finalists = (data.claude_summary.recommended_finalists || []).map(id => {
+        const s = submissions.find(x => x.claim_id === id);
+        return s ? `@${s.fc_handle || s.x_handle}` : '';
+      }).filter(Boolean).join(', ');
+      const total = submissions.length;
+
+      const templates = [
+        {
+          label: 'Winner announce (winner picked above auto-fills)',
+          key: 'winner',
+          body: getWinnerCast(null, data)
+        },
+        {
+          label: 'Round 2 close - finalist callout',
+          key: 'finalist_callout',
+          body: `Round 2 of the BCZ x POIDH bounty closed. ${total} submissions, ${data.claude_summary.floor_pass_count} cleared the floor.
+
+Top picks: ${finalists}
+
+Watching each one back today; winner cast drops within 24h. Every submitter on the leaderboard earns $ZABAL from the Empire Builder distribution regardless of the winner pick.
+
+Bounty: ${data.bounty_url}
+Leaderboard: bettercallzaal.com/poidh.html`
+        },
+        {
+          label: 'Rejection (floor-fail) - DM to 6634',
+          key: 'rejection',
+          body: `Hey - thanks for submitting to Round 2 of the BCZ x POIDH bounty.
+
+The bounty required submitting an X post URL per rule 3 ("Submit the X post URL on POIDH at this bounty page"). Your submission contained only text, no link to an X post, so it doesn't qualify for this round.
+
+Next bounty drops soon - make the clip + post to X + tag @bettercallzaal + paste the link in the POIDH claim and you're in.
+
+Bounty page for reference: ${data.bounty_url}`
+        },
+        {
+          label: 'Round 3 kickoff (slot the next clip task here)',
+          key: 'round3',
+          body: `Round 3 is loading.
+
+Round 1 paid out 0.0105 ETH + the leaderboard earned 13+ $ZABAL.
+Round 2 paid out 0.0105 ETH + ${data.claude_summary.floor_pass_count} new submitters joined the $ZABAL Empire slot.
+
+Next bounty drops [DATE]. Subject: [EP / TOPIC].
+
+If you're a clip editor, photographer, or just someone who wants to earn $ZABAL by showing up - submit to ANY bounty and you're on the leaderboard automatically.
+
+Leaderboard + how it works: bettercallzaal.com/poidh.html`
+        }
+      ];
+
+      grid.innerHTML = templates.map(t => `
+        <div class="tpl-card" data-tpl="${t.key}">
+          <span class="tpl-label">${escapeHtml(t.label)}</span>
+          <div class="tpl-body">${escapeHtml(t.body)}</div>
+          <div class="tpl-actions">
+            <button onclick="copyTemplate('${t.key}', this)">Copy text</button>
+            <a href="https://farcaster.xyz/~/compose?text=${encodeURIComponent(t.body)}" target="_blank" rel="noopener">Farcaster cast</a>
+            <a href="https://x.com/intent/post?text=${encodeURIComponent(t.body)}" target="_blank" rel="noopener">X post</a>
+          </div>
+        </div>
+      `).join('');
+    }
+    window.copyTemplate = function(key, btn) {
+      const card = document.querySelector(`[data-tpl="${key}"]`);
+      if (!card) return;
+      const text = card.querySelector('.tpl-body').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        btn.textContent = 'Copied';
+        setTimeout(() => { btn.classList.remove('copied'); btn.textContent = 'Copy text'; }, 2000);
+      });
+    };
+    function getWinnerCast(winnerSub, data) {
+      if (!winnerSub) {
+        return `Round 2 winner of the BCZ x POIDH bounty: [PICK A WINNER ABOVE TO AUTO-FILL]
+
+The clip: [X URL]
+
+Why: [one-line on what they nailed]
+
+Prize: 0.0105 ETH + earned $ZABAL on the leaderboard alongside every other floor-pass submitter.
+
+Bounty: ${data.bounty_url}
+Leaderboard: bettercallzaal.com/poidh.html`;
+      }
+      const handle = winnerSub.fc_handle || winnerSub.x_handle;
+      const why = (winnerSub.why_pick || [])[0] || winnerSub.claude_notes || '';
+      return `Round 2 winner of the BCZ x POIDH bounty: @${handle}
+
+The clip: ${winnerSub.x_url}
+
+Why: ${why}
+
+Prize: 0.0105 ETH + earned $ZABAL on the leaderboard alongside every other floor-pass submitter.
+
+Bounty: ${data.bounty_url}
+Leaderboard: bettercallzaal.com/poidh.html`;
+    }
+
+    // ============== Winner-pick form ==============
+    function renderPickForm(data) {
+      const wrap = document.getElementById('pick-radios');
+      wrap.innerHTML = data.submissions.map(sub => {
+        const handle = sub.fc_handle || sub.x_handle || 'unknown';
+        const score = typeof sub.pick_score === 'number' ? `${sub.pick_score}/10` : '-';
+        return `<label data-claim="${sub.claim_id}">
+          <input type="radio" name="winner" value="${sub.claim_id}">
+          <span>claim ${sub.claim_id} - @${escapeHtml(handle)}</span>
+          <span class="pr-pick-score">${score}</span>
+        </label>`;
+      }).join('');
+      wrap.addEventListener('change', () => {
+        wrap.querySelectorAll('label').forEach(l => l.classList.remove('checked'));
+        const sel = wrap.querySelector('input[name=winner]:checked');
+        if (sel) sel.closest('label').classList.add('checked');
+      });
+      document.getElementById('pick-copy-json').addEventListener('click', () => {
+        const sel = wrap.querySelector('input[name=winner]:checked');
+        if (!sel) return alert('Pick a winner first');
+        const id = parseInt(sel.value, 10);
+        const sub = data.submissions.find(s => s.claim_id === id);
+        const patch = JSON.stringify({
+          winner_claim_id: id,
+          winner_wallet: sub.wallet,
+          winner_handle: sub.fc_handle || sub.x_handle,
+          winner_picked_at: new Date().toISOString(),
+          winner_x_url: sub.x_url
+        }, null, 2);
+        navigator.clipboard.writeText(patch);
+        const out = document.getElementById('pick-output');
+        out.style.display = 'block';
+        out.textContent = patch + '\n\n[copied to clipboard - paste into chat for Claude to commit to poidh-round2-judging.json]';
+      });
+      document.getElementById('pick-copy-cast').addEventListener('click', () => {
+        const sel = wrap.querySelector('input[name=winner]:checked');
+        if (!sel) return alert('Pick a winner first');
+        const id = parseInt(sel.value, 10);
+        const sub = data.submissions.find(s => s.claim_id === id);
+        const text = getWinnerCast(sub, data);
+        navigator.clipboard.writeText(text);
+        const out = document.getElementById('pick-output');
+        out.style.display = 'block';
+        out.textContent = text + '\n\n[copied to clipboard]';
+        // Update FC + X intent buttons live
+        const fc = document.getElementById('pick-fc-intent');
+        const x = document.getElementById('pick-x-intent');
+        fc.href = `https://farcaster.xyz/~/compose?text=${encodeURIComponent(text)}`;
+        fc.style.display = 'inline-flex';
+        x.href = `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
+        x.style.display = 'inline-flex';
+      });
+    }
+
+    // ============== Voting intents ==============
+    function wireVoteIntents(data) {
+      const subs = data.submissions;
+      const finalists = (data.claude_summary.recommended_finalists || [])
+        .map(id => subs.find(s => s.claim_id === id))
+        .filter(Boolean)
+        .map(s => `${s.claim_id} (@${s.fc_handle || s.x_handle})`)
+        .join('  /  ');
+      const text = `Community vote: which Round 2 POIDH ad should win?
+
+${finalists}
+
+Reply with the claim ID. Full judging page + side-by-side compare: bettercallzaal.com/poidh-round2-judging.html
+
+Bounty: ${data.bounty_url}`;
+      document.getElementById('vote-fc-intent').href = `https://farcaster.xyz/~/compose?text=${encodeURIComponent(text)}&embeds[]=${encodeURIComponent('https://bettercallzaal.com/poidh-round2-judging.html')}`;
+      document.getElementById('vote-x-intent').href = `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
+    }
+
+    render();
+  </script>
+</body>
+</html>

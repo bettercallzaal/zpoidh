@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$ZABAL Empire POIDH Submitters - live leaderboard - BetterCallZaal</title>
+  <meta name="description" content="Live leaderboard for the $ZABAL Empire POIDH Submitters slot on Empire Builder. Every submitter to a BCZ-issued POIDH bounty earns ZABAL.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://bettercallzaal.com/poidh.html">
+  <meta property="og:title" content="$ZABAL Empire POIDH Submitters - live leaderboard">
+  <meta property="og:description" content="Submit to BCZ POIDH bounties, land on the leaderboard, earn ZABAL automatically via Empire Builder.">
+  <meta property="og:url" content="https://bettercallzaal.com/poidh.html">
+  <meta property="og:image" content="https://bettercallzaal.com/assets/icon.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="/assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #070709;
+      --surface: #111115;
+      --surface-2: #16161c;
+      --orange: #ff6b35;
+      --cyan: #00e5ff;
+      --gold: #f5c842;
+      --pink: #ff3d6e;
+      --poidh-blue: #2a81d5;
+      --zabal: #a78bfa;
+      --gradient-main: linear-gradient(135deg, #ff6b35, #ff3d6e, #00e5ff);
+      --gradient-zabal: linear-gradient(135deg, #a78bfa, #00e5ff);
+      --text: #e4e2dd;
+      --text-muted: #8a8895;
+      --text-dim: #4e4c57;
+      --border: #1f1e26;
+      --border-hover: #2f2d3a;
+      --radius: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 800px 600px at 15% -10%, rgba(167,139,250,0.14), transparent 60%),
+        radial-gradient(ellipse 700px 500px at 90% 10%, rgba(0,229,255,0.10), transparent 60%),
+        radial-gradient(ellipse 600px 400px at 50% 100%, rgba(255,107,53,0.08), transparent 60%);
+      z-index: -1;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 9999;
+    }
+
+    a { color: var(--cyan); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--orange); }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .nav { padding: 1.5rem; border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .nav-brand {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+      background: var(--gradient-main);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-links { display: flex; gap: 1.25rem; align-items: center; }
+    .nav-links a { font-size: 0.85rem; color: var(--text-muted); }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { padding: 2.5rem 0 1.25rem; text-align: center; }
+    .hero-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--zabal); font-weight: 600; margin-bottom: 0.6rem;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: clamp(1.4rem, 3.2vw, 2.1rem); line-height: 1.15;
+      letter-spacing: -0.015em; margin-bottom: 0.6rem;
+      color: var(--text);
+    }
+    .hero h1 .accent { background: var(--gradient-zabal); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: clamp(0.85rem, 1.3vw, 0.95rem); color: var(--text-muted); max-width: 580px; margin: 0 auto; font-weight: 300; }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+    .hero-meta { margin-top: 0.85rem; font-size: 0.72rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 2rem 0 2rem; }
+    @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; text-align: center; transition: border-color 0.2s; }
+    .stat-card:hover { border-color: var(--border-hover); }
+    .stat-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.3rem, 2.6vw, 1.8rem); color: var(--cyan); line-height: 1; }
+    .stat-num.gold { color: var(--gold); }
+    .stat-num.zabal { color: var(--zabal); }
+    .stat-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.4rem; font-weight: 500; }
+
+    .bounty-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+    @media (max-width: 800px) { .bounty-strip { grid-template-columns: 1fr; } }
+    .bounty-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.2s; }
+    .bounty-card.won { border-color: rgba(245,200,66,0.35); }
+    .bounty-card.live { border-color: rgba(0,229,255,0.4); }
+    .bounty-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--surface-2); }
+    .bounty-card.won::before { background: var(--gold); }
+    .bounty-card.live::before { background: var(--gradient-zabal); }
+    .bounty-tag { display: inline-block; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.6rem; }
+    .bounty-tag.won { color: var(--gold); }
+    .bounty-tag.live { color: var(--cyan); }
+    .bounty-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(0.95rem, 1.8vw, 1.1rem); line-height: 1.3; color: var(--text); margin-bottom: 0.75rem; }
+    .bounty-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.85rem; }
+    .bounty-meta strong { color: var(--text); font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+    .bounty-cta { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.1rem; border: 1.5px solid currentColor; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius); transition: all 0.2s; }
+    .bounty-cta.gold { color: var(--gold); }
+    .bounty-cta.gold:hover { background: var(--gold); color: var(--bg); }
+    .bounty-cta.cyan { color: var(--cyan); }
+    .bounty-cta.cyan:hover { background: var(--cyan); color: var(--bg); }
+
+    .section { padding: 1.25rem 0 2rem; }
+    .section-eyebrow { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.45rem; }
+    .section-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(1.3rem, 3vw, 1.75rem); margin-bottom: 1.25rem; color: var(--text); }
+    .section-sub { font-size: 0.88rem; color: var(--text-muted); margin-top: -0.85rem; margin-bottom: 1.25rem; font-weight: 300; max-width: 720px; }
+
+    .lb { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .lb-row { display: grid; grid-template-columns: 50px 1fr 80px 110px 90px; gap: 1rem; padding: 0.9rem 1.1rem; align-items: center; border-bottom: 1px solid var(--border); }
+    .lb-row:last-child { border-bottom: none; }
+    .lb-row.head { background: var(--surface-2); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; padding: 0.7rem 1.1rem; }
+    .lb-row.entry { transition: background 0.15s; }
+    .lb-row.entry:hover { background: var(--surface-2); }
+    .lb-rank { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--gold); }
+    .lb-rank.medal-1 { color: var(--gold); }
+    .lb-rank.medal-2 { color: #c0c0c0; }
+    .lb-rank.medal-3 { color: #cd7f32; }
+    .lb-who { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
+    .lb-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border); object-fit: cover; flex-shrink: 0; }
+    .lb-name { min-width: 0; }
+    .lb-handle { font-weight: 600; color: var(--text); font-size: 0.93rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .lb-handle a { color: inherit; }
+    .lb-handle a:hover { color: var(--cyan); }
+    .lb-addr { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-dim); margin-top: 1px; }
+    .lb-socials { display: flex; gap: 0.5rem; margin-top: 2px; font-size: 0.7rem; }
+    .lb-socials a { color: var(--text-muted); }
+    .lb-socials a:hover { color: var(--cyan); }
+    .lb-score { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--cyan); text-align: right; }
+    .lb-rewards { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--zabal); text-align: right; }
+    .lb-boost { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-muted); text-align: right; }
+    @media (max-width: 760px) {
+      .lb-row { grid-template-columns: 36px 1fr 60px 80px; gap: 0.65rem; padding: 0.7rem 0.85rem; font-size: 0.85rem; }
+      .lb-boost { display: none; }
+      .lb-row.head .lb-boost { display: none; }
+      .lb-avatar { width: 30px; height: 30px; }
+    }
+
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+    .claim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s; display: flex; flex-direction: column; }
+    .claim-card:hover { border-color: var(--border-hover); }
+    .claim-card.accepted { border-color: rgba(245,200,66,0.5); }
+    .claim-img-wrap { aspect-ratio: 1.4 / 1; background: var(--surface-2); position: relative; overflow: hidden; }
+    .claim-img { width: 100%; height: 100%; object-fit: cover; }
+    .claim-badge { position: absolute; top: 0.5rem; left: 0.5rem; background: var(--gold); color: var(--bg); padding: 3px 9px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+    .claim-bounty { position: absolute; top: 0.5rem; right: 0.5rem; background: rgba(7,7,9,0.85); color: var(--text-muted); padding: 3px 9px; border-radius: 4px; font-size: 0.65rem; font-weight: 600; }
+    .claim-body { padding: 0.85rem 1rem 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+    .claim-title { font-size: 0.88rem; line-height: 1.4; color: var(--text); font-weight: 500; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .claim-by { display: flex; align-items: center; gap: 0.5rem; padding-top: 0.6rem; border-top: 1px solid var(--border); margin-top: auto; }
+    .claim-by-avatar { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; background: var(--surface-2); object-fit: cover; }
+    .claim-by-name { font-size: 0.78rem; color: var(--text-muted); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .claim-by-name strong { color: var(--text); }
+    .claim-links { display: flex; gap: 0.5rem; font-size: 0.7rem; flex-shrink: 0; }
+    .claim-links a { color: var(--text-muted); padding: 2px 6px; border: 1px solid var(--border); border-radius: 3px; }
+    .claim-links a:hover { color: var(--cyan); border-color: var(--cyan); }
+
+    .api-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem 1.5rem; }
+    .api-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text); }
+    .api-card p { font-size: 0.86rem; color: var(--text-muted); margin-bottom: 0.85rem; font-weight: 300; line-height: 1.55; }
+    .api-card p strong { color: var(--text); font-weight: 500; }
+    .api-endpoint { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.7rem 0.95rem; color: var(--cyan); word-break: break-all; }
+    .copy-btn { display: inline-flex; align-items: center; padding: 0.45rem 0.85rem; background: transparent; border: 1px solid var(--border-hover); color: var(--text-muted); font-family: 'Outfit', sans-serif; font-size: 0.74rem; font-weight: 500; border-radius: var(--radius); cursor: pointer; transition: all 0.15s; letter-spacing: 0.05em; margin-top: 0.6rem; }
+    .copy-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .copy-btn.copied { border-color: var(--gold); color: var(--gold); }
+
+    .footer { padding: 2.5rem 0 3rem; text-align: center; border-top: 1px solid var(--border); margin-top: 3rem; font-size: 0.78rem; color: var(--text-dim); }
+    .footer a { color: var(--text-muted); }
+    .footer a:hover { color: var(--cyan); }
+
+    .empty { padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+
+    .marquee { overflow: hidden; padding: 0.75rem 0; mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%); margin: -0.5rem 0 1.25rem; }
+    .marquee-track { display: flex; gap: 0.6rem; width: max-content; animation: marquee-scroll 38s linear infinite; }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .chip { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.45rem 0.85rem 0.45rem 0.45rem; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; font-size: 0.83rem; color: var(--text); transition: border-color 0.15s, transform 0.15s; flex-shrink: 0; }
+    .chip:hover { border-color: var(--cyan); color: var(--text); transform: translateY(-1px); }
+    .chip-avatar { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; background: var(--surface-2); object-fit: cover; }
+    .chip-handle { font-weight: 500; white-space: nowrap; }
+    .chip-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--zabal); margin-left: 0.25rem; }
+
+    .marquee.images { padding: 0; margin: -0.25rem 0 1.5rem; }
+    .marquee.images .marquee-track { gap: 0.5rem; animation-duration: 60s; animation-direction: reverse; }
+    .thumb { width: 110px; height: 80px; border-radius: 6px; overflow: hidden; flex-shrink: 0; background: var(--surface-2); border: 1px solid var(--border); transition: border-color 0.15s, transform 0.15s; display: block; }
+    .thumb:hover { border-color: var(--cyan); transform: translateY(-1px); }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    details.collapse { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 1.5rem; overflow: hidden; }
+    details.collapse summary { padding: 1rem 1.25rem; cursor: pointer; font-size: 0.85rem; color: var(--text-muted); list-style: none; display: flex; align-items: center; gap: 0.6rem; user-select: none; transition: color 0.15s; }
+    details.collapse summary::-webkit-details-marker { display: none; }
+    details.collapse summary:hover { color: var(--text); }
+    details.collapse summary::after { content: '+'; margin-left: auto; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text-dim); transition: transform 0.2s; }
+    details.collapse[open] summary::after { content: '-'; }
+    details.collapse summary strong { color: var(--text); font-weight: 600; }
+    details.collapse .collapse-body { padding: 0 1.25rem 1.25rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+
+    .skeleton { display: inline-block; background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 50%, var(--surface) 100%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 4px; height: 1em; width: 6rem; vertical-align: middle; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">BetterCallZaal</a>
+      <div class="nav-links">
+        <a href="/nexus.html">Nexus</a>
+        <a href="https://empirebuilder.world/empire/0xbB48f19B0494Ff7C1fE5Dc2032aeEE14312f0b07" target="_blank" rel="noopener">$ZABAL Empire</a>
+        <a href="https://poidh.xyz/a/wethemmedia" target="_blank" rel="noopener">POIDH album</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-eyebrow">$ZABAL Empire · POIDH Submitters · Slot 8</div>
+      <h1>Make POIDH's next ad - earn <span class="accent">ETH + ZABAL</span>.</h1>
+      <p class="hero-sub">
+        Clip 45-60s from <a href="https://www.youtube.com/watch?v=IFG_34K7Vig" target="_blank" rel="noopener">BCZ YapZ Ep 19 with @kenny</a>. Closes Fri May 22.
+      </p>
+      <div style="margin-top: 1.1rem">
+        <a href="https://poidh.xyz/base/bounty/1166" target="_blank" rel="noopener" class="bounty-cta cyan" style="font-size: 0.78rem; padding: 0.7rem 1.4rem">Submit your clip ->_</a>
+      </div>
+      <div class="hero-meta" id="hero-meta">Last refresh: <span class="skeleton" style="width:10rem"></span></div>
+    </section>
+
+    <div class="marquee" id="marquee-handles">
+      <div class="marquee-track" id="marquee-handles-track"></div>
+    </div>
+
+    <div class="marquee images" id="marquee-images">
+      <div class="marquee-track" id="marquee-images-track"></div>
+    </div>
+
+    <section class="bounty-card live" style="margin-bottom: 2rem">
+      <div class="bounty-tag live">Round 2 · Live now</div>
+      <h3>Best 60s POIDH ad from Ep 19 w/ Kenny</h3>
+      <div class="bounty-meta">
+        <span>Pot <strong>0.006+ ETH</strong> (open bounty - grows as folks contribute)</span>
+        <span>Bounty <strong>#1166</strong></span>
+        <span>Closes <strong>Fri May 22, 11:59pm PT</strong></span>
+        <span>Winner cast <strong>Sun May 24</strong></span>
+      </div>
+      <p style="font-size: 0.86rem; color: var(--text-muted); margin: 0.85rem 0 1rem; font-weight: 300; line-height: 1.55">
+        <strong style="color: var(--text)">Floor:</strong> post a 45-60s edited clip on X tagging <a href="https://x.com/bettercallzaal" target="_blank" rel="noopener">@bettercallzaal</a> + submit the URL on POIDH. <strong style="color: var(--text)">Ceiling:</strong> rubric of distribution / craft / substance bonuses (full text on POIDH). One wallet = one leaderboard slot, no matter how many clips you post.
+      </p>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center">
+        <a href="https://poidh.xyz/base/bounty/1166" target="_blank" rel="noopener" class="bounty-cta cyan">Submit on POIDH ->_</a>
+        <a href="/poidh-round2-judging.html" class="bounty-cta" style="background:rgba(245,200,66,0.16);color:var(--gold);border:1px solid rgba(245,200,66,0.5);padding:0.65rem 1.1rem;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.05em;text-decoration:none">View Round 2 judging ->_</a>
+        <a href="/poidh-bounty-best-practices.html" class="bounty-cta" style="background:rgba(0,229,255,0.12);color:var(--cyan);border:1px solid rgba(0,229,255,0.5);padding:0.65rem 1.1rem;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.05em;text-decoration:none">How to write a good bounty ->_</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Live leaderboard</div>
+      <h2 class="section-title">Submitters</h2>
+      <p class="section-sub">Pulled live from the <strong>$ZABAL Empire</strong> on Empire Builder. ZABAL totals are lifetime distributions to that wallet from the empire treasury.</p>
+      <div class="lb" id="lb-table">
+        <div class="lb-row head">
+          <div>Rank</div>
+          <div>Submitter</div>
+          <div style="text-align:right">Score</div>
+          <div style="text-align:right">ZABAL</div>
+          <div style="text-align:right">Boost</div>
+        </div>
+        <div class="empty" id="lb-loading">Loading live leaderboard...</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Round 2 Submissions</div>
+      <h2 class="section-title">Live as they roll in</h2>
+      <p class="section-sub">Every Round 2 claim posts here once submitted on POIDH. Click an image to see the full claim; click a submitter to see their Farcaster profile.</p>
+      <div class="gallery" id="gallery-r2">
+        <div class="empty" id="gallery-r2-loading">Loading...</div>
+      </div>
+
+      <details class="collapse">
+        <summary>Round 1 submissions <strong>(11 claims, 10 submitters)</strong> - BCZ YapZ Ep 17 / Farm Drop</summary>
+        <div class="collapse-body">
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; font-weight: 300">
+            Pot was 0.0105 ETH · Picked <a href="https://farcaster.xyz/cryptfi-mariano" target="_blank" rel="noopener"><strong>@cryptfi-mariano</strong></a> · Winner cast pending claim acceptance · <a href="https://poidh.xyz/base/bounty/1151" target="_blank" rel="noopener">See on POIDH</a>
+          </p>
+          <div class="gallery" id="gallery-r1"></div>
+        </div>
+      </details>
+    </section>
+
+    <footer class="footer">
+      <p id="footer-totals">Lifetime ZABAL distributed: <span class="skeleton" style="width:4rem"></span> · <span id="footer-submitters">-</span> unique submitters across <span id="footer-bounties">-</span> BCZ bounties</p>
+      <p style="margin-top: 0.6rem">BCZ x ZAO x ZABAL Empire on Empire Builder. POIDH data live from <a href="https://poidh.xyz/a/wethemmedia" target="_blank" rel="noopener">poidh.xyz/a/wethemmedia</a>. Distribution via <a href="https://empirebuilder.world/empire/0xbB48f19B0494Ff7C1fE5Dc2032aeEE14312f0b07" target="_blank" rel="noopener">empirebuilder.world</a>.</p>
+      <p style="margin-top: 0.5rem"><a href="/">BetterCallZaal home</a> · <a href="/nexus.html">ZABAL Nexus</a></p>
+    </footer>
+  </main>
+
+  <script>
+    function shortAddr(a) { return a && a.length > 10 ? a.slice(0,6) + '...' + a.slice(-4) : (a || ''); }
+    function fmtZabal(n) { if (n == null) return '-'; if (n === 0) return '0.00'; if (n < 0.01) return n.toFixed(4); return n.toFixed(2); }
+    function fmtPctBoost(b) { return b == null ? '-' : (b * 100).toFixed(0) + '%'; }
+    function relTime(iso) {
+      if (!iso) return 'unknown';
+      const d = new Date(iso);
+      const diff = (Date.now() - d.getTime()) / 1000;
+      if (diff < 60) return Math.round(diff) + 's ago';
+      if (diff < 3600) return Math.round(diff/60) + 'm ago';
+      if (diff < 86400) return Math.round(diff/3600) + 'h ago';
+      return Math.round(diff/86400) + 'd ago';
+    }
+    function escHtml(s) { return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+    function rankClass(r) { return r === 1 ? 'medal-1' : r === 2 ? 'medal-2' : r === 3 ? 'medal-3' : ''; }
+
+    function renderLeaderboard(data) {
+      const table = document.getElementById('lb-table');
+      const loading = document.getElementById('lb-loading');
+      if (loading) loading.remove();
+      const lb = data.leaderboard || [];
+      if (!lb.length) {
+        const e = document.createElement('div'); e.className = 'empty'; e.textContent = 'No submissions yet. Be the first.';
+        table.appendChild(e); return;
+      }
+      lb.forEach((entry, i) => {
+        const rank = entry.rank || (i + 1);
+        const handle = entry.farcaster_username;
+        const fcUrl = handle ? `https://farcaster.xyz/${handle}` : null;
+        const xUrl = entry.twitter_url || (entry.twitter_handle ? `https://x.com/${entry.twitter_handle}` : null);
+        const avatar = entry.avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${entry.address}`;
+        const display = entry.displayName || handle || shortAddr(entry.address);
+        const row = document.createElement('div');
+        row.className = 'lb-row entry';
+        row.innerHTML = `
+          <div class="lb-rank ${rankClass(rank)}">#${rank}</div>
+          <div class="lb-who">
+            <img class="lb-avatar" src="${escHtml(avatar)}" alt="" loading="lazy" onerror="this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${entry.address}'" />
+            <div class="lb-name">
+              <div class="lb-handle">${fcUrl ? `<a href="${fcUrl}" target="_blank" rel="noopener">${escHtml(display)}</a>` : escHtml(display)}</div>
+              <div class="lb-addr">${shortAddr(entry.address)}</div>
+              <div class="lb-socials">
+                ${fcUrl ? `<a href="${fcUrl}" target="_blank" rel="noopener">FC</a>` : ''}
+                ${xUrl ? `<a href="${xUrl}" target="_blank" rel="noopener">X</a>` : ''}
+                <a href="https://basescan.org/address/${entry.address}" target="_blank" rel="noopener">scan</a>
+              </div>
+            </div>
+          </div>
+          <div class="lb-score">${entry.score || 1}</div>
+          <div class="lb-rewards">${fmtZabal(entry.totalRewards)}</div>
+          <div class="lb-boost">${fmtPctBoost(entry.boost)}</div>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    function buildClaimCard(c, profiles) {
+      const prof = profiles[c.issuer.toLowerCase()] || {};
+      const handle = prof.farcaster_username;
+      const fcUrl = handle ? `https://farcaster.xyz/${handle}` : null;
+      const xUrl = prof.twitter_url || (prof.twitter_handle ? `https://x.com/${prof.twitter_handle}` : null);
+      const avatar = prof.avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${c.issuer}`;
+      const displayName = prof.displayName || handle || shortAddr(c.issuer);
+      const externalLink = (c.description || '').match(/https?:\/\/[^\s]+/)?.[0] || null;
+      const card = document.createElement('div');
+      card.className = 'claim-card' + (c.accepted ? ' accepted' : '');
+      card.innerHTML = `
+        <a href="https://poidh.xyz/base/bounty/${c.bounty_id}/claim/${c.claim_id}" target="_blank" rel="noopener" class="claim-img-wrap">
+          <img class="claim-img" src="${escHtml(c.image_url)}" alt="" loading="lazy" onerror="this.style.display='none'" />
+          ${c.accepted ? '<span class="claim-badge">Winner</span>' : ''}
+          <span class="claim-bounty">#${c.bounty_id}</span>
+        </a>
+        <div class="claim-body">
+          <div class="claim-title">${escHtml(c.title || '(untitled claim)')}</div>
+          <div class="claim-by">
+            <img class="claim-by-avatar" src="${escHtml(avatar)}" alt="" loading="lazy" onerror="this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${c.issuer}'" />
+            <div class="claim-by-name">${fcUrl ? `<a href="${fcUrl}" target="_blank" rel="noopener"><strong>${escHtml(displayName)}</strong></a>` : `<strong>${escHtml(displayName)}</strong>`}</div>
+            <div class="claim-links">
+              ${externalLink ? `<a href="${escHtml(externalLink)}" target="_blank" rel="noopener" title="Original post">post</a>` : ''}
+              <a href="https://poidh.xyz/base/bounty/${c.bounty_id}/claim/${c.claim_id}" target="_blank" rel="noopener">claim</a>
+            </div>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
+    function renderGalleries(data) {
+      const r2Grid = document.getElementById('gallery-r2');
+      const r2Loading = document.getElementById('gallery-r2-loading');
+      const r1Grid = document.getElementById('gallery-r1');
+      if (r2Loading) r2Loading.remove();
+
+      const claims = data.claims || [];
+      const profiles = {};
+      (data.leaderboard || []).forEach(e => { profiles[e.address.toLowerCase()] = e; });
+
+      const sortFn = (a, b) => (b.accepted ? 1 : 0) - (a.accepted ? 1 : 0) || b.claim_id - a.claim_id;
+      const r2 = claims.filter(c => c.bounty_id === 1166).sort(sortFn);
+      const r1 = claims.filter(c => c.bounty_id === 1151).sort(sortFn);
+
+      if (!r2.length) {
+        const e = document.createElement('div');
+        e.className = 'empty';
+        e.style.gridColumn = '1 / -1';
+        e.innerHTML = 'No Round 2 submissions yet. <a href="https://poidh.xyz/base/bounty/1166" target="_blank" rel="noopener" style="color: var(--cyan)">Be the first ->_</a>';
+        r2Grid.appendChild(e);
+      } else {
+        r2.forEach(c => r2Grid.appendChild(buildClaimCard(c, profiles)));
+      }
+
+      r1.forEach(c => r1Grid.appendChild(buildClaimCard(c, profiles)));
+    }
+
+    function renderStats(data) {
+      const t = data.totals || {};
+      const empire = data.empire || {};
+      const meta = document.getElementById('hero-meta');
+      const ebRefresh = empire.last_eb_refresh ? relTime(empire.last_eb_refresh) : 'unknown';
+      const generated = data.generated_at ? relTime(data.generated_at) : 'unknown';
+      meta.textContent = `Last EB refresh: ${ebRefresh} · Page data: ${generated}`;
+
+      const totalsEl = document.getElementById('footer-totals');
+      totalsEl.innerHTML = `Lifetime ZABAL distributed: <strong>${fmtZabal(t.total_zabal_distributed)}</strong> · <strong>${t.unique_submitters ?? 0}</strong> unique submitters across <strong>${t.bounties ?? 0}</strong> BCZ bounties`;
+    }
+
+    (async function () {
+      try {
+        const r = await fetch('/poidh-claims.json', { cache: 'no-store' });
+        if (!r.ok) throw new Error('claims feed ' + r.status);
+        const data = await r.json();
+        renderStats(data);
+        renderMarquees(data);
+        renderLeaderboard(data);
+        renderGalleries(data);
+      } catch (err) {
+        const lbLoading = document.getElementById('lb-loading');
+        const gLoading = document.getElementById('gallery-r2-loading');
+        if (lbLoading) lbLoading.textContent = 'Could not load: ' + err.message;
+        if (gLoading) gLoading.textContent = 'Could not load: ' + err.message;
+      }
+    })();
+
+    function renderMarquees(data) {
+      const lb = data.leaderboard || [];
+      const claims = data.claims || [];
+      const handlesTrack = document.getElementById('marquee-handles-track');
+      const imagesTrack = document.getElementById('marquee-images-track');
+
+      function chip(entry) {
+        const handle = entry.farcaster_username;
+        const display = handle ? '@' + handle : shortAddr(entry.address);
+        const fcUrl = handle ? `https://farcaster.xyz/${handle}` : `https://basescan.org/address/${entry.address}`;
+        const avatar = entry.avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${entry.address}`;
+        const zabal = entry.totalRewards ? `<span class="chip-meta">${fmtZabal(entry.totalRewards)} ZABAL</span>` : '';
+        return `<a class="chip" href="${fcUrl}" target="_blank" rel="noopener"><img class="chip-avatar" src="${escHtml(avatar)}" alt="" loading="lazy" onerror="this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${entry.address}'" /><span class="chip-handle">${escHtml(display)}</span>${zabal}</a>`;
+      }
+      function thumb(c) {
+        if (!c.image_url) return '';
+        return `<a class="thumb" href="https://poidh.xyz/base/bounty/${c.bounty_id}/claim/${c.claim_id}" target="_blank" rel="noopener"><img src="${escHtml(c.image_url)}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'" /></a>`;
+      }
+
+      if (lb.length) {
+        const chips = lb.map(chip).join('');
+        handlesTrack.innerHTML = chips + chips;
+      } else {
+        document.getElementById('marquee-handles').style.display = 'none';
+      }
+
+      const imageClaims = claims.filter(c => c.image_url);
+      if (imageClaims.length) {
+        const thumbs = imageClaims.map(thumb).join('');
+        imagesTrack.innerHTML = thumbs + thumbs;
+      } else {
+        document.getElementById('marquee-images').style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

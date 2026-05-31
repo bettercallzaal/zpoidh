@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-05-26T05:35:00Z",
+  "leaderboard_uuid": "7b8e8dfa-529d-48ad-8c9b-bdb45cc35187",
+  "total_zabal_distributed": 13.5686,
+  "entries": [
+    {
+      "address": "0x5dc697f2799bd232cad2d479c379ff305b699f9b",
+      "rank": 1,
+      "boost": 1,
+      "totalRewards": 4.259126,
+      "farcaster_username": "pascaline"
+    },
+    {
+      "address": "0x388e3daf94fab496f01b78aac25305d715aa24ff",
+      "rank": 2,
+      "boost": 1,
+      "totalRewards": 1.060979,
+      "farcaster_username": "noniwontmiss"
+    },
+    {
+      "address": "0x6dce11cc9bba17d3c1ef60c26f0958300bb06953",
+      "rank": 3,
+      "boost": 1,
+      "totalRewards": 1.054658,
+      "farcaster_username": "joeyofdeus"
+    },
+    {
+      "address": "0xaa2483130cb248c3e679c404a3dccdd5b03dea00",
+      "rank": 4,
+      "boost": 1,
+      "totalRewards": 1.068569,
+      "farcaster_username": "0xcollinxweb3"
+    },
+    {
+      "address": "0xa34514c2150029afa4d37577daee301166105355",
+      "rank": 5,
+      "boost": 1,
+      "totalRewards": 1.00409,
+      "farcaster_username": "cryptfi-mariano"
+    },
+    {
+      "address": "0x21422b215c1a9e5038c56d67a57f7bf2569b49cf",
+      "rank": 6,
+      "boost": 1,
+      "totalRewards": 1.104812,
+      "farcaster_username": "junyboy.eth"
+    },
+    {
+      "address": "0x34da767a377a77aca15f77ab4e8114cd79c0a7e9",
+      "rank": 7,
+      "boost": 1,
+      "totalRewards": 1.00409,
+      "farcaster_username": "cheeka"
+    },
+    {
+      "address": "0x94652ec29ff18fc06ca4802c76d40b0f86e3eaf6",
+      "rank": 8,
+      "boost": 1,
+      "totalRewards": 1.00409,
+      "farcaster_username": "megajayar.eth"
+    },
+    {
+      "address": "0xc4ba3884dbe6a9dab4ec2a6c3b6366d962f2d25c",
+      "rank": 9,
+      "boost": 1,
+      "totalRewards": 1.00409,
+      "farcaster_username": "tashin"
+    },
+    {
+      "address": "0x0fbf06edddfab0946f146c0b0832943265ef25bc",
+      "rank": 10,
+      "boost": 1,
+      "totalRewards": 1.00409,
+      "farcaster_username": "watchcoin"
+    }
+  ]
+}

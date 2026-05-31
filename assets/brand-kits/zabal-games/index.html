@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZABAL Gamez Brand Kit - BetterCallZaal</title>
+  <meta name="description" content="Pre-cleared ZABAL Gamez brand assets (CC-BY): arcade hero logo, palette, typography, voice + phrases, official promo audio. Use freely for BCZ POIDH bounty submissions and any ZABAL Gamez creative work.">
+  <link rel="canonical" href="https://bettercallzaal.com/assets/zabal-games-brand/">
+  <meta property="og:title" content="ZABAL Gamez Brand Kit">
+  <meta property="og:description" content="Pre-cleared CC-BY brand kit: arcade hero, palette, voice, phrases, official promo audio.">
+  <meta property="og:url" content="https://bettercallzaal.com/assets/zabal-games-brand/">
+  <meta property="og:image" content="https://bettercallzaal.com/assets/zabal-games-brand/embed-card-gamez.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="/assets/zabal-games-brand/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #070709;
+      --surface: #111115;
+      --surface-2: #16161c;
+      --orange: #ff6b35;
+      --cyan: #00e5ff;
+      --gold: #f5c842;
+      --pink: #ff3d6e;
+      --zabal: #a78bfa;
+      --text: #e4e2dd;
+      --text-muted: #8a8895;
+      --text-dim: #4e4c57;
+      --border: #1f1e26;
+      --border-hover: #2f2d3a;
+      --radius: 8px;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background:
+        radial-gradient(ellipse 800px 600px at 15% -10%, rgba(167,139,250,0.12), transparent 60%),
+        radial-gradient(ellipse 700px 500px at 90% 10%, rgba(0,229,255,0.10), transparent 60%),
+        radial-gradient(ellipse 600px 400px at 50% 100%, rgba(255,107,53,0.08), transparent 60%);
+    }
+    a { color: var(--cyan); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--orange); }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .topnav { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+    .topnav-inner { display: flex; gap: 1.5rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    .topnav a.brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--text); }
+    .topnav nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .topnav nav a { color: var(--text-muted); font-size: 0.9rem; }
+    .topnav nav a:hover { color: var(--text); }
+
+    .hero { padding: 2.5rem 0 1.5rem; }
+    .hero img.logo { max-width: 320px; width: 100%; height: auto; display: block; margin-bottom: 1.25rem; }
+    .badge {
+      display: inline-block; padding: 0.25rem 0.625rem; border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+      background: rgba(167,139,250,0.16); border: 1px solid rgba(167,139,250,0.4); color: var(--zabal);
+    }
+    h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.1; margin: 0.75rem 0 0.5rem;
+      background: linear-gradient(135deg, #ff6b35, #ff3d6e, #00e5ff);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p.sub { color: var(--text-muted); max-width: 640px; font-size: 0.98rem; }
+    .hero p.sub strong { color: var(--text); font-weight: 500; }
+
+    h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem; margin: 2.5rem 0 0.75rem; color: var(--text); }
+    p { color: var(--text); margin: 0.5rem 0; }
+
+    .grid {
+      display: grid; gap: 0.75rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      margin: 0.5rem 0 1.5rem;
+    }
+    .file {
+      display: flex; flex-direction: column; gap: 0.25rem;
+      padding: 0.9rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      transition: all 0.15s; color: var(--text);
+    }
+    .file:hover { border-color: var(--cyan); transform: translateY(-2px); background: var(--surface-2); color: var(--text); }
+    .file .name { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--cyan); word-break: break-all; }
+    .file .meta { font-size: 0.78rem; color: var(--text-muted); }
+    .file .desc { font-size: 0.85rem; color: var(--text); margin-top: 0.2rem; }
+
+    .links-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+    .links-row a { padding: 0.4rem 0.85rem; border: 1px solid var(--border); border-radius: 6px; color: var(--cyan); background: var(--surface); }
+    .links-row a:hover { border-color: var(--cyan); }
+
+    .license {
+      margin: 2rem 0; padding: 1.1rem 1.4rem;
+      background: rgba(245,200,66,0.06); border-left: 3px solid var(--gold); border-radius: var(--radius);
+      font-size: 0.9rem;
+    }
+    .license strong { color: var(--gold); }
+
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+    footer .lifeline { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-top: 0.4rem; }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <div class="container topnav-inner">
+      <a class="brand" href="/">BetterCallZaal</a>
+      <nav>
+        <a href="https://zabalgamez.com" target="_blank" rel="noopener">zabalgamez.com</a>
+        <a href="/poidh.html">POIDH Hub</a>
+        <a href="/poidh-bounty-best-practices.html">Bounty Best Practices</a>
+        <a href="https://github.com/ZAODEVZ/zabalgames" target="_blank" rel="noopener">Repo</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <img class="logo" src="/assets/zabal-games-brand/logo.png" alt="ZABAL Gamez">
+      <span class="badge">Brand kit - mirror of github.com/ZAODEVZ/zabalgames</span>
+      <h1>ZABAL Gamez Brand Kit</h1>
+      <p class="sub">Pre-cleared assets for the ZABAL Gamez campaign. Use freely under <strong>CC-BY 4.0</strong> - keep "ZABAL Gamez" or <code>zabalgamez.com</code> visible somewhere in your final piece. Maintained by Zaal / BetterCallZaal. Last sync: 2026-05-31.</p>
+      <div class="links-row">
+        <a href="https://poidh.xyz/base/bounty/1180" target="_blank" rel="noopener">Active bounty: Best ad for ZABAL Gamez (closes Sun Jun 14)</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <h2>Read first</h2>
+    <div class="grid">
+      <a class="file" href="README.md">
+        <span class="name">README.md</span>
+        <span class="meta">Brand voice, palette (13 site + 9 arcade tokens), typography, audio rule, license</span>
+      </a>
+      <a class="file" href="phrases.md">
+        <span class="name">phrases.md</span>
+        <span class="meta">Approved phrases + banned phrases + brand glossary (correct spellings)</span>
+      </a>
+      <a class="file" href="asset-inventory.md">
+        <span class="name">asset-inventory.md</span>
+        <span class="meta">Social unfurl matrix per platform + when to use which file</span>
+      </a>
+    </div>
+
+    <h2>Visuals</h2>
+    <div class="grid">
+      <a class="file" href="logo.png">
+        <span class="name">logo.png</span>
+        <span class="meta">Arcade hero logo (1024x1024, 1.17 MB) - OG / Mini App / hero</span>
+      </a>
+      <a class="file" href="logo-gamez.png">
+        <span class="name">logo-gamez.png</span>
+        <span class="meta">Wider GAMEZ-emphasis variant (1.04 MB)</span>
+      </a>
+      <a class="file" href="logo-wordmark.svg">
+        <span class="name">logo-wordmark.svg</span>
+        <span class="meta">Clean SVG wordmark for tight spaces</span>
+      </a>
+      <a class="file" href="icon.png">
+        <span class="name">icon.png</span>
+        <span class="meta">Clean Z favicon (1024x1024, 263 KB) - browser tab + small contexts</span>
+      </a>
+      <a class="file" href="embed-card-gamez.png">
+        <span class="name">embed-card-gamez.png</span>
+        <span class="meta">1200x630 raster social unfurl card (671 KB)</span>
+      </a>
+      <a class="file" href="embed-card.svg">
+        <span class="name">embed-card.svg</span>
+        <span class="meta">1200x630 vector unfurl for SVG-aware clients</span>
+      </a>
+      <a class="file" href="og-card.svg">
+        <span class="name">og-card.svg</span>
+        <span class="meta">SVG OG card fallback</span>
+      </a>
+      <a class="file" href="palette.svg">
+        <span class="name">palette.svg</span>
+        <span class="meta">Site palette swatch card (5 main tokens)</span>
+      </a>
+      <a class="file" href="palette-arcade.svg">
+        <span class="name">palette-arcade.svg</span>
+        <span class="meta">Arcade-logo palette swatch card (9 tokens)</span>
+      </a>
+    </div>
+
+    <h2>Audio</h2>
+    <div class="grid">
+      <a class="file" href="zabal-gamez-promo.mp3">
+        <span class="name">zabal-gamez-promo.mp3</span>
+        <span class="meta">Official 50-second ZABAL Gamez promo audio (48kHz stereo, 1.3 MB) - intro / outro / full ambient bed</span>
+        <span class="desc">If your ad has audio, use this OR original source-episode audio OR one clear instrumental that does not compete with dialog. Random library music over spoken dialog = floor fail on any BCZ POIDH bounty.</span>
+      </a>
+    </div>
+
+    <div class="license">
+      <strong>License:</strong> CC-BY 4.0. Remix, mash up, recolor, re-time, re-voice freely. Attribution: keep "ZABAL Gamez" or "zabalgamez.com" visible somewhere in your final piece. If you build something with this kit, post it in <a href="https://farcaster.xyz/~/channel/zabal" target="_blank" rel="noopener">/zabal</a> on Farcaster + tag <a href="https://x.com/bettercallzaal" target="_blank" rel="noopener">@bettercallzaal</a> so we can boost it.
+    </div>
+
+    <h2>Where this kit's canonical copy lives</h2>
+    <ul style="margin-left: 1.5rem">
+      <li><a href="https://github.com/ZAODEVZ/zabalgames/blob/main/docs/brand-kit-2026-05-28.md" target="_blank" rel="noopener">brand-kit-2026-05-28.md</a> - the canonical Season 1 brand spec</li>
+      <li><a href="https://github.com/ZAODEVZ/zabalgames/blob/main/docs/brand-context.md" target="_blank" rel="noopener">brand-context.md</a> - the 7-brand ZAO ecosystem spine</li>
+      <li><a href="https://github.com/ZAODEVZ/zabalgames/blob/main/docs/logo-brief-2026-05-26.md" target="_blank" rel="noopener">logo-brief-2026-05-26.md</a> - logo design brief</li>
+      <li><a href="https://github.com/ZAODEVZ/zabalgames/blob/main/docs/media-kit-2026-05-26.md" target="_blank" rel="noopener">media-kit-2026-05-26.md</a> - press / media pull</li>
+    </ul>
+
+    <p>This is a working mirror. If this and the canonical disagree, the canonical wins. Re-sync target: weekly during the active campaign.</p>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      ZABAL Gamez Brand Kit - CC-BY 4.0 - Maintained by Zaal / BetterCallZaal
+      <div class="lifeline">Last sync 2026-05-31 / Bounty 1180 LIVE through Sun Jun 14 / Source of truth: github.com/ZAODEVZ/zabalgames</div>
+    </div>
+  </footer>
+</body>
+</html>

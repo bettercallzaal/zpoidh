@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-05-26T05:27:00Z",
+  "tool": "ffprobe (ffmpeg 8.0.1) downloaded MP4s from video.twimg.com",
+  "rule_min_sec": 45,
+  "rule_max_sec": 60,
+  "rule_tolerance_sec": 0.5,
+  "rule_note": "Bounty says '45 to 60 seconds'. Strict reading = exactly 45.0-60.0s. Soft tolerance of 0.5s applied to flag NEAR vs FAIL.",
+  "durations": {
+    "6584": {"sec": 59.70, "width": 480, "height": 270, "verdict": "PASS"},
+    "6585": {"sec": 57.49, "width": 480, "height": 270, "verdict": "PASS"},
+    "6586": {"sec": 60.21, "width": 480, "height": 270, "verdict": "NEAR_OVER"},
+    "6608": {"sec": 60.46, "width": 320, "height": 426, "verdict": "NEAR_OVER"},
+    "6616": {"sec": 91.88, "width": 480, "height": 270, "verdict": "FAIL_OVER"},
+    "6644": {"sec": 66.71, "width": 480, "height": 270, "verdict": "FAIL_OVER"},
+    "6645": {"sec": 59.70, "width": 480, "height": 270, "verdict": "PASS"}
+  }
+}

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to write a good POIDH bounty - BCZ best practices</title>
+  <meta name="description" content="Canonical checklist for writing BCZ POIDH bounties that work. R1 + R2 lessons + Kenny's framework + the hard audio rule. Use this on every bounty.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://bettercallzaal.com/poidh-bounty-best-practices.html">
+  <meta property="og:title" content="POIDH Bounty Best Practices - BCZ">
+  <meta property="og:description" content="Canonical checklist for writing BCZ POIDH bounties that work. Use this on every bounty.">
+  <meta property="og:url" content="https://bettercallzaal.com/poidh-bounty-best-practices.html">
+  <meta property="og:image" content="https://bettercallzaal.com/assets/icon.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="/assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #070709;
+      --surface: #111115;
+      --surface-2: #16161c;
+      --orange: #ff6b35;
+      --cyan: #00e5ff;
+      --gold: #f5c842;
+      --pink: #ff3d6e;
+      --poidh-blue: #2a81d5;
+      --green: #4ade80;
+      --red: #f87171;
+      --text: #e4e2dd;
+      --text-muted: #8a8895;
+      --text-dim: #4e4c57;
+      --border: #1f1e26;
+      --border-hover: #2f2d3a;
+      --radius: 8px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 800px 600px at 15% -10%, rgba(0,229,255,0.10), transparent 60%),
+        radial-gradient(ellipse 600px 400px at 50% 100%, rgba(255,107,53,0.06), transparent 60%);
+      z-index: -1;
+    }
+    a { color: var(--cyan); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--orange); }
+    .container { max-width: 920px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .topnav { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+    .topnav-inner { display: flex; gap: 1.5rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    .topnav a.brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--text); }
+    .topnav nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .topnav nav a { color: var(--text-muted); font-size: 0.9rem; }
+    .topnav nav a:hover { color: var(--text); }
+
+    .hero { padding: 3rem 0 2rem; border-bottom: 1px solid var(--border); }
+    .badge {
+      display: inline-block; padding: 0.25rem 0.625rem; border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+      background: rgba(245,200,66,0.16); border: 1px solid rgba(245,200,66,0.4); color: var(--gold);
+    }
+    h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem); line-height: 1.1; margin: 0.75rem 0 0.75rem;
+      background: linear-gradient(135deg, #ff6b35, #ff3d6e, #00e5ff);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.6rem; margin: 2.5rem 0 0.75rem; color: var(--text); }
+    h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.15rem; margin: 1.5rem 0 0.5rem; color: var(--gold); }
+    p { margin: 0.6rem 0 0.6rem; color: var(--text); }
+    p.sub { color: var(--text-muted); }
+    ul, ol { margin: 0.6rem 0 0.6rem 1.5rem; }
+    li { margin: 0.3rem 0; }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.85em; background: var(--surface-2); padding: 0.1rem 0.4rem; border-radius: 4px; color: var(--cyan); }
+
+    .rule-callout {
+      margin: 1.5rem 0; padding: 1.25rem 1.5rem; background: rgba(248,113,113,0.06);
+      border-left: 3px solid var(--red); border-radius: var(--radius);
+    }
+    .rule-callout strong { color: var(--red); }
+
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.92rem; }
+    th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+
+    .checklist { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin: 1rem 0; }
+    .checklist h3 { margin-top: 0; }
+    .checklist ul { margin-left: 1rem; list-style: none; padding-left: 0; }
+    .checklist li { padding-left: 1.5rem; position: relative; }
+    .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--cyan); font-weight: 700; }
+
+    footer { padding: 2.5rem 0; border-top: 1px solid var(--border); margin-top: 4rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+    footer .lifeline { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: 0.5rem; }
+
+    .links-row { display: flex; gap: 1.25rem; flex-wrap: wrap; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <div class="container topnav-inner">
+      <a class="brand" href="/">BetterCallZaal</a>
+      <nav>
+        <a href="/nexus.html">Nexus</a>
+        <a href="/poidh.html">POIDH Hub</a>
+        <a href="/poidh-round2-judging.html">R2 Judging</a>
+        <a href="/zabalgames.html">ZABAL Games</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <span class="badge">Canonical reference - cite from every BCZ bounty</span>
+      <h1>How to write a good POIDH bounty</h1>
+      <p class="sub">Distilled from BCZ Round 1 (Hannah / Farm Drop clip-up) + Round 2 (Best 60s POIDH ad from Ep 19) + Kenny's POIDH framework + ZAO bounty playbook (research doc 625). Use this checklist before drafting any BCZ POIDH bounty. Cite from the bounty cast so submitters know the bar.</p>
+      <div class="links-row">
+        <a href="https://github.com/bettercallzaal/ZAOOS/blob/main/research/business/768-poidh-bounty-best-practices-zabalgames-r3/README.md" target="_blank" rel="noopener">Source doc (768)</a>
+        <a href="/poidh.html">Live leaderboard hub</a>
+        <a href="https://github.com/bettercallzaal/bettercallzaalwebsite/tree/main/assets/zabal-games-brand" target="_blank" rel="noopener">ZABAL Games brand folder</a>
+        <a href="https://words.poidh.xyz/" target="_blank" rel="noopener">Kenny's POIDH writing</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div class="rule-callout">
+      <strong>The hard audio rule (locked 2026-05-28):</strong> No random background music or ambient audio under dialog in any BCZ POIDH bounty submission. If you want non-silence, use a binaural beat (single sustained tone with 8-30Hz beat frequency between left/right channels). Original source-episode audio is fine. One clear instrumental fine if it does not compete with spoken dialog. Layered music + dialog = automatic floor fail. Pre-cleared 60s MP3 ships at <a href="/assets/zabal-games-brand/binaural-60s.mp3" target="_blank">/assets/zabal-games-brand/binaural-60s.mp3</a>.
+    </div>
+
+    <h2>Kenny's framework (the lens)</h2>
+    <ol>
+      <li><strong>"Use cases I can show family that aren't gambling."</strong> Every bounty should pass this test. If the task can't be explained to a non-crypto person in one sentence as a real thing being done, rewrite.</li>
+      <li><strong>"Pull money to get specific things done in the real world."</strong> Specific &gt; generic. "Photo at ZAO Stock with the Franklin St sign visible" beats "ZAO Stock photo."</li>
+      <li><strong>"Permissionless from wallet to wallet."</strong> Anyone with a wallet can claim. No profile, no application. The bounty cast is the entire onboarding.</li>
+      <li><strong>"Proof required - pic OR it didn't happen."</strong> The artifact is the proof. The collectible NFT is the receipt. Both flow from the same submission.</li>
+      <li><strong>"Voting is the wisdom-of-crowds layer."</strong> Open bounties hand the contributors a real role: verify the work. Solo bounties skip the layer for speed.</li>
+    </ol>
+
+    <h2>What WORKS reliably</h2>
+    <table>
+      <thead><tr><th>Pattern</th><th>Example</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Open bounty + community pool</td><td>The Haberdashery $30K Guinness kickflip (bounty 1167)</td><td>Many contributors stack into one pot. Each becomes a promoter. Result: world record + 100K+ views.</td></tr>
+        <tr><td>Whale catalyst deposit</td><td>Jesse Pollak adds 0.25 ETH to a $5 bounty (906)</td><td>Public deposit by recognizable wallet triggers a submission wave + amplifies signal in /poidh.</td></tr>
+        <tr><td>Specific physical task</td><td>Skateboard kickflip count, NYC rat-zone documentation</td><td>Easy to prove, attempt, brag about. Vague creative briefs underperform.</td></tr>
+        <tr><td>Episode-tied / event-tied</td><td>BCZ R1 (Ep 17), R2 (Ep 19)</td><td>Source content has an audience. Bounty extends the engagement window.</td></tr>
+        <tr><td>Brand-aligned NFT collectible</td><td>"ZAO Stock Witness #001" naming</td><td>Artifact becomes a permanent record. Submitters keep claim NFTs as portfolio.</td></tr>
+        <tr><td>Cross-post discipline</td><td>Dee's R2 entry hit /poidh + /zao + general FC + X</td><td>Each surface has its own audience; the cast hitting all 3 wins engagement.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What FAILS reliably</h2>
+    <table>
+      <thead><tr><th>Anti-pattern</th><th>Why it kills the bounty</th></tr></thead>
+      <tbody>
+        <tr><td>Vague creative brief</td><td>Nobody knows the bar; submissions vary wildly; winner pick feels arbitrary</td></tr>
+        <tr><td>No source material</td><td>Editors scrape what they can; quality drops; brand drift</td></tr>
+        <tr><td>Hard rules buried at bottom</td><td>Editors miss the floor and submit nine seconds over</td></tr>
+        <tr><td>No upper time limit on video</td><td>Submissions balloon past attention thresholds (R2 Ebuka at 91.88s)</td></tr>
+        <tr><td>Layered ambient music under dialog</td><td>Spoken thesis becomes unintelligible at scroll-volume</td></tr>
+        <tr><td>Solo bounty with broad open call</td><td>Loses the contributor-amplification effect of open bounties</td></tr>
+        <tr><td>Long deadline + no mid-window reminder</td><td>Editors forget; you get all submissions in the last 24h scramble</td></tr>
+        <tr><td>Issuer judges alone with no rubric</td><td>Decisions look opaque; future participation drops</td></tr>
+      </tbody>
+    </table>
+
+    <h2>The checklist (use every bounty)</h2>
+
+    <div class="checklist">
+      <h3>Title</h3>
+      <ul>
+        <li>Specific noun + verb + duration cap. Pattern: <code>[Best/First/Most] [duration-bounded artifact] from [source/event]</code></li>
+        <li>Examples: "Best 60s POIDH ad from Ep 19 w/ Kenny" (R2 - worked), "First photo from ZAO Stock 2026"</li>
+        <li>AVOID: "Make something about X" / "Help promote Y" / "Share your story"</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h3>Description body sections (in this order)</h3>
+      <ul>
+        <li>One-paragraph WHY this bounty exists, with link to source episode / event / page</li>
+        <li><strong>THE BAR</strong> - 3-5 numbered floor rules, the "do these or you're not in the running" gate</li>
+        <li><strong>THE RUBRIC</strong> - grouped by Distribution / Craft / Substance / Bonus with checkboxes</li>
+        <li><strong>WHERE TO FIND THE STRONGEST BEATS</strong> - if clip-based, timecode hints into the source</li>
+        <li><strong>THE REWARD</strong> - prize + winner-cast distribution + Empire Builder ZABAL trail for all submitters</li>
+        <li><strong>DEADLINE</strong> - exact PT date/time + judging window + winner cast date</li>
+        <li><strong>ASSET KIT</strong> - link to GitHub branding folder (mandatory R3+)</li>
+        <li><strong>AUDIO RULE</strong> - binaural beats only if non-silence wanted (see callout above)</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h3>The cast itself</h3>
+      <ul>
+        <li>Drop bounty link first (POIDH frame renders inline)</li>
+        <li>Embed bounty page screenshot OR poidh.xyz auto-embed</li>
+        <li>Tag <code>@kenny</code> + <code>@poidhxyz</code> so they amplify</li>
+        <li>Cross-post to <code>/poidh</code> + <code>/zao</code> Farcaster channels + X via Firefly</li>
+        <li>Pin the cast in <code>/zao</code> for the duration of the window</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h3>Mid-window reminder (Day 5 of 10-14)</h3>
+      <ul>
+        <li>Reply-cast in the original thread: "X submissions so far, deadline in N days, live gallery link"</li>
+        <li>Link to <a href="/poidh.html">bettercallzaal.com/poidh.html</a> so submitters see the leaderboard growing</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h3>Judging discipline</h3>
+      <ul>
+        <li>Run <code>ffprobe</code> on every video for actual duration BEFORE rubric scoring</li>
+        <li>Floor-fail per spec; do NOT inflate verdict to clear the bounty</li>
+        <li>Publish per-submission scorecard page on bettercallzaal.com within 48h of deadline (template: <a href="/poidh-round2-judging.html">/poidh-round2-judging.html</a>)</li>
+        <li>Winner cast leads with congrats; mechanics + leaderboard go in second paragraph</li>
+        <li>DM honorable mentions privately</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h3>Post-bounty</h3>
+      <ul>
+        <li>Trigger <code>submitClaimForVote</code> on POIDH (open bounty) -&gt; ~48h contributor vote -&gt; <code>resolveVote</code> -&gt; winner withdraws</li>
+        <li>Add winner clip to <a href="/poidh.html">/poidh.html</a> past-bounties gallery</li>
+        <li>Update <code>poidh-leaderboard.json</code> so EB distributes the new round's ZABAL on next refresh</li>
+        <li>Push final state to GitHub before the next round opens</li>
+      </ul>
+    </div>
+
+    <h2>Why binaural beats specifically</h2>
+    <p>A binaural beat is two slightly-offset tones (e.g. 240Hz left + 244Hz right = 4Hz perceived beat). The brain hears the difference frequency as a low pulse.</p>
+    <ul>
+      <li>Sub-bass / pulse is non-melodic - doesn't compete with melody-perception centers in the brain</li>
+      <li>8-30Hz range = alpha/beta band, doesn't pull attention</li>
+      <li>Royalty-free + easy to generate (Audacity, online generators, Apple Logic free preset)</li>
+      <li>Sounds like "ambient hum" rather than "music" so the clip doesn't feel scored</li>
+    </ul>
+
+    <h3>Approved sources</h3>
+    <table>
+      <thead><tr><th>Type</th><th>Source</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Pre-built clip</td><td><a href="/assets/zabal-games-brand/binaural-60s.mp3" target="_blank">/assets/zabal-games-brand/binaural-60s.mp3</a></td><td>240Hz L / 244Hz R = 4Hz alpha. 60s. Use freely for any BCZ POIDH bounty.</td></tr>
+        <tr><td>Generator</td><td><a href="https://binauralbeatsfreak.com" target="_blank" rel="noopener">binauralbeatsfreak.com</a></td><td>Free download. Pick alpha (8-12Hz) for chill, beta (12-30Hz) for energy.</td></tr>
+        <tr><td>DIY</td><td>Audacity <code>Generate -&gt; Tone</code></td><td>240Hz L + 244Hz R = 4Hz beat. Stereo, 60s, amplitude 0.3, export MP3.</td></tr>
+        <tr><td>DIY</td><td>Apple Logic Pro Test Oscillator</td><td>Set L + R frequencies separately on two tracks.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>What does NOT count as binaural beats</h3>
+    <ul>
+      <li>Lo-fi beats / chillhop</li>
+      <li>Cinematic pads / movie trailer build-ups</li>
+      <li>Any track with melody, chord progression, or vocal</li>
+      <li>Library music from Epidemic Sound / Artlist / Soundstripe (those have melody)</li>
+    </ul>
+
+    <h2>Specific numbers from past rounds</h2>
+    <table>
+      <thead><tr><th>Metric</th><th>R1 (1151)</th><th>R2 (1166)</th></tr></thead>
+      <tbody>
+        <tr><td>Submissions</td><td>11 claims / 10 editors</td><td>8 claims / 7 editors</td></tr>
+        <tr><td>Floor-pass rate (strict)</td><td>n/a (no duration cap)</td><td>3/8 = 37.5%</td></tr>
+        <tr><td>Winner</td><td>@cryptfi-mariano (claim 6368)</td><td>@joeyofdeus / Monksage (claim 6645)</td></tr>
+        <tr><td>Winner duration</td><td>n/a</td><td>59.70s</td></tr>
+        <tr><td>Longest submission</td><td>n/a</td><td>91.88s (fail)</td></tr>
+        <tr><td>Highest engagement</td><td>n/a</td><td>11 likes (Dee, vertical mobile)</td></tr>
+        <tr><td>Prize</td><td>0.0105 ETH OPEN on Base</td><td>0.0105 ETH OPEN on Base</td></tr>
+        <tr><td>Deadline window</td><td>~30 days</td><td>7 days</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Reference docs</h2>
+    <ul>
+      <li><a href="https://github.com/bettercallzaal/ZAOOS/blob/main/research/business/768-poidh-bounty-best-practices-zabalgames-r3/README.md" target="_blank" rel="noopener">Doc 768 - this page's source-of-truth</a></li>
+      <li><a href="https://github.com/bettercallzaal/ZAOOS/blob/main/research/community/625-poidh-zao-bounty-playbook/README.md" target="_blank" rel="noopener">Doc 625 - POIDH x ZAO bounty playbook (18 templates)</a></li>
+      <li><a href="https://github.com/bettercallzaal/ZAOOS/blob/main/research/business/759-poidh-history-origin-to-2026/README.md" target="_blank" rel="noopener">Doc 759 - POIDH history (Kenny + lifetime stats)</a></li>
+      <li><a href="https://github.com/bettercallzaal/ZAOOS/blob/main/research/business/631-poidh-zabal-sentinel-convergence/README.md" target="_blank" rel="noopener">Doc 631 - POIDH x ZABAL Sentinel convergence</a></li>
+      <li><a href="/poidh-round2-judging.html">R2 judging page (template for future rounds)</a></li>
+      <li><a href="https://www.youtube.com/watch?v=IFG_34K7Vig" target="_blank" rel="noopener">BCZ YapZ Ep 19 w/ Kenny - the source episode for R2</a></li>
+    </ul>
+  </main>
+
+  <footer>
+    <div class="container">
+      BCZ POIDH bounty best practices - locked 2026-05-28 (cite this page from every bounty cast)
+      <div class="lifeline">Reference doc 768 - this page mirrors Parts 4 + 5 - update both when the rules evolve</div>
+    </div>
+  </footer>
+</body>
+</html>
