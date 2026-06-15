@@ -39,8 +39,8 @@ single-winner ad bounty - the participation reward for the whole July cohort.
 
 ## Before this can be cast (open decisions in MECHANIC.md)
 
-- [ ] Lock the payout path: A (split contract wins), B (distributor disperses), or C (POIDH
-      = proof gallery only, pot held in a Splits contract)
+- [x] Payout path - **LOCKED: Option B, distributor disperses** (2026-06-15)
+- [ ] Name the distributor wallet (non-issuer; wins the vote + sends the equal shares)
 - [ ] Set seed amount + weekly top-up size
 - [ ] Decide the min-builders floor (what if only 1-2 ship)
 - [ ] Name the pass/fail "real build" checker (proposed: Zaal + one co-host)
@@ -55,7 +55,8 @@ single-winner ad bounty - the participation reward for the whole July cohort.
 - [ ] Pin in /zabal for the whole window
 - [ ] Firefly cross-post to X
 - [ ] Weekly: top up the pot + reply-cast the running "$X in pot, N builders in" count
-- [ ] Fri Jul 31: close. First week of Aug: finalize qualifiers -> pay the split -> cast it
+- [ ] Fri Jul 31: close. First week of Aug: finalize qualifiers -> distributor wallet wins
+      the vote + withdraws -> disperse equal shares -> cast the payout + tx hashes
 - [ ] Add the real bounty id to `scripts/refresh-poidh-leaderboard.py` defaults + refresh
 
 ## Related rounds

@@ -55,16 +55,26 @@ contributors funded it directly all month.
 - **Con:** loses POIDH's built-in "stack contributions on the bounty page" UX - backers fund
   a separate address, which is a worse on-ramp than the POIDH contribute button.
 
-## Recommendation
+## Decision (locked 2026-06-15, Zaal's call)
 
-**Option A.** It keeps the POIDH contribute button (the easy "throw a dollar on the pot"
-on-ramp the whole idea depends on) AND ends in a trustless equal split. Option B is the
-fast path if we want something demo-able Monday without touching a splits contract; we can
-demo with B and ship A for the real run.
+**Option B - distributor disperses.** A trusted non-issuer wallet wins the vote, withdraws
+the whole pot, and manually sends each qualifying builder an equal share (Disperse.app or a
+handful of sends). Picked for simplicity + demo-readiness for Monday. Trade-off accepted:
+backers trust the distributor to fan it out, so keep the distributor public and post the
+disperse tx hashes in the closeout cast for transparency.
+
+Open items still needed to run B (below): name the distributor wallet, seed/top-up sizes,
+min-builders floor, the pass/fail checker, and late-contribution handling.
+
+Options A (split contract is the winning claim) and C (POIDH = proof gallery, pot in a
+Splits contract) stay documented above as alternatives if we want to harden the trust model
+on a later round.
 
 ## Still open (need Zaal's call)
 
-- **Payout path:** A, B, or C?
+- ~~**Payout path**~~ - LOCKED: Option B, distributor disperses (2026-06-15).
+- **Distributor wallet:** which non-issuer wallet wins the vote + sends the shares? (Must
+  not be the BCZ Treasury issuer EOA - PoidhV3 blocks issuer == claimant.) Make it public.
 - **Seed amount:** what does Zaal seed the pot with now, and the weekly top-up size?
 - **Min builders floor:** if only 1-2 people ship, do we still split, roll the pot into the
   August curated prize, or hold it for R5?
