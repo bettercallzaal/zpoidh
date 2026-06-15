@@ -7,14 +7,15 @@ POIDH Submitters leaderboard.
     python3 scripts/refresh-poidh-leaderboard.py
     python3 scripts/refresh-poidh-leaderboard.py --bounty 1151 --bounty 1166
 
-Writes three files:
+Writes three files into data/:
 
-    poidh-leaderboard.json  - Empire Builder API-Sourced feed [{address, score}]
-                              (matches the schema EB pulls from this URL)
-    poidh-claims.json       - Rich data for poidh.html: bounties + claims +
-                              live EB leaderboard with handles + rewards +
-                              web3.bio profile supplements (avatar, X handle)
-    poidh-audit.json        - Full claim trail for verification
+    data/leaderboard.json  - Empire Builder API-Sourced feed [{address, score}]
+                             (the strict schema EB pulls; served at /leaderboard)
+    data/claims.json       - Rich data for the hub: bounties + claims + live EB
+                             leaderboard with handles + rewards + web3.bio
+                             profile supplements (avatar, X handle). Sorted by
+                             rank = the ranked leaderboard the hub renders.
+    data/audit.json        - Full claim trail for verification
 
 Score = 1 per unique submitter wallet across the whole bounty set. Issuer
 wallets are excluded (PoidhV3 enforces issuer != claimant on-chain).
@@ -33,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-DEFAULT_BOUNTY_IDS = [1151, 1166]
+DEFAULT_BOUNTY_IDS = [1151, 1166, 1180]
 DEFAULT_CHAIN_ID = 8453
 ZABAL_EMPIRE_ID = "0xbB48f19B0494Ff7C1fE5Dc2032aeEE14312f0b07"
 POIDH_LEADERBOARD_UUID = "7b8e8dfa-529d-48ad-8c9b-bdb45cc35187"
@@ -202,9 +203,11 @@ def main() -> int:
         })
     enriched_leaderboard.sort(key=lambda e: (e.get("rank") or 999, e["address"]))
 
-    feed_path = REPO_ROOT / "poidh-leaderboard.json"
-    claims_path = REPO_ROOT / "poidh-claims.json"
-    audit_path = REPO_ROOT / "poidh-audit.json"
+    data_dir = REPO_ROOT / "data"
+    data_dir.mkdir(exist_ok=True)
+    feed_path = data_dir / "leaderboard.json"
+    claims_path = data_dir / "claims.json"
+    audit_path = data_dir / "audit.json"
 
     feed_path.write_text(json.dumps(leaderboard_feed, indent=2) + "\n")
 

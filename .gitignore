@@ -7,3 +7,5 @@ node_modules/
 *.log
 .serena/
 /tmp/
+__pycache__/
+*.pyc

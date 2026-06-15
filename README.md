@@ -2,7 +2,8 @@
 
 Source of truth for every BCZ-issued POIDH bounty. Rounds, judging pages, brand kits, leaderboard refresh, the canonical bar, the lessons learned. Everything you need to draft + cast + judge the next round lives here.
 
-**Active bounty:** [Round 3 - Best ad for ZABAL Gamez](https://poidh.xyz/base/bounty/1180) (open through Sun Jun 14, 2026)
+**Latest bounty:** [Round 3 - Best ad for ZABAL Gamez](https://poidh.xyz/base/bounty/1180) (closed Sun Jun 14, 2026 - winner cast + leaderboard refresh pending, see note in Round index)
+**In prep:** [Round 4 - The ZABAL Gamez open pot](rounds/r4/) (OPEN-SPLIT, July open build month - draft, not yet cast)
 
 **Live surfaces (all verified 200 on 2026-05-31, BCZ canonical during R3 window):**
 - Hub: https://bettercallzaal.com/poidh.html
@@ -73,8 +74,9 @@ zpoidh/
 - What gets EVERY submitter? Slot 8 of $ZABAL Empire (`0xbB48f19B0494Ff7C1fE5Dc2032aeEE14312f0b07`) - score = count of BCZ POIDH bounties they have entered.
 
 ### 2. Decide bounty type
-- **OPEN** = others can stack contributions on top + contributor-weighted vote at the end. Use this when you want catalytic momentum (Jesse Pollak / Haberdashery whale pattern). All BCZ rounds so far have been OPEN.
+- **OPEN** = others can stack contributions on top + contributor-weighted vote at the end. Use this when you want catalytic momentum (Jesse Pollak / Haberdashery whale pattern). R1-R3 were all OPEN.
 - **SOLO** = you fund + you accept directly, no vote. Use when judging is yours alone and you want fast resolution. Trade-off: no whale-stacking mechanic.
+- **OPEN-SPLIT** = open contributions all window, then the whole pot splits equally across *every* submitter who clears the floor (no single winner). Use for participation rewards - "everyone who showed up gets a slice." POIDH pays one winner natively, so the split needs a chosen payout path (split contract / distributor / proof-gallery-only). First used in R4 - see [rounds/r4/MECHANIC.md](rounds/r4/MECHANIC.md).
 
 ### 3. Write the description
 Use [docs/bounty-best-practices.html](docs/bounty-best-practices.html) as the canonical bar. Required sections in order:
@@ -154,7 +156,10 @@ Update via `scripts/refresh-poidh-leaderboard.py` - reads POIDH tRPC, aggregates
 |---|---|---|---|---|---|---|
 | R1 | [1151](https://poidh.xyz/base/bounty/1151) | BCZ YapZ Ep 17 (Hannah / Farm Drop clip-up) | 0.0105 ETH | @cryptfi-mariano (claim 6368) | 11 claims / 10 editors | [rounds/r1/](rounds/r1/) |
 | R2 | [1166](https://poidh.xyz/base/bounty/1166) | BCZ YapZ Ep 19 (Best 60s POIDH ad w/ Kenny) | 0.0105 ETH | @joeyofdeus / Monksage (claim 6645) | 8 claims / 7 editors | [rounds/r2/](rounds/r2/) |
-| R3 | [1180](https://poidh.xyz/base/bounty/1180) | ZABAL Gamez ad (any format) | 0.0125 ETH | OPEN through Sun Jun 14, 2026 | live | [rounds/r3/](rounds/r3/) |
+| R3 | [1180](https://poidh.xyz/base/bounty/1180) | ZABAL Gamez ad (any format) | 0.0125 ETH | closed Jun 14 - pending refresh* | pending refresh* | [rounds/r3/](rounds/r3/) |
+| R4 | TBD (not cast) | ZABAL Gamez July open build pot | whole pot, split equally | OPEN-SPLIT - everyone who ships | draft | [rounds/r4/](rounds/r4/) |
+
+\* R3 closed Sun Jun 14, 2026. The leaderboard + winner are not yet folded in because bounty 1180's final claim list has to be pulled from `poidh.xyz` and `empirebuilder.world`, both of which are off the network egress allowlist in the current session. To finish: from a session/host that can reach those APIs, run `python3 scripts/refresh-poidh-leaderboard.py` (1180 is now in the script defaults) - it rewrites `data/leaderboard.json` + `data/claims.json` + `data/audit.json` with R3 folded in and the full leaderboard ranked.
 
 ---
 
