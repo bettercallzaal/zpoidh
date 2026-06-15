@@ -1,11 +1,3 @@
-# R4 description - the open pot (DRAFT for review, not yet posted)
-
-This is the first **OPEN-SPLIT** bounty - the pot is split across every builder who
-qualifies, not handed to one winner. Paste-ready for the POIDH Description field once
-the mechanic (see `MECHANIC.md`) is locked. Strip this header before pasting.
-
----
-
 The ZABAL Gamez open pot. Ship a real build during July open build month and you split this pot with everyone else who shows up.
 
 ZABAL Gamez is The ZAO's 3-month Build-A-Thon - June workshops, July open build month, August Finals. Free to join. Anyone welcome. Three tracks - artist, builder, creator. The 100+ member ZAO community is your real audience.
