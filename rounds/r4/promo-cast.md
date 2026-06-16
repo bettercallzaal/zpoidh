@@ -1,14 +1,14 @@
-# R4 promo cast - the open pot (DRAFT)
+# R4 promo cast - the open pot
 
-Paste-ready for /zabal + /poidh + /zao with the POIDH bounty URL as embed once cast.
-Firefly cross-posts to X. Fill in `<BOUNTY-ID>` after creating the bounty.
+Paste-ready for /zabal + /poidh + /zao with [bounty 1249](https://poidh.xyz/base/bounty/1249)
+as the embed. Firefly cross-posts to X. Bounty is LIVE - these are ready to send as-is.
 
 ## Farcaster (long, primary channel + cross-posts)
 
 ```
 The ZABAL Gamez open pot is live.
 
-https://poidh.xyz/base/bounty/<BOUNTY-ID>
+https://poidh.xyz/base/bounty/1249
 
 Build something real during July open build month and you split this pot with everyone else who shows up. No "best," no single winner - you ship, you get a slice.
 
@@ -38,13 +38,13 @@ Open pot - anyone can stack it all month.
 
 Closes Fri Jul 31.
 
-https://poidh.xyz/base/bounty/<BOUNTY-ID>
+https://poidh.xyz/base/bounty/1249
 ```
 
 ## Telegram / GC / Discord
 
 ```
-ZABAL Gamez open pot is live: https://poidh.xyz/base/bounty/<BOUNTY-ID>
+ZABAL Gamez open pot is live: https://poidh.xyz/base/bounty/1249
 
 Ship a real build during July open build month (artist/builder/creator), post a photo of you at your screen with it up, tag @bettercallzaal + cross-post /zabal, drop it on POIDH. Everyone who clears the bar splits the pot equally - no single winner.
 
@@ -62,7 +62,7 @@ Open pot update: <$X> in the pot, <N> builders in so far. Every one of them spli
 
 Want to back the July cohort? It's an OPEN bounty - add to the pot right on the page, any amount. Every dollar makes every builder's slice bigger.
 
-https://poidh.xyz/base/bounty/<BOUNTY-ID>
+https://poidh.xyz/base/bounty/1249
 ```
 
 ## Closeout cast (after the split pays)

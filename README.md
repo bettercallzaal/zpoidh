@@ -2,8 +2,8 @@
 
 Source of truth for every BCZ-issued POIDH bounty. Rounds, judging pages, brand kits, leaderboard refresh, the canonical bar, the lessons learned. Everything you need to draft + cast + judge the next round lives here.
 
-**Latest bounty:** [Round 3 - Best ad for ZABAL Gamez](https://poidh.xyz/base/bounty/1180) (closed Sun Jun 14, 2026 - winner cast + leaderboard refresh pending, see note in Round index)
-**In prep:** [Round 4 - The ZABAL Gamez open pot](rounds/r4/) (OPEN-SPLIT, July open build month - draft, not yet cast)
+**Active bounty:** [Round 4 - The ZABAL Gamez open pot](https://poidh.xyz/base/bounty/1249) (OPEN-SPLIT, July open build month - LIVE, cast Jun 15, closes Fri Jul 31, 2026)
+**Previous:** [Round 3 - Best ad for ZABAL Gamez](https://poidh.xyz/base/bounty/1180) (closed Sun Jun 14, 2026 - winner cast + leaderboard refresh pending, see note in Round index)
 
 **Live surfaces (all verified 200 on 2026-05-31, BCZ canonical during R3 window):**
 - Hub: https://bettercallzaal.com/poidh.html
@@ -157,7 +157,7 @@ Update via `scripts/refresh-poidh-leaderboard.py` - reads POIDH tRPC, aggregates
 | R1 | [1151](https://poidh.xyz/base/bounty/1151) | BCZ YapZ Ep 17 (Hannah / Farm Drop clip-up) | 0.0105 ETH | @cryptfi-mariano (claim 6368) | 11 claims / 10 editors | [rounds/r1/](rounds/r1/) |
 | R2 | [1166](https://poidh.xyz/base/bounty/1166) | BCZ YapZ Ep 19 (Best 60s POIDH ad w/ Kenny) | 0.0105 ETH | @joeyofdeus / Monksage (claim 6645) | 8 claims / 7 editors | [rounds/r2/](rounds/r2/) |
 | R3 | [1180](https://poidh.xyz/base/bounty/1180) | ZABAL Gamez ad (any format) | 0.0125 ETH | closed Jun 14 - pending refresh* | pending refresh* | [rounds/r3/](rounds/r3/) |
-| R4 | TBD (not cast) | ZABAL Gamez July open build pot | whole pot, split equally | OPEN-SPLIT - everyone who ships | draft | [rounds/r4/](rounds/r4/) |
+| R4 | [1249](https://poidh.xyz/base/bounty/1249) | ZABAL Gamez July open build pot | whole pot, split equally | OPEN-SPLIT - everyone who ships | LIVE - closes Jul 31 | [rounds/r4/](rounds/r4/) |
 
 \* R3 closed Sun Jun 14, 2026. The leaderboard + winner are not yet folded in because bounty 1180's final claim list has to be pulled from `poidh.xyz` and `empirebuilder.world`, both of which are off the network egress allowlist in the current session. To finish: from a session/host that can reach those APIs, run `python3 scripts/refresh-poidh-leaderboard.py` (1180 is now in the script defaults) - it rewrites `data/leaderboard.json` + `data/claims.json` + `data/audit.json` with R3 folded in and the full leaderboard ranked.
 
