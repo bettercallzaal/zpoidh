@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create a POIDH bounty - zpoidh</title>
+<meta name="description" content="Standalone tool to create a real POIDH clipping bounty on Base and submit claims, using any browser wallet - no Farcaster app required.">
+<link rel="icon" type="image/png" href="/assets/icon.png">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #070709; --surface: #111115; --surface-2: #16161c;
+    --cyan: #00e5ff; --orange: #ff6b35; --green: #4ade80; --red: #f87171; --gold: #f5c842;
+    --text: #e4e2dd; --text-muted: #8a8895; --text-dim: #4e4c57;
+    --border: #1f1e26; --border-hover: #2f2d3a;
+  }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6; padding: 2rem 1.5rem 4rem;
+  }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin-bottom: 0.4rem; }
+  h2 { font-size: 1.15rem; margin: 0 0 0.6rem; }
+  .sub { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.4rem; line-height: 1.6; }
+  .sub code { color: var(--gold); }
+  .warn {
+    background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.3);
+    border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 1.6rem; font-size: 0.88rem; color: var(--text-muted);
+  }
+  .warn strong { color: var(--red); }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.3rem 1.4rem; margin-bottom: 1.4rem; }
+  .row { display: flex; gap: 0.7rem; align-items: flex-end; flex-wrap: wrap; margin-bottom: 0.8rem; }
+  .field { flex: 1 1 200px; }
+  label { display: block; color: var(--text-dim); font-size: 0.8rem; margin-bottom: 0.3rem; }
+  input[type=text], input[type=number], input[type=url], textarea, select {
+    width: 100%; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); font: inherit; font-size: 0.92rem; padding: 0.55rem 0.7rem; outline: none;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--cyan); }
+  textarea { min-height: 160px; resize: vertical; font-family: ui-monospace, monospace; font-size: 0.84rem; line-height: 1.5; }
+  .amt { display: flex; align-items: center; gap: 0.5rem; }
+  .amt input { width: 8rem; }
+  .amt span { color: var(--text-dim); font-size: 0.9rem; }
+  .btn {
+    background: var(--cyan); border: 0; color: #000; border-radius: 999px; padding: 0.6rem 1.3rem;
+    font: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+  }
+  .btn:hover { background: #33eaff; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  .btn.secondary { background: none; border: 1px solid var(--border-hover); color: var(--text-muted); }
+  .confirm { background: rgba(0,229,255,0.06); border: 1px solid var(--cyan); border-radius: 10px; padding: 0.9rem; margin-top: 0.8rem; }
+  .confirm p { margin: 0 0 0.7rem; font-size: 0.88rem; line-height: 1.5; color: var(--text-muted); }
+  .confirm strong { color: var(--text); }
+  .acts { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .note { color: var(--text-dim); font-size: 0.84rem; margin-top: 0.7rem; line-height: 1.5; }
+  .ok { color: var(--green); }
+  .err { color: var(--red); }
+  .wallet-bar { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.6rem; flex-wrap: wrap; }
+  .wallet-badge { font-size: 0.82rem; color: var(--text-dim); font-family: ui-monospace, monospace; }
+  .net-badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.76rem; font-weight: 600; background: rgba(74,222,128,0.15); color: var(--green); }
+  .net-badge.wrong { background: rgba(248,113,113,0.15); color: var(--red); }
+  hr.split { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Create a POIDH bounty</h1>
+  <p class="sub">
+    Standalone tool - connects to <strong>any browser wallet</strong> (MetaMask, Coinbase
+    Wallet, Rainbow, etc.), not gated to the Farcaster app. Calls the real POIDH contract
+    on Base directly. Use this to spin up a clipping bounty (or any bounty) and to submit
+    claims against one. See <a href="https://github.com/bettercallzaal/zpoidh" target="_blank" rel="noopener">zpoidh</a>
+    for the full BCZ POIDH playbook this follows.
+  </p>
+  <div class="warn">
+    <strong>This is real money on Base mainnet.</strong> Creating a bounty locks ETH from
+    your connected wallet into the POIDH contract. There is no test/sandbox mode here.
+    Start small. Every action requires your wallet's own confirm - this page never holds
+    or touches your keys.
+  </div>
+
+  <div class="wallet-bar">
+    <button class="btn" id="connect-btn">Connect wallet</button>
+    <span class="wallet-badge" id="wallet-badge"></span>
+    <span id="net-badge"></span>
+  </div>
+
+  <section id="create-section">
+    <h2>1. Create a bounty</h2>
+    <div class="row">
+      <div class="field">
+        <label for="c-title">Bounty title</label>
+        <input type="text" id="c-title" maxlength="120" placeholder="Clip up [recording/event name]">
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="c-desc">Description (THE BAR + rubric - edit before sending)</label>
+        <textarea id="c-desc"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field" style="flex: 0 0 auto;">
+        <label for="c-type">Bounty type</label>
+        <select id="c-type">
+          <option value="open" selected>Open (others can add to the pot)</option>
+          <option value="solo">Solo (you fund it, you accept directly)</option>
+        </select>
+      </div>
+      <div class="field" style="flex: 0 0 auto;">
+        <label for="c-amt">Reward</label>
+        <div class="amt"><input type="number" id="c-amt" min="0.001" step="0.001" value="0.01"><span>ETH</span></div>
+      </div>
+      <button class="btn" id="create-btn">Review and create</button>
+    </div>
+    <p class="note" id="create-note"></p>
+  </section>
+
+  <hr class="split">
+
+  <section id="claim-section">
+    <h2>2. Submit a claim</h2>
+    <p class="sub" style="margin-bottom: 1rem;">Submit a claim against any open bounty - paste its poidh.xyz link or bounty number, doesn't have to be one you created here.</p>
+    <div class="row">
+      <div class="field">
+        <label for="k-bounty">Bounty (poidh.xyz link or number)</label>
+        <input type="text" id="k-bounty" placeholder="poidh.xyz/base/bounty/1249  or  1249">
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="k-title">Claim title</label>
+        <input type="text" id="k-title" maxlength="120" placeholder="My clip">
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="k-url">Submission URL (clip, cast, post - whatever the bounty asks for)</label>
+        <input type="url" id="k-url" placeholder="https://...">
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="k-img">Poster image URL (optional - shown on the claim card)</label>
+        <input type="url" id="k-img" placeholder="https://... (leave blank for a default image)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="k-desc">Claim description (optional)</label>
+        <input type="text" id="k-desc" maxlength="300" placeholder="A line about what this submission is">
+      </div>
+      <button class="btn" id="claim-btn">Review and submit</button>
+    </div>
+    <p class="note" id="claim-note"></p>
+  </section>
+</div>
+
+<script>
+(function () {
+  var POIDH = '0x5555fa783936c260f77385b4e153b9725fef1719'; // POIDH main contract, Base
+  var BASE_HEX = '0x2105'; // 8453
+  var MIN_ETH = 0.001;
+  var VIEM = 'https://esm.sh/viem@2.53.1'; // exact pin, matches assets/clip-bounty.js in zabalgamez
+  var META_BASE = 'https://zpoidh.vercel.app/api/claim-meta';
+  var BOUNTY_CREATED_TOPIC = '0xd265c5d6a9224c4853317e9e3262b0605b45f0e87c8bfd17d020e54a87c439af';
+
+  var ABI = [
+    { inputs: [{ internalType: 'string', name: 'name', type: 'string' }, { internalType: 'string', name: 'description', type: 'string' }], name: 'createOpenBounty', outputs: [], stateMutability: 'payable', type: 'function' },
+    { inputs: [{ internalType: 'string', name: 'name', type: 'string' }, { internalType: 'string', name: 'description', type: 'string' }], name: 'createSoloBounty', outputs: [], stateMutability: 'payable', type: 'function' },
+    { inputs: [{ internalType: 'uint256', name: 'bountyId', type: 'uint256' }, { internalType: 'string', name: 'name', type: 'string' }, { internalType: 'string', name: 'description', type: 'string' }, { internalType: 'string', name: 'uri', type: 'string' }], name: 'createClaim', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  ];
+
+  var DEFAULT_DESC = 'Make the best clip in any format. Best one wins and we run it.\n\n' +
+    'THE BAR (do these or you are not in the running)\n\n' +
+    '1. Make a clip in any format.\n' +
+    '2. Post it publicly and tag the account this bounty is for.\n' +
+    '3. Submit the public URL on this POIDH bounty page.\n' +
+    '4. AUDIO: if your clip has audio, use the source audio or one clear instrumental that does not compete with spoken dialog. Random library music over talking = floor fail.\n\n' +
+    'THE RUBRIC (more boxes = stronger)\n\n' +
+    '+ Cross-post beyond one platform\n' +
+    '+ Clarity - you get what it is in 3 seconds\n' +
+    '+ On-brand energy, not generic crypto\n\n' +
+    'THE REWARD\n\nBest submission wins the pot. This is an OPEN bounty - anyone can add to it.\n\nDEADLINE\n\nSubmissions close [DATE], 11:59pm PT.';
+
+  document.getElementById('c-desc').value = DEFAULT_DESC;
+
+  var provider = null;
+  var currentAccount = null;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function setNote(id, html, cls) {
+    var n = document.getElementById(id);
+    n.className = 'note' + (cls ? ' ' + cls : '');
+    n.innerHTML = html;
+  }
+  function shortAddr(a) { return a ? a.slice(0, 6) + '...' + a.slice(-4) : ''; }
+
+  function getInjectedProvider() {
+    if (window.ethereum) return window.ethereum;
+    return null;
+  }
+
+  async function ensureBase(prov) {
+    var cid = await prov.request({ method: 'eth_chainId' });
+    if (cid === BASE_HEX) return;
+    try {
+      await prov.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_HEX }] });
+    } catch (e) {
+      await prov.request({
+        method: 'wallet_addEthereumChain',
+        params: [{
+          chainId: BASE_HEX, chainName: 'Base',
+          nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+          rpcUrls: ['https://mainnet.base.org'], blockExplorerUrls: ['https://basescan.org'],
+        }],
+      });
+    }
+  }
+
+  async function refreshWalletBadge() {
+    var badge = document.getElementById('wallet-badge');
+    var net = document.getElementById('net-badge');
+    if (!currentAccount) { badge.textContent = ''; net.innerHTML = ''; return; }
+    badge.textContent = shortAddr(currentAccount);
+    try {
+      var cid = await provider.request({ method: 'eth_chainId' });
+      if (cid === BASE_HEX) net.innerHTML = '<span class="net-badge">Base</span>';
+      else net.innerHTML = '<span class="net-badge wrong">wrong network</span>';
+    } catch (e) { net.innerHTML = ''; }
+  }
+
+  document.getElementById('connect-btn').addEventListener('click', async function () {
+    var btn = document.getElementById('connect-btn');
+    provider = getInjectedProvider();
+    if (!provider) {
+      btn.textContent = 'No wallet found';
+      setNote('create-note', 'No browser wallet detected. Install MetaMask, Coinbase Wallet, or Rainbow as a browser extension, then reload this page.', 'err');
+      return;
+    }
+    try {
+      btn.disabled = true; btn.textContent = 'Connecting...';
+      var accts = await provider.request({ method: 'eth_requestAccounts' });
+      currentAccount = accts && accts[0];
+      await ensureBase(provider);
+      btn.textContent = 'Connected';
+      await refreshWalletBadge();
+    } catch (e) {
+      btn.disabled = false; btn.textContent = 'Connect wallet';
+      setNote('create-note', 'Connection failed or was rejected.', 'err');
+    }
+  });
+
+  function requireWallet(noteId) {
+    if (!provider || !currentAccount) {
+      setNote(noteId, 'Connect your wallet first (top of page).', 'err');
+      return false;
+    }
+    return true;
+  }
+
+  // ---- create bounty ----
+  document.getElementById('create-btn').addEventListener('click', function () {
+    if (!requireWallet('create-note')) return;
+    var title = document.getElementById('c-title').value.trim();
+    var desc = document.getElementById('c-desc').value.trim();
+    var amt = document.getElementById('c-amt').value;
+    var type = document.getElementById('c-type').value;
+
+    if (!title) { setNote('create-note', 'Give the bounty a title.', 'err'); return; }
+    if (!desc) { setNote('create-note', 'Description cannot be empty.', 'err'); return; }
+    var n = Number(amt);
+    if (!isFinite(n) || n < MIN_ETH) { setNote('create-note', 'Reward must be at least ' + MIN_ETH + ' ETH.', 'err'); return; }
+
+    var section = document.getElementById('create-section');
+    var old = section.querySelector('.confirm');
+    if (old) old.remove();
+    var conf = document.createElement('div');
+    conf.className = 'confirm';
+    conf.innerHTML =
+      '<p>You are about to lock <strong>' + esc(amt) + ' ETH</strong> on <strong>Base mainnet</strong> into a ' +
+      esc(type) + ' POIDH bounty titled "<strong>' + esc(title) + '</strong>". This is real and cannot be undone here. Your wallet will ask you to sign.</p>' +
+      '<div class="acts"><button class="btn" id="create-sign">Confirm and sign</button><button class="btn secondary" id="create-cancel">Cancel</button></div>';
+    section.appendChild(conf);
+    document.getElementById('create-btn').disabled = true;
+
+    document.getElementById('create-cancel').addEventListener('click', function () {
+      conf.remove();
+      document.getElementById('create-btn').disabled = false;
+    });
+    document.getElementById('create-sign').addEventListener('click', function () {
+      var signBtn = document.getElementById('create-sign');
+      signBtn.disabled = true; signBtn.textContent = 'Check your wallet...';
+      setNote('create-note', '');
+      createBounty(title, desc, amt, type).then(function (res) {
+        renderCreatePending(res, amt);
+      }).catch(function (err) {
+        var code = (typeof err === 'string') ? err : (err && err.message) || '';
+        var msg = /reject|denied|4001/i.test(code)
+          ? 'Transaction cancelled. Nothing was sent.'
+          : 'Could not create the bounty: ' + esc(code || 'unknown error') + '. Make sure you have ETH on Base.';
+        setNote('create-note', msg, 'err');
+        signBtn.disabled = false; signBtn.textContent = 'Confirm and sign';
+        document.getElementById('create-btn').disabled = false;
+      });
+    });
+  });
+
+  function createBounty(title, desc, amountEth, type) {
+    return import(VIEM).then(function (viem) {
+      var fn = type === 'solo' ? 'createSoloBounty' : 'createOpenBounty';
+      var data = viem.encodeFunctionData({ abi: ABI, functionName: fn, args: [title, desc] });
+      var value = '0x' + viem.parseEther(String(amountEth)).toString(16);
+      return provider.request({
+        method: 'eth_sendTransaction',
+        params: [{ from: currentAccount, to: POIDH, data: data, value: value }],
+      }).then(function (txHash) { return { txHash: txHash }; });
+    });
+  }
+
+  function waitForBountyId(txHash) {
+    var tries = 0;
+    function attempt() {
+      return provider.request({ method: 'eth_getTransactionReceipt', params: [txHash] }).then(function (r) {
+        if (r && r.logs) {
+          for (var i = 0; i < r.logs.length; i++) {
+            var log = r.logs[i];
+            if (log && log.address && log.address.toLowerCase() === POIDH &&
+                log.topics && log.topics[0] && log.topics[0].toLowerCase() === BOUNTY_CREATED_TOPIC && log.topics[1]) {
+              try { return BigInt(log.topics[1]).toString(); } catch (e) { return null; }
+            }
+          }
+          if (r.status) return null;
+        }
+        if (++tries >= 15) return null;
+        return new Promise(function (res) { setTimeout(res, 2000); }).then(attempt);
+      }).catch(function () {
+        if (++tries >= 15) return null;
+        return new Promise(function (res) { setTimeout(res, 2000); }).then(attempt);
+      });
+    }
+    return attempt();
+  }
+
+  function renderCreatePending(res, amountEth) {
+    var scan = 'https://basescan.org/tx/' + res.txHash;
+    setNote('create-note', 'Bounty sent - ' + esc(amountEth) + ' ETH is on its way into an open bounty on Base. Confirming... <a href="' + esc(scan) + '" target="_blank" rel="noopener">view tx</a>');
+    waitForBountyId(res.txHash).then(function (id) {
+      var bountyUrl = id ? ('https://poidh.xyz/base/bounty/' + id) : null;
+      var where = bountyUrl
+        ? 'Live on POIDH: <a href="' + esc(bountyUrl) + '" target="_blank" rel="noopener">bounty #' + esc(id) + '</a>.'
+        : 'Confirmed, but could not resolve the bounty id automatically - check <a href="https://poidh.xyz/account/' + esc(currentAccount) + '" target="_blank" rel="noopener">your POIDH account</a>.';
+      setNote('create-note', '<strong class="ok">Bounty created.</strong> ' + where + ' <a href="' + esc(scan) + '" target="_blank" rel="noopener">tx</a>', 'ok');
+      var section = document.getElementById('create-section');
+      var conf = section.querySelector('.confirm');
+      if (conf) conf.remove();
+      document.getElementById('create-btn').disabled = false;
+      if (id) document.getElementById('k-bounty').value = id;
+    });
+  }
+
+  // ---- submit claim ----
+  function parseBountyId(s) {
+    s = String(s || '').trim();
+    var m1 = s.match(/bounty\/(\d+)/i);
+    if (m1) return m1[1];
+    if (/^\d+$/.test(s)) return s;
+    return '';
+  }
+  function isUrl(s) { try { var u = new URL(String(s || '')); return u.protocol === 'http:' || u.protocol === 'https:'; } catch (e) { return false; } }
+
+  document.getElementById('claim-btn').addEventListener('click', function () {
+    if (!requireWallet('claim-note')) return;
+    var bountyId = parseBountyId(document.getElementById('k-bounty').value);
+    var title = document.getElementById('k-title').value.trim() || 'Claim';
+    var subUrl = document.getElementById('k-url').value.trim();
+    var img = document.getElementById('k-img').value.trim();
+    var desc = document.getElementById('k-desc').value.trim();
+
+    if (!bountyId) { setNote('claim-note', 'Paste the bounty link or its number.', 'err'); return; }
+    if (!isUrl(subUrl)) { setNote('claim-note', 'Paste a valid submission URL.', 'err'); return; }
+
+    var section = document.getElementById('claim-section');
+    var old = section.querySelector('.confirm');
+    if (old) old.remove();
+    var conf = document.createElement('div');
+    conf.className = 'confirm';
+    conf.innerHTML =
+      '<p>Submit "<strong>' + esc(title) + '</strong>" as a claim on <strong>bounty #' + esc(bountyId) +
+      '</strong>. This costs gas only (no ETH locked). Your wallet will ask you to sign.</p>' +
+      '<div class="acts"><button class="btn" id="claim-sign">Confirm and sign</button><button class="btn secondary" id="claim-cancel">Cancel</button></div>';
+    section.appendChild(conf);
+    document.getElementById('claim-btn').disabled = true;
+
+    document.getElementById('claim-cancel').addEventListener('click', function () {
+      conf.remove();
+      document.getElementById('claim-btn').disabled = false;
+    });
+    document.getElementById('claim-sign').addEventListener('click', function () {
+      var signBtn = document.getElementById('claim-sign');
+      signBtn.disabled = true; signBtn.textContent = 'Check your wallet...';
+      setNote('claim-note', '');
+      submitClaim(bountyId, title, subUrl, img, desc).then(function (txHash) {
+        var scan = 'https://basescan.org/tx/' + txHash;
+        var bountyUrl = 'https://poidh.xyz/base/bounty/' + bountyId;
+        setNote('claim-note', '<strong class="ok">Claim submitted.</strong> See it on <a href="' + esc(bountyUrl) + '" target="_blank" rel="noopener">the bounty</a>. <a href="' + esc(scan) + '" target="_blank" rel="noopener">tx</a>', 'ok');
+        conf.remove();
+        document.getElementById('claim-btn').disabled = false;
+      }).catch(function (err) {
+        var code = (typeof err === 'string') ? err : (err && err.message) || '';
+        var msg = /reject|denied|4001/i.test(code)
+          ? 'Cancelled. Nothing was submitted.'
+          : 'Could not submit the claim: ' + esc(code || 'unknown error') + '. Check the bounty number is right.';
+        setNote('claim-note', msg, 'err');
+        signBtn.disabled = false; signBtn.textContent = 'Confirm and sign';
+        document.getElementById('claim-btn').disabled = false;
+      });
+    });
+  });
+
+  function submitClaim(bountyId, title, subUrl, img, desc) {
+    var uri = META_BASE + '?t=' + encodeURIComponent(title) + '&c=' + encodeURIComponent(subUrl) +
+      '&d=' + encodeURIComponent(desc) + (img ? '&img=' + encodeURIComponent(img) : '');
+    var fullDesc = (desc ? desc + '\n\n' : '') + 'Watch/view: ' + subUrl;
+    return import(VIEM).then(function (viem) {
+      var data = viem.encodeFunctionData({ abi: ABI, functionName: 'createClaim', args: [BigInt(bountyId), title, fullDesc, uri] });
+      return provider.request({
+        method: 'eth_sendTransaction',
+        params: [{ from: currentAccount, to: POIDH, data: data }],
+      });
+    });
+  }
+
+  // Auto-connect if a wallet is already authorized (does not prompt).
+  (function autoConnect() {
+    var prov = getInjectedProvider();
+    if (!prov) return;
+    provider = prov;
+    prov.request({ method: 'eth_accounts' }).then(function (accts) {
+      if (accts && accts[0]) {
+        currentAccount = accts[0];
+        document.getElementById('connect-btn').textContent = 'Connected';
+        refreshWalletBadge();
+      }
+    }).catch(function () { /* ignore */ });
+  })();
+})();
+</script>
+</body>
+</html>
