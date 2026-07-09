@@ -6,7 +6,7 @@
   "deadline_pt": "2026-06-14 23:59 PT",
   "amount_eth_at_judging": 0.025,
   "judging_generated_at": "2026-07-08",
-  "judging_note": "Built 2026-07-08 by re-running scripts/refresh-poidh-leaderboard.py (network egress worked this session). This pull surfaced a fact that was stale in memory/README (which said 'winner still to post'): claim 6749 (femmie, ZABALGAMEZ.COM AD) already carries isAccepted=true on-chain - the same signal that marked the confirmed R1 (6368) and R2 (6645) winners in this repo's data. That means submitClaimForVote(1180, 6749) already happened, presumably run by Zaal outside this session. What is NOT yet confirmed from this data alone: whether the 48h contributor vote has resolved (resolveVote) or whether the winner has withdrawn. Per this session's guardrails, no on-chain write actions were taken - this file only documents what the read-only tRPC pull shows. Full X-engagement rubric scoring (like r2/judging.json) was not built for the other 7 claims since the winner is already accepted; if Zaal wants the full comparative scorecard anyway, say so and it can still be built by fetching each X URL.",
+  "judging_note": "Built 2026-07-08 by re-running scripts/refresh-poidh-leaderboard.py (network egress worked this session), corrected a stale README that said 'winner still to post'. Updated 2026-07-09: pulled the raw claims.fetchBountyClaims record for claim 6749 directly - its owner field is the BCZ Treasury issuer wallet (0x7234c36a...), while every other claim on 1180 still shows owner as the POIDH contract's own escrow address (0x5555fa78...). Per PoidhV2's own contract code, the claim NFT only transfers to the issuer as part of the same transaction that pays the claimant 97.5% and the treasury 2.5% - there is no separate withdraw step. So this confirms, from on-chain data, that the full accept-and-payout sequence already ran: femmie has been paid. Full X-engagement rubric scoring (like r2/judging.json) was not built for the other 7 claims since the winner is already settled; if Zaal wants the full comparative scorecard anyway, say so and it can still be built by fetching each X URL.",
   "floor_rules": [
     {"id": "any_format", "label": "Any format ad for ZABAL Gamez", "auto_checkable": false},
     {"id": "x_post", "label": "Posted publicly with a submitted URL", "auto_checkable": true},
@@ -112,11 +112,11 @@
   "claude_summary": {
     "claims_count": 8,
     "recommended_winner": 6749,
-    "recommended_winner_reason": "Not a rubric pick - this is the claim already marked isAccepted=true on-chain, meaning it was already selected and put up for the contributor vote. Documenting the existing on-chain state, not re-judging.",
+    "recommended_winner_reason": "Not a rubric pick - this is the claim already marked isAccepted=true on-chain, meaning it was already selected, voted through, and paid out. Documenting the existing on-chain state, not re-judging.",
+    "resolution_confirmed": "2026-07-09 - claim 6749's owner field is the BCZ Treasury issuer wallet (not the POIDH contract escrow address every other claim still shows), which per PoidhV2's contract code only happens as part of the same transaction that pays the claimant + treasury fee. Accept-and-payout already ran; femmie has been paid.",
     "still_open": [
-      "Confirm whether resolveVote(1180) has run and femmie has withdrawn - needs an on-chain read this session didn't do",
-      "Winner-announce cast for femmie not yet drafted or posted",
-      "Full comparative rubric scoring for the other 7 claims - skipped since winner is already locked; build only if Zaal wants the retrospective scorecard"
+      "Winner-announce cast for femmie not yet drafted with real reasoning or posted - Zaal's call, public-posting action",
+      "Full comparative rubric scoring for the other 7 claims - skipped since winner is already settled; build only if Zaal wants the retrospective scorecard"
     ]
   }
 }

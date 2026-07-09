@@ -3,7 +3,7 @@
 Source of truth for every BCZ-issued POIDH bounty. Rounds, judging pages, brand kits, leaderboard refresh, the canonical bar, the lessons learned. Everything you need to draft + cast + judge the next round lives here.
 
 **Active bounty:** [Round 4 - The ZABAL Gamez open pot](https://poidh.xyz/base/bounty/1249) (OPEN-SPLIT, July open build month - LIVE, cast Jun 15, closes Fri Jul 31, 2026; 2 claims as of 2026-07-08)
-**Previous:** [Round 3 - Best ad for ZABAL Gamez](https://poidh.xyz/base/bounty/1180) (closed Sun Jun 14, 2026 - **winner already accepted on-chain**, claim 6749 femmie; resolveVote + winner cast still pending, see [rounds/r3/](rounds/r3/))
+**Previous:** [Round 3 - Best ad for ZABAL Gamez](https://poidh.xyz/base/bounty/1180) (closed Sun Jun 14, 2026 - **fully resolved + paid out on-chain**, winner @femmie claim 6749; only the winner cast is still pending - Zaal's call, see [rounds/r3/](rounds/r3/))
 **Drafting:** Round 5 - POIDH x Unlock Protocol clipping bounty (not cast, no bounty ID yet - see [rounds/r5/](rounds/r5/))
 
 **Live surfaces (all verified 200 on 2026-05-31, BCZ canonical during R3 window):**
@@ -157,7 +157,7 @@ Update via `scripts/refresh-poidh-leaderboard.py` - reads POIDH tRPC, aggregates
 |---|---|---|---|---|---|---|
 | R1 | [1151](https://poidh.xyz/base/bounty/1151) | BCZ YapZ Ep 17 (Hannah / Farm Drop clip-up) | 0.0105 ETH | @cryptfi-mariano (claim 6368) | 11 claims / 10 editors | [rounds/r1/](rounds/r1/) |
 | R2 | [1166](https://poidh.xyz/base/bounty/1166) | BCZ YapZ Ep 19 (Best 60s POIDH ad w/ Kenny) | 0.0105 ETH | @joeyofdeus / Monksage (claim 6645) | 8 claims / 7 editors | [rounds/r2/](rounds/r2/) |
-| R3 | [1180](https://poidh.xyz/base/bounty/1180) | ZABAL Gamez ad (any format) | 0.025 ETH | @femmie (claim 6749) - accepted on-chain, vote/withdraw + cast not yet confirmed | 8 claims | [rounds/r3/](rounds/r3/) |
+| R3 | [1180](https://poidh.xyz/base/bounty/1180) | ZABAL Gamez ad (any format) | 0.025 ETH | @femmie (claim 6749) - confirmed paid on-chain, winner cast still pending | 8 claims | [rounds/r3/](rounds/r3/) |
 | R4 | [1249](https://poidh.xyz/base/bounty/1249) | ZABAL Gamez July open build pot | whole pot, split equally | OPEN-SPLIT - everyone who ships | LIVE - 2 claims so far, closes Jul 31 | [rounds/r4/](rounds/r4/) |
 | R5 | TBD | POIDH x Unlock Protocol clip bounty | TBD (Unlock to set) | DRAFT - not cast | draft only | [rounds/r5/](rounds/r5/) |
 
