@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-07-09T09:00:47.670069+00:00",
+  "scan_status": "open",
+  "pages_scanned": 4,
+  "note": "Generalized scan beyond BCZ's own rounds (see build-bounty-calendar.py for the BCZ-specific proof of concept). Confirms POID's on-chain/API `deadline` field is essentially unused in practice - only 0 of the bounties scanned had it set at all, even though many describe a clear deadline in free text. That gap is exactly why this tool exists.",
+  "bounties_with_deadline_found": [
+    {
+      "bounty_id": 1280,
+      "title": "\ud83c\uddfa\ud83c\uddf8 The Most American Thing You Saw Today",
+      "issuer": "0x6e9cbbc2de389e41db1fa7fed477bc1842fcf766",
+      "amount_eth": 0.015,
+      "deadline_iso": "2026-07-05",
+      "deadline_raw_text": "July 5, 2026",
+      "status": "closed",
+      "url": "https://poidh.xyz/base/bounty/1280"
+    },
+    {
+      "bounty_id": 1249,
+      "title": "ZABAL Gamez Open Pot",
+      "issuer": "0x7234c36a71ec237c2ae7698e8916e0735001e9af",
+      "amount_eth": 0.0138,
+      "deadline_iso": "2026-07-31",
+      "deadline_raw_text": "July 31, 2026",
+      "status": "upcoming",
+      "url": "https://poidh.xyz/base/bounty/1249"
+    },
+    {
+      "bounty_id": 1282,
+      "title": "Tree Lovers ",
+      "issuer": "0xfa45023c7349c21f2e0cb66bfb7076381793a914",
+      "amount_eth": 0.01,
+      "deadline_iso": "2026-08-01",
+      "deadline_raw_text": "August 1, 2026",
+      "status": "upcoming",
+      "url": "https://poidh.xyz/base/bounty/1282"
+    }
+  ]
+}
