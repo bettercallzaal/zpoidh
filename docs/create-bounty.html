@@ -88,6 +88,20 @@
     <span id="net-badge"></span>
   </div>
 
+  <section id="preset-section">
+    <h2>Quick-fill: recurring series</h2>
+    <p class="sub" style="margin-bottom: 0.9rem;">
+      Loads a bounty's template from its <code>rounds/rN/description.md</code> in this
+      repo and fills in the version number, deadline, and winner-cast date automatically
+      - version is derived live by counting how many bounties already exist on POIDH with
+      this exact title, so re-running the same bounty next week needs no manual editing.
+    </p>
+    <div class="row">
+      <button class="btn secondary" id="preset-unlock">Load: Unlock Protocol Clipping Bounty (R6)</button>
+    </div>
+    <p class="note" id="preset-note"></p>
+  </section>
+
   <section id="create-section">
     <h2>1. Create a bounty</h2>
     <div class="row">
@@ -190,6 +204,117 @@
 
   var provider = null;
   var currentAccount = null;
+
+  // ---- recurring-series presets ----
+  // Each preset points at a rounds/rN/description.md in this repo. The template lives
+  // between POIDH-DESCRIPTION-START/END sentinel lines; {{ROUND_NOTE}}, {{DEADLINE_DATE}},
+  // and {{WINNER_CAST_DATE}} get filled in here at load time, and the version number is
+  // derived live from POIDH itself - never hand-maintained, never drifts.
+  var PRESETS = {
+    unlock: {
+      baseTitle: 'Unlock Protocol Clipping Bounty',
+      templateUrl: '../rounds/r6/description.md',
+    },
+  };
+
+  function ordinalRoundNote(n) {
+    if (n <= 1) return '';
+    return 'this is round ' + n + ' of this bounty - same clip-up challenge, new week.\n';
+  }
+
+  // Weekday + date formatted the way every prior round's description does it, computed
+  // fresh from the real current date every time this runs - never hardcoded. A hardcoded
+  // day-of-week is exactly the mistake Kenny caught in R3 (a date that drifted out of
+  // sync with its stated weekday).
+  function formatBountyDate(d) {
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return days[d.getUTCDay()] + ' ' + months[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear();
+  }
+
+  // Counts existing POIDH bounties (any status) whose title matches exactly `baseTitle`
+  // or `baseTitle + " vN"`, across the live platform-wide feed (same cursor-pagination
+  // approach as scripts/scan-poidh-deadlines.py). Returns the count so the caller can
+  // set next version = count + 1.
+  async function countExistingVersions(baseTitle) {
+    var count = 0;
+    var statuses = ['open', 'progress', 'past'];
+    var versionRe = new RegExp('^' + baseTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(\\s+v\\d+)?$', 'i');
+    for (var s = 0; s < statuses.length; s++) {
+      var cursor = null;
+      for (var page = 0; page < 5; page++) {
+        var payload = { chainId: 8453, status: statuses[s], limit: 50 };
+        if (cursor) payload.cursor = cursor;
+        var res;
+        try {
+          res = await trpcCall('bounties.fetchAll', payload);
+        } catch (e) { break; }
+        var items = (res && res.items) || [];
+        if (!items.length) break;
+        items.forEach(function (b) { if (versionRe.test((b.title || '').trim())) count++; });
+        cursor = res.nextCursor;
+        if (!cursor) break;
+      }
+    }
+    return count;
+  }
+
+  function trpcCall(proc, payload) {
+    var input = encodeURIComponent(JSON.stringify({ 0: { json: payload } }));
+    return fetch('https://poidh.xyz/api/trpc/' + proc + '?batch=1&input=' + input)
+      .then(function (r) { return r.json(); })
+      .then(function (d) { return d[0].result.data.json; });
+  }
+
+  function loadPreset(key) {
+    var preset = PRESETS[key];
+    if (!preset) return;
+    setNote('preset-note', 'Loading template + counting existing versions on POIDH...');
+    Promise.all([
+      fetch(preset.templateUrl, { cache: 'no-store' }).then(function (r) { return r.text(); }),
+      countExistingVersions(preset.baseTitle),
+    ]).then(function (results) {
+      var raw = results[0];
+      var existingCount = results[1];
+      var nextVersion = existingCount + 1;
+
+      var startMarker = '---POIDH-DESCRIPTION-START---';
+      var endMarker = '---POIDH-DESCRIPTION-END---';
+      var si = raw.indexOf(startMarker);
+      var ei = raw.indexOf(endMarker);
+      if (si === -1 || ei === -1) {
+        setNote('preset-note', 'Could not find the template sentinels in ' + preset.templateUrl + '.', 'err');
+        return;
+      }
+      var template = raw.slice(si + startMarker.length, ei).trim();
+
+      var now = new Date();
+      var deadline = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+      var winnerCast = new Date(deadline.getTime() + 24 * 60 * 60 * 1000);
+
+      var filled = template
+        .replace('{{ROUND_NOTE}}', ordinalRoundNote(nextVersion))
+        .replace('{{DEADLINE_DATE}}', formatBountyDate(deadline))
+        .replace('{{WINNER_CAST_DATE}}', formatBountyDate(winnerCast));
+
+      var title = nextVersion <= 1 ? preset.baseTitle : (preset.baseTitle + ' v' + nextVersion);
+
+      document.getElementById('c-title').value = title;
+      document.getElementById('c-desc').value = filled;
+
+      setNote('preset-note',
+        'Found ' + existingCount + ' existing bount' + (existingCount === 1 ? 'y' : 'ies') +
+        ' with this title on POIDH - filled in as <strong>v' + nextVersion + '</strong> (title: "' +
+        esc(title) + '"). Deadline set to ' + esc(formatBountyDate(deadline)) +
+        '. Review the description below before creating - nothing has been sent yet.', 'ok');
+    }).catch(function (e) {
+      setNote('preset-note', 'Could not load preset: ' + esc((e && e.message) || 'unknown error'), 'err');
+    });
+  }
+
+  document.getElementById('preset-unlock').addEventListener('click', function () {
+    loadPreset('unlock');
+  });
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
