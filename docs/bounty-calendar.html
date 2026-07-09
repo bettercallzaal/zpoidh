@@ -46,8 +46,7 @@
     Kenny's idea from the 2026-07-08 ZABAL Gamez x POIDH fireside. POID bounties have no
     structured deadline field by design; this reads the stated deadline out of each
     bounty's free-text description instead. Built against BCZ's own R1-R4 bounties first -
-    see <code>scripts/build-bounty-calendar.py</code>. Generalizing to arbitrary POID
-    bounties is a follow-up, not done here.
+    see <code>scripts/build-bounty-calendar.py</code>.
   </p>
   <table id="cal-table">
     <thead>
@@ -58,6 +57,24 @@
     </tbody>
   </table>
   <footer id="cal-footer"></footer>
+
+  <h1 style="margin-top:2.2rem;">Platform-wide scan</h1>
+  <p class="sub">
+    The generalization beyond BCZ's own rounds - <code>scripts/scan-poidh-deadlines.py</code>
+    pages through POID's live <code>bounties.fetchAll</code> feed (open bounties, across the
+    whole platform, not just ours) and parses each description the same way. Confirms Kenny's
+    exact point from the fireside: the on-chain/API <code>deadline</code> field on a bounty is
+    essentially unused in practice - it's a hard number in this scan's own summary below.
+  </p>
+  <table id="scan-table">
+    <thead>
+      <tr><th>Bounty</th><th>Issuer</th><th>Amount</th><th>Deadline</th><th>Status</th></tr>
+    </thead>
+    <tbody id="scan-body">
+      <tr><td colspan="5" class="empty">Loading...</td></tr>
+    </tbody>
+  </table>
+  <footer id="scan-footer"></footer>
 </div>
 <script>
 function esc(s) {
@@ -85,6 +102,27 @@ fetch('../data/bounty-calendar.json', { cache: 'no-store' })
   })
   .catch(function () {
     document.getElementById('cal-body').innerHTML = '<tr><td colspan="4" class="empty">Could not load data/bounty-calendar.json - run scripts/build-bounty-calendar.py first.</td></tr>';
+  });
+
+fetch('../data/poidh-deadlines-global.json', { cache: 'no-store' })
+  .then(function (r) { return r.json(); })
+  .then(function (d) {
+    var body = document.getElementById('scan-body');
+    var list = d.bounties_with_deadline_found || [];
+    var rows = list.map(function (b) {
+      var statusLabel = String(b.status || '').replace(/_/g, ' ');
+      return '<tr><td><a href="' + esc(b.url) + '" target="_blank" rel="noopener">' + esc(b.title) + '</a></td>' +
+        '<td style="font-family:monospace;font-size:0.8rem;">' + esc((b.issuer || '').slice(0, 10)) + '...</td>' +
+        '<td>' + esc(b.amount_eth) + ' ETH</td>' +
+        '<td>' + esc(b.deadline_iso) + ' <span style="color:var(--text-dim)">(' + esc(b.deadline_raw_text) + ')</span></td>' +
+        '<td><span class="status status-' + esc(b.status) + '">' + esc(statusLabel) + '</span></td></tr>';
+    });
+    body.innerHTML = rows.join('') || '<tr><td colspan="5" class="empty">No bounties with a parseable deadline in this scan.</td></tr>';
+    document.getElementById('scan-footer').textContent = 'Scanned ' + (d.pages_scanned || '?') + ' page(s) of "' +
+      (d.scan_status || 'open') + '" bounties, ' + list.length + ' had a parseable deadline. Generated ' + (d.generated_at || 'unknown') + '.';
+  })
+  .catch(function () {
+    document.getElementById('scan-body').innerHTML = '<tr><td colspan="5" class="empty">Could not load data/poidh-deadlines-global.json - run scripts/scan-poidh-deadlines.py first.</td></tr>';
   });
 </script>
 </body>
