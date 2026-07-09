@@ -44,6 +44,7 @@ single-winner ad bounty - the participation reward for the whole July cohort.
 - [x] Payout path - **LOCKED: Option B, distributor disperses** (2026-06-15)
 - [x] POIDH OPEN bounty cast on Base - [bounty 1249](https://poidh.xyz/base/bounty/1249) (2026-06-15)
 - [x] Bounty id 1249 added to `scripts/refresh-poidh-leaderboard.py` defaults
+- Live check 2026-07-08: 2 claims so far (0.0138 ETH escrowed) - window still open through Jul 31, so this is a mid-month snapshot, not a final count.
 
 ## Still open (need Zaal's call before payout - in MECHANIC.md)
 

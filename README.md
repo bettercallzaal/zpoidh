@@ -2,8 +2,9 @@
 
 Source of truth for every BCZ-issued POIDH bounty. Rounds, judging pages, brand kits, leaderboard refresh, the canonical bar, the lessons learned. Everything you need to draft + cast + judge the next round lives here.
 
-**Active bounty:** [Round 4 - The ZABAL Gamez open pot](https://poidh.xyz/base/bounty/1249) (OPEN-SPLIT, July open build month - LIVE, cast Jun 15, closes Fri Jul 31, 2026)
-**Previous:** [Round 3 - Best ad for ZABAL Gamez](https://poidh.xyz/base/bounty/1180) (closed Sun Jun 14, 2026 - winner cast + leaderboard refresh pending, see note in Round index)
+**Active bounty:** [Round 4 - The ZABAL Gamez open pot](https://poidh.xyz/base/bounty/1249) (OPEN-SPLIT, July open build month - LIVE, cast Jun 15, closes Fri Jul 31, 2026; 2 claims as of 2026-07-08)
+**Previous:** [Round 3 - Best ad for ZABAL Gamez](https://poidh.xyz/base/bounty/1180) (closed Sun Jun 14, 2026 - **fully resolved + paid out on-chain**, winner @femmie claim 6749; only the winner cast is still pending - Zaal's call, see [rounds/r3/](rounds/r3/))
+**Drafting:** Round 5 - POIDH x Unlock Protocol clipping bounty (not cast, no bounty ID yet - see [rounds/r5/](rounds/r5/))
 
 **Live surfaces (all verified 200 on 2026-05-31, BCZ canonical during R3 window):**
 - Hub: https://bettercallzaal.com/poidh.html
@@ -156,10 +157,13 @@ Update via `scripts/refresh-poidh-leaderboard.py` - reads POIDH tRPC, aggregates
 |---|---|---|---|---|---|---|
 | R1 | [1151](https://poidh.xyz/base/bounty/1151) | BCZ YapZ Ep 17 (Hannah / Farm Drop clip-up) | 0.0105 ETH | @cryptfi-mariano (claim 6368) | 11 claims / 10 editors | [rounds/r1/](rounds/r1/) |
 | R2 | [1166](https://poidh.xyz/base/bounty/1166) | BCZ YapZ Ep 19 (Best 60s POIDH ad w/ Kenny) | 0.0105 ETH | @joeyofdeus / Monksage (claim 6645) | 8 claims / 7 editors | [rounds/r2/](rounds/r2/) |
-| R3 | [1180](https://poidh.xyz/base/bounty/1180) | ZABAL Gamez ad (any format) | 0.0125 ETH | closed Jun 14 - pending refresh* | pending refresh* | [rounds/r3/](rounds/r3/) |
-| R4 | [1249](https://poidh.xyz/base/bounty/1249) | ZABAL Gamez July open build pot | whole pot, split equally | OPEN-SPLIT - everyone who ships | LIVE - closes Jul 31 | [rounds/r4/](rounds/r4/) |
+| R3 | [1180](https://poidh.xyz/base/bounty/1180) | ZABAL Gamez ad (any format) | 0.025 ETH | @femmie (claim 6749) - confirmed paid on-chain, winner cast still pending | 8 claims | [rounds/r3/](rounds/r3/) |
+| R4 | [1249](https://poidh.xyz/base/bounty/1249) | ZABAL Gamez July open build pot | whole pot, split equally | OPEN-SPLIT - everyone who ships | LIVE - 2 claims so far, closes Jul 31 | [rounds/r4/](rounds/r4/) |
+| R5 | TBD | POIDH x Unlock Protocol clip bounty | TBD (Unlock to set) | DRAFT - not cast | draft only | [rounds/r5/](rounds/r5/) |
 
-\* R3 closed Sun Jun 14, 2026. The leaderboard + winner are not yet folded in because bounty 1180's final claim list has to be pulled from `poidh.xyz` and `empirebuilder.world`, both of which are off the network egress allowlist in the current session. To finish: from a session/host that can reach those APIs, run `python3 scripts/refresh-poidh-leaderboard.py` (1180 is now in the script defaults) - it rewrites `data/leaderboard.json` + `data/claims.json` + `data/audit.json` with R3 folded in and the full leaderboard ranked.
+Leaderboard refresh completed 2026-07-08 - `data/leaderboard.json` / `claims.json` /
+`audit.json` now include R3 (1180) and R4 (1249) to date (22 submitters, 29 claims total).
+That same pull is what surfaced R3's on-chain accepted claim - see [rounds/r3/](rounds/r3/).
 
 ---
 
@@ -184,6 +188,8 @@ Each kit mirrors a canonical source repo (e.g. `github.com/ZAODEVZ/zabalgames` f
 - **Doc 759** (ZAO OS V1) - POIDH history (Kenny + lifetime stats + cohort patterns)
 - **Doc 631** (ZAO OS V1) - POIDH x $ZABAL x Sentinel convergence map
 - **Doc 625** (ZAO OS V1) - POIDH x ZAO bounty playbook (18 templates)
+- **Doc 992** (ZAO OS V1) - clipper -> POIDH pipeline concept, R5 is the manual v1 test of it
+- **[docs/unlock-fireside-collectible.md](docs/unlock-fireside-collectible.md)** - the Unlock Protocol proof-of-attendance NFT minted at the fireside R5 draws on
 - **[docs/RECAP.md](docs/RECAP.md)** - resume artifact + ongoing state
 
 ---

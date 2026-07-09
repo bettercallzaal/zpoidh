@@ -1,6 +1,23 @@
 # R3 - Best ad for ZABAL Gamez
 
-POIDH bounty 1180 on Base. Cast 2026-05-31. Closes 2026-06-14. **LIVE.**
+POIDH bounty 1180 on Base. Cast 2026-05-31. Closed 2026-06-14. **FULLY RESOLVED, PAID OUT.**
+
+Confirmed 2026-07-09: pulled the raw `claims.fetchBountyClaims` record for claim 6749
+(femmie, "ZABALGAMEZ.COM AD") directly from POIDH's tRPC. Its `owner` field is
+`0x7234c36a71ec237c2ae7698e8916e0735001e9af` - the BCZ Treasury issuer wallet - while every
+other (non-accepted) claim on 1180 still shows `owner: 0x5555fa78...` (the POIDH contract's
+own escrow address). Per the PoidhV2 contract's own code
+(`poidhV2Nft.safeTransfer(address(this), bounty.issuer, claimId, '')` inside
+`_acceptClaim`), the claim NFT only moves to the issuer wallet as part of the same
+transaction that pays the claimant 97.5% of the bounty and the treasury the 2.5% fee - there
+is no separate withdraw step in this contract. So the NFT sitting in the treasury wallet
+*is* proof the full accept-and-payout sequence already ran on-chain: femmie has been paid,
+the fee has been collected. This isn't a guess from off-chain data anymore - it's read
+straight from the claim record.
+
+Still open: the winner cast was never drafted with real reasoning (still a placeholder) and
+never posted - that's the one remaining step, and it's a public-posting action for Zaal, not
+something this session does. See [judging.json](judging.json) for the full claim list.
 
 ## At a glance
 
@@ -52,17 +69,14 @@ POIDH bounty 1180 on Base. Cast 2026-05-31. Closes 2026-06-14. **LIVE.**
 
 ## Post-bounty checklist (after close)
 
-- [ ] Run `scripts/refresh-poidh-leaderboard.py` to pull final submission list
-- [ ] ffprobe any video submissions -> `durations.json`
-- [ ] Build `judging.json` with per-submission scores + verdicts
-- [ ] Ship `judging.html` (copy from `rounds/r2/judging.html`, swap JSON path)
-- [ ] Pick winner + draft winner cast from `_template/cast-templates/winner-announce.md`
-- [ ] `submitClaimForVote(1180, <winning-claim-id>)` on POIDH
-- [ ] Wait 48h for contributor vote
-- [ ] `resolveVote(1180)` after deadline
-- [ ] Cast the winner announcement (winner can then `withdraw()` to pull ETH)
+- [x] Run `scripts/refresh-poidh-leaderboard.py` to pull final submission list (2026-07-08, 8 claims)
+- [x] Build `judging.json` documenting the claim list + the on-chain accepted claim
+- [x] Winner already selected on-chain - claim 6749 (femmie, ZABALGAMEZ.COM AD), `isAccepted: true`
+- [x] Confirmed resolved + paid: claim NFT owner is the treasury wallet, proving accept+payout completed (2026-07-09)
+- [ ] Fill in the real why-she-won reasoning in `cast-templates/winner-announce-femmie.md` (still a placeholder) and post it - Zaal's call, not automated here
+- [ ] Ship `judging.html` (copy from `rounds/r2/judging.html`, swap JSON path) - optional now that winner is locked
 - [ ] Update root `README.md` round index with winner + submission count
-- [ ] Cast post-mortem learnings + add to R4 description
+- [ ] Cast post-mortem learnings + add to R4/R5 description
 
 ## Reference docs
 

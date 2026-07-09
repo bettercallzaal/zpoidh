@@ -1,0 +1,122 @@
+{
+  "round": 3,
+  "bounty_id": 1180,
+  "bounty_url": "https://poidh.xyz/base/bounty/1180",
+  "bounty_title": "ZABAL GAMEZ AD",
+  "deadline_pt": "2026-06-14 23:59 PT",
+  "amount_eth_at_judging": 0.025,
+  "judging_generated_at": "2026-07-08",
+  "judging_note": "Built 2026-07-08 by re-running scripts/refresh-poidh-leaderboard.py (network egress worked this session), corrected a stale README that said 'winner still to post'. Updated 2026-07-09: pulled the raw claims.fetchBountyClaims record for claim 6749 directly - its owner field is the BCZ Treasury issuer wallet (0x7234c36a...), while every other claim on 1180 still shows owner as the POIDH contract's own escrow address (0x5555fa78...). Per PoidhV2's own contract code, the claim NFT only transfers to the issuer as part of the same transaction that pays the claimant 97.5% and the treasury 2.5% - there is no separate withdraw step. So this confirms, from on-chain data, that the full accept-and-payout sequence already ran: femmie has been paid. Full X-engagement rubric scoring (like r2/judging.json) was not built for the other 7 claims since the winner is already settled; if Zaal wants the full comparative scorecard anyway, say so and it can still be built by fetching each X URL.",
+  "floor_rules": [
+    {"id": "any_format", "label": "Any format ad for ZABAL Gamez", "auto_checkable": false},
+    {"id": "x_post", "label": "Posted publicly with a submitted URL", "auto_checkable": true},
+    {"id": "tag_bcz", "label": "Tagged @bettercallzaal", "auto_checkable": false},
+    {"id": "fc_crosspost", "label": "Cross-posted to a Farcaster channel", "auto_checkable": true},
+    {"id": "audio_rule", "label": "No layered melodic music under dialog", "auto_checkable": false}
+  ],
+  "submissions": [
+    {
+      "claim_id": 6749,
+      "wallet": "0xc143cf8515b87ea88d8db8a9892639b5046cf81c",
+      "fc_handle": "femmie",
+      "title": "ZABALGAMEZ.COM AD",
+      "x_url": "https://x.com/femmie/status/2065083051714003291",
+      "fc_url": "https://farcaster.xyz/femmie/0xd42f8ee9",
+      "on_chain_id": 1433,
+      "accepted": true,
+      "winner": true,
+      "winner_source": "isAccepted=true from live poidh.xyz tRPC pull, 2026-07-08 - same field that correctly flagged the confirmed R1 (6368, cryptfi-mariano) and R2 (6645, joeyofdeus/Monksage) winners in this repo's historical data"
+    },
+    {
+      "claim_id": 6798,
+      "wallet": "0x6dce11cc9bba17d3c1ef60c26f0958300bb06953",
+      "fc_handle": "joeyofdeus",
+      "title": "ZABAL GAMEZ AD",
+      "x_url": "https://x.com/i/status/2065942628403716570",
+      "fc_url": "https://farcaster.xyz/joeyofdeus/0xa967775e",
+      "on_chain_id": null,
+      "accepted": false,
+      "winner": false
+    },
+    {
+      "claim_id": 6789,
+      "wallet": "0x64be80bc71516ac48d8b0d9ff56de0af45c95d58",
+      "fc_handle": "forkmster",
+      "title": "ZABAL Gamez AD",
+      "x_url": "https://x.com/forkmster/status/2065749889448120439",
+      "fc_url": null,
+      "on_chain_id": null,
+      "accepted": false,
+      "winner": false,
+      "note": "Description positions the ad around ZABAL Gamez as more than a short-term build event"
+    },
+    {
+      "claim_id": 6788,
+      "wallet": "0x96e9025466a3e15dc2c3b28c1c6c71523a93f703",
+      "fc_handle": "dee-13",
+      "title": "Link",
+      "x_url": "https://x.com/i/status/2065727427230261515",
+      "fc_url": null,
+      "on_chain_id": null,
+      "accepted": false,
+      "winner": false
+    },
+    {
+      "claim_id": 6775,
+      "wallet": "0xb464fc1dff21a6d48b78955298af0f979ce2b8c3",
+      "fc_handle": "taku0x",
+      "title": "Zabal gamez ad",
+      "x_url": "https://x.com/i/status/2065364310436598058",
+      "fc_url": "https://farcaster.xyz/taku0x/0xf9b631e1",
+      "extra_link": "https://www.facebook.com/share/r/1CxveoLrWN/",
+      "on_chain_id": null,
+      "accepted": false,
+      "winner": false
+    },
+    {
+      "claim_id": 6742,
+      "wallet": "0x921bc01f8b105b831f01ec6619ff915b41de9fa8",
+      "fc_handle": "vipulpapriwal",
+      "title": "done",
+      "x_url": "https://x.com/i/status/2064774721485582839",
+      "fc_url": "https://farcaster.xyz/vipulpapriwal/0x84fb8383",
+      "on_chain_id": null,
+      "accepted": false,
+      "winner": false
+    },
+    {
+      "claim_id": 6740,
+      "wallet": "0xd5a86c3be58eb59cd816068568272f45b5f19e05",
+      "fc_handle": "awaiskhan",
+      "title": "ZABAL Game ad",
+      "x_url": "https://x.com/khanawais5898/status/2064407057772712395",
+      "fc_url": "https://farcaster.xyz/awaiskhan/0x6ee66c4c",
+      "on_chain_id": null,
+      "accepted": false,
+      "winner": false
+    },
+    {
+      "claim_id": 6737,
+      "wallet": "0xaa2483130cb248c3e679c404a3dccdd5b03dea00",
+      "fc_handle": "0xcollinxweb3",
+      "title": "ZABAL AD Clip",
+      "x_url": "https://x.com/i/status/2064275976045904313",
+      "fc_url": "https://farcaster.xyz/0xcollinxweb3/0x6e02c4c4",
+      "extra_link": "https://vm.tiktok.com/ZSQk4Lyqn/",
+      "on_chain_id": null,
+      "accepted": false,
+      "winner": false,
+      "note": "Only submission with a TikTok cross-post"
+    }
+  ],
+  "claude_summary": {
+    "claims_count": 8,
+    "recommended_winner": 6749,
+    "recommended_winner_reason": "Not a rubric pick - this is the claim already marked isAccepted=true on-chain, meaning it was already selected, voted through, and paid out. Documenting the existing on-chain state, not re-judging.",
+    "resolution_confirmed": "2026-07-09 - claim 6749's owner field is the BCZ Treasury issuer wallet (not the POIDH contract escrow address every other claim still shows), which per PoidhV2's contract code only happens as part of the same transaction that pays the claimant + treasury fee. Accept-and-payout already ran; femmie has been paid.",
+    "still_open": [
+      "Winner-announce cast for femmie not yet drafted with real reasoning or posted - Zaal's call, public-posting action",
+      "Full comparative rubric scoring for the other 7 claims - skipped since winner is already settled; build only if Zaal wants the retrospective scorecard"
+    ]
+  }
+}
