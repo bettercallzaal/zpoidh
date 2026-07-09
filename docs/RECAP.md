@@ -4,6 +4,34 @@ Most recent first. Each session entry: what happened + pending items + state of 
 
 ---
 
+## 2026-07-08 - Live leaderboard refresh + R3 winner discovery + R5 Unlock draft scaffolded
+
+### Shipped
+
+- **Repo re-cloned locally** (local working dir was empty at session start) and re-synced with `origin/main` at commit `dc45a92`.
+- **`scripts/refresh-poidh-leaderboard.py` ran successfully** - network egress to poidh.xyz/empirebuilder.world/web3.bio worked this session (was blocked in a prior session). Rewrote `data/leaderboard.json`, `data/claims.json`, `data/audit.json`: 4 bounties, 29 claims, 22 unique submitters, 32.26 $ZABAL distributed to date.
+- **R3 (bounty 1180) winner already accepted on-chain** - the live pull surfaced `isAccepted: true` on claim 6749 (femmie, "ZABALGAMEZ.COM AD"), the same field that correctly flags the confirmed R1 (6368) and R2 (6645) winners already in this repo's data. This corrects the prior README/memory note that said "winner still to post + run." `submitClaimForVote(1180, 6749)` already happened, most likely by Zaal outside a tracked session. NOT confirmed: whether `resolveVote` has run or femmie has withdrawn - that needs an on-chain read this session didn't do.
+- Built `rounds/r3/judging.json` documenting the real 8-claim list + the on-chain accepted claim, and `rounds/r3/cast-templates/winner-announce-femmie.md` (draft, not sent - has an open placeholder for Zaal's actual "why she won" reasoning and a checklist to confirm withdrawal before posting).
+- Updated `rounds/r3/README.md`, `rounds/r4/README.md` (2 claims live as of today), and root `README.md` (round index, active-bounty line, refresh footnote) to match the live pull.
+- **R5 scaffolded** at `rounds/r5/` - POIDH x Unlock Protocol clipping bounty, pulled from local clipboard drafts (`~/.zao/clipboard/clip-20260708-165603-poidh-unlock-clip-bounty.html` and `clip-20260708-170147-msg-trigs-kenny-bounty.html`). DRAFT only - no bounty ID, reward amount, source recording link, or launch date locked yet. Includes `description.md` (POIDH/WTM voice) and `pitch-dm.md` (the trigs + Kenny group-chat ask).
+- Added `docs/unlock-fireside-collectible.md` logging the ZABAL Gamez x POIDH Unlock lock config (5 free soulbound-optional keys) minted live at today's fireside space - not a bounty, the proof-of-attendance NFT that R5's pitch references as the live Unlock example.
+
+### Lessons logged
+
+- **The `isAccepted` field on a claim is a reliable winner signal**, not just a "submitted for vote" flag - verified against both R1 and R2's already-known, already-paid winners before trusting it for R3. Worth checking this field on every future round before assuming judging needs to start from zero.
+- **Bounty-level `isVoting: true` is a type flag** (this bounty requires a contributor vote to resolve), not a live "vote in progress" indicator - it's `true` on R1/R2 too, which are fully closed and paid.
+- **Local working dirs for these repos can go empty between sessions** (worktree/session isolation) - always check `git status` / re-clone before assuming file state, rather than trusting a stale memory snapshot.
+
+### Pending (post-close handoff items, corrected priority)
+
+- [ ] Confirm on-chain whether `resolveVote(1180)` ran and femmie withdrew
+- [ ] Fill in the real "why femmie won" reasoning in `rounds/r3/cast-templates/winner-announce-femmie.md` and post it (Farcaster + X + Telegram)
+- [ ] Send `rounds/r5/pitch-dm.md` to the trigs + Kenny group chat (not sent as of this session)
+- [ ] Lock R5 placeholders once Unlock confirms budget: reward, source recording URL, issuer wallet, launch date
+- [ ] R4: keep weekly pot top-ups + day-15/day-25 reminder casts going through Jul 31 close
+
+---
+
 ## 2026-05-31 - R3 cast + brand kit rebuild + zpoidh launch + closeout
 
 ### Shipped
@@ -102,15 +130,17 @@ Most recent first. Each session entry: what happened + pending items + state of 
 
 ```
 Reading github.com/bettercallzaal/zpoidh/docs/RECAP.md to bootstrap context.
-We are picking up BCZ POIDH bounty ops. Active state: R3 (bounty 1180,
-Best ad for ZABAL Gamez) LIVE on POIDH through Sun Jun 14 2026.
-Brand kit fully shipped at bettercallzaal.com/assets/zabal-games-brand/.
+We are picking up BCZ POIDH bounty ops. Active state: R4 (bounty 1249, ZABAL Gamez
+open pot, OPEN-SPLIT) LIVE through Fri Jul 31 2026. R3 (bounty 1180) winner already
+accepted on-chain (femmie, claim 6749) - resolveVote/withdraw + winner cast still
+need confirming. R5 (POIDH x Unlock Protocol clip bounty) is drafted at rounds/r5/
+but not cast - no bounty ID yet.
 zpoidh repo is canonical home for all rounds + playbook.
 
 Tell me what to work on:
-(a) Mid-window reminder cast for R3 (~day 5)
-(b) Post-close judging pipeline (Jun 15 morning)
-(c) R4 draft / next bounty subject
+(a) Confirm R3 vote/withdrawal status + post the femmie winner cast
+(b) Send the R5 pitch DM to trigs + Kenny, then lock R5 placeholders
+(c) R4 weekly top-up + reminder cast cadence
 (d) Migrate BCZ POIDH URLs to redirect into zpoidh deploy
 (e) Something else
 ```

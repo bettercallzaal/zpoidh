@@ -1,6 +1,13 @@
 # R3 - Best ad for ZABAL Gamez
 
-POIDH bounty 1180 on Base. Cast 2026-05-31. Closes 2026-06-14. **LIVE.**
+POIDH bounty 1180 on Base. Cast 2026-05-31. Closed 2026-06-14. **WINNER ACCEPTED ON-CHAIN.**
+
+Correction 2026-07-08: a live re-pull (`scripts/refresh-poidh-leaderboard.py`) shows claim
+6749 (femmie, "ZABALGAMEZ.COM AD") already carries `isAccepted: true` - the same field that
+flags the confirmed R1 and R2 winners in this repo's data. That means `submitClaimForVote`
+already ran for this claim, most likely by Zaal outside a tracked session. Whether the 48h
+vote has resolved and the winner has withdrawn isn't confirmed from this read-only data pull.
+See [judging.json](judging.json) for the full claim list + what's still open.
 
 ## At a glance
 
@@ -52,17 +59,14 @@ POIDH bounty 1180 on Base. Cast 2026-05-31. Closes 2026-06-14. **LIVE.**
 
 ## Post-bounty checklist (after close)
 
-- [ ] Run `scripts/refresh-poidh-leaderboard.py` to pull final submission list
-- [ ] ffprobe any video submissions -> `durations.json`
-- [ ] Build `judging.json` with per-submission scores + verdicts
-- [ ] Ship `judging.html` (copy from `rounds/r2/judging.html`, swap JSON path)
-- [ ] Pick winner + draft winner cast from `_template/cast-templates/winner-announce.md`
-- [ ] `submitClaimForVote(1180, <winning-claim-id>)` on POIDH
-- [ ] Wait 48h for contributor vote
-- [ ] `resolveVote(1180)` after deadline
-- [ ] Cast the winner announcement (winner can then `withdraw()` to pull ETH)
+- [x] Run `scripts/refresh-poidh-leaderboard.py` to pull final submission list (2026-07-08, 8 claims)
+- [x] Build `judging.json` documenting the claim list + the on-chain accepted claim
+- [x] Winner already selected on-chain - claim 6749 (femmie, ZABALGAMEZ.COM AD), `isAccepted: true`
+- [ ] Confirm `resolveVote(1180)` has run + femmie withdrew (needs an on-chain read, not done this session)
+- [ ] Draft + post winner-announce cast (femmie) - see `cast-templates/winner-announce-femmie.md`
+- [ ] Ship `judging.html` (copy from `rounds/r2/judging.html`, swap JSON path) - optional now that winner is locked
 - [ ] Update root `README.md` round index with winner + submission count
-- [ ] Cast post-mortem learnings + add to R4 description
+- [ ] Cast post-mortem learnings + add to R4/R5 description
 
 ## Reference docs
 

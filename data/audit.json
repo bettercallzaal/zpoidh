@@ -1,15 +1,17 @@
 {
   "bounty_ids": [
     1151,
-    1166
+    1166,
+    1180,
+    1249
   ],
   "chainId": 8453,
   "issuers": [
     "0x7234c36a71ec237c2ae7698e8916e0735001e9af"
   ],
-  "total_claims": 19,
-  "submitter_count": 16,
-  "total_eth_escrow": 0.021,
+  "total_claims": 29,
+  "submitter_count": 22,
+  "total_eth_escrow": 0.0598,
   "bounties": [
     {
       "id": 1151,
@@ -32,10 +34,36 @@
       "issuer": "0x7234c36a71ec237c2ae7698e8916e0735001e9af",
       "album": "wethemmedia",
       "amount_eth": 0.0105,
+      "in_progress": false,
+      "is_voting": true,
+      "is_canceled": false,
+      "claims_count": 8
+    },
+    {
+      "id": 1180,
+      "chainId": 8453,
+      "title": "ZABAL GAMEZ AD",
+      "description": "Make the best ad for ZABAL Gamez. Any format. Best one wins 0.0125 ETH on Base and we run it.\n\nZABAL Gamez is The ZAO's 3-month Build-A-Thon. June workshops, July open build month, August Finals. Free to join. Anyone welcome. Three tracks - artist, builder, creator - so anyone can step in. The 100+ member ZAO community is your real audience. Build for a real community, not a weekend you forget. This is a build event, not a video-game contest.\n\nWe need ads. Real ones we will run. Best submission ",
+      "issuer": "0x7234c36a71ec237c2ae7698e8916e0735001e9af",
+      "album": "wethemmedia",
+      "amount_eth": 0.025,
+      "in_progress": false,
+      "is_voting": true,
+      "is_canceled": false,
+      "claims_count": 8
+    },
+    {
+      "id": 1249,
+      "chainId": 8453,
+      "title": "ZABAL Gamez Open Pot",
+      "description": "The ZABAL Gamez open pot. Ship a real build during July open build month and you split this pot with everyone else who shows up.\n\nZABAL Gamez is The ZAO's 3-month Build-A-Thon - June workshops, July open build month, August Finals. Free to join. Anyone welcome. Three tracks - artist, builder, creator. The 100+ member ZAO community is your real audience.\n\nAugust has a curated prize - a few builders get picked to carry it forward. This is the other side of that: an open pot for everyone who actual",
+      "issuer": "0x7234c36a71ec237c2ae7698e8916e0735001e9af",
+      "album": "wethemmedia",
+      "amount_eth": 0.0138,
       "in_progress": true,
       "is_voting": false,
       "is_canceled": false,
-      "claims_count": 8
+      "claims_count": 2
     }
   ],
   "claims": [
@@ -156,7 +184,7 @@
       "title": "Real-world coordination shouldn't require permission. \ud83c\udf0d",
       "description": "https://x.com/i/status/2057966595029319888",
       "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmYWTsGEREEkQpb2v56RXPgzb9ok8dByNeGQ6uMZD9M2VS",
-      "accepted": false,
+      "accepted": true,
       "on_chain_id": 1329
     },
     {
@@ -228,6 +256,106 @@
       "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmRexftJ74n8ZYNdx71gi4g7vRVdwAQnVfGV3cpPnVpWEC",
       "accepted": false,
       "on_chain_id": 1268
+    },
+    {
+      "bounty_id": 1180,
+      "claim_id": 6749,
+      "issuer": "0xc143cf8515b87ea88d8db8a9892639b5046cf81c",
+      "title": "ZABALGAMEZ.COM AD \ud83d\udd79\ufe0f",
+      "description": "https://x.com/femmie/status/2065083051714003291\n\nhttps://farcaster.xyz/femmie/0xd42f8ee9\n",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmPQ3qbYUnFPRUt4mK62AgxZJ1nhpmuxgfCebrnvLBX3zA",
+      "accepted": true,
+      "on_chain_id": 1433
+    },
+    {
+      "bounty_id": 1180,
+      "claim_id": 6798,
+      "issuer": "0x6dce11cc9bba17d3c1ef60c26f0958300bb06953",
+      "title": "ZABAL GAMEZ AD",
+      "description": "https://x.com/i/status/2065942628403716570\nhttps://farcaster.xyz/joeyofdeus/0xa967775e",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmSuKpdL75WrgsmfReMMfs1GeUjzuX9ibN2k7gUEsbce5X",
+      "accepted": false,
+      "on_chain_id": 1482
+    },
+    {
+      "bounty_id": 1180,
+      "claim_id": 6789,
+      "issuer": "0x64be80bc71516ac48d8b0d9ff56de0af45c95d58",
+      "title": "ZABAL Gamez AD",
+      "description": "This ad focuses on positioning ZABAL Gamez as more than a typical short-term build event.\nhttps://x.com/forkmster/status/2065749889448120439\nHere's the video link; ",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmdE3ZWticXQ8DSFjZ37dAgzVj7v9tYR2F47GQazsCP9fP",
+      "accepted": false,
+      "on_chain_id": 1473
+    },
+    {
+      "bounty_id": 1180,
+      "claim_id": 6788,
+      "issuer": "0x96e9025466a3e15dc2c3b28c1c6c71523a93f703",
+      "title": "Link: ",
+      "description": "https://x.com/i/status/2065727427230261515",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmQ7Anm2r8Dv8Jgid4oGRM8H7kQFgDA98NY2iReSRXJJMd",
+      "accepted": false,
+      "on_chain_id": 1472
+    },
+    {
+      "bounty_id": 1180,
+      "claim_id": 6775,
+      "issuer": "0xb464fc1dff21a6d48b78955298af0f979ce2b8c3",
+      "title": "Zabal gamez ad ",
+      "description": "https://x.com/i/status/2065364310436598058\nhttps://farcaster.xyz/taku0x/0xf9b631e1\nhttps://www.facebook.com/share/r/1CxveoLrWN/",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmZ9xyaFzLdi73p4iJt7W2Mrxqz5oJKbs2hNDnyvoyhWbu",
+      "accepted": false,
+      "on_chain_id": 1459
+    },
+    {
+      "bounty_id": 1180,
+      "claim_id": 6742,
+      "issuer": "0x921bc01f8b105b831f01ec6619ff915b41de9fa8",
+      "title": "done. x https://x.com/i/status/2064774721485582839  far https://farcaster.xyz/vipulpapriwal/0x84fb8383",
+      "description": "x https://x.com/i/status/2064774721485582839\n\nfar https://farcaster.xyz/vipulpapriwal/0x84fb8383",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmPUmZP7Qavq9fyUPm1ZxpZNDMPd7MstjHg6YZK6nXRoZj",
+      "accepted": false,
+      "on_chain_id": 1426
+    },
+    {
+      "bounty_id": 1180,
+      "claim_id": 6740,
+      "issuer": "0xd5a86c3be58eb59cd816068568272f45b5f19e05",
+      "title": "ZABAL Game ad",
+      "description": "https://x.com/khanawais5898/status/2064407057772712395?s=46\n\nhttps://farcaster.xyz/awaiskhan/0x6ee66c4c\n",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmW1FXUHi1Djq9PYe32dfTge81k1yLfcikVps9XJMxwxka",
+      "accepted": false,
+      "on_chain_id": 1424
+    },
+    {
+      "bounty_id": 1180,
+      "claim_id": 6737,
+      "issuer": "0xaa2483130cb248c3e679c404a3dccdd5b03dea00",
+      "title": "ZABAL AD Clip ",
+      "description": "Submission links:\n\nFarcaster:https://farcaster.xyz/0xcollinxweb3/0x6e02c4c4\n\nX:https://x.com/i/status/2064275976045904313\n\nTikTok:https://vm.tiktok.com/ZSQk4Lyqn/ This post is shared via TikTok Lite. Download TikTok Lite to enjoy more posts: https://www.tiktok.com/tiktoklite",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmcUEtLSYUa4n3hu3SVtq17EketPGudhqNjS8oQJ9XaALr",
+      "accepted": false,
+      "on_chain_id": 1421
+    },
+    {
+      "bounty_id": 1249,
+      "claim_id": 6982,
+      "issuer": "0x064915fad67e70d2fa708b14af9e01b0083a1b9e",
+      "title": "ZAAL BOUNTY CONTRIBUTION",
+      "description": "Just an extra photo for proof",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmXkANSPCtx9PbhBWrkFsz9DVMHc2okoaM2BuvsTsWP44q",
+      "accepted": false,
+      "on_chain_id": 1666
+    },
+    {
+      "bounty_id": 1249,
+      "claim_id": 6981,
+      "issuer": "0x064915fad67e70d2fa708b14af9e01b0083a1b9e",
+      "title": "ZAAL Build Contribution",
+      "description": "The receipt is your portable proof package. Humans can read it, and agents can inspect it.\nIt is useful because it keeps the claim organized:\nwhat you built\nwhere it lives\nwhich proof image was used\nwhen the receipt was made\nwhat public posts should point to it\nSimple Version\nYou ship something.\nProof Drop helps you package the proof.\nPOIDH is just one destination/export for this particular ZABAL bounty. The receipt should be useful even if someone shares it on Farcaster, X, GitHub, a grant form, a client update, or a totally different bounty.",
+      "image_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmZKi5S54wptf2Z4mf9usxn7xaKueRssHdMUDFJpmDjC1M",
+      "accepted": false,
+      "on_chain_id": 1665
     }
   ]
 }
