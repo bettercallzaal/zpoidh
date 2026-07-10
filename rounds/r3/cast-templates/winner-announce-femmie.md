@@ -1,7 +1,8 @@
 # R3 winner announce - femmie (DRAFT, not sent)
 
 Filled in from `_template/cast-templates/winner-announce.md` using the on-chain accepted
-claim (6749). Placeholders left where the actual "why they won" reasoning needs Zaal's
+claim (6749). Never assume femmie's gender - use the handle or they/them, never she/he.
+Placeholders left where the actual "why it won" reasoning needs Zaal's
 voice, and where withdrawal status needs on-chain confirmation before posting.
 
 ## Farcaster (long)
@@ -30,7 +31,7 @@ cc @poidhxyz
 ```
 @femmie won Round 3 of the BCZ x POIDH bounty - real congrats
 
-<ONE-LINE WHY SHE WON>
+<ONE-LINE WHY IT WON>
 
 winner takes 0.025 ETH. every submitter already earned $ZABAL via @empirebuilder slot 8
 
