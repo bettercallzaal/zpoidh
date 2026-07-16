@@ -9,3 +9,5 @@ node_modules/
 /tmp/
 __pycache__/
 *.pyc
+# Generated eval artifacts (per-submission scorecards + cohort synthesis)
+data/scorecards/

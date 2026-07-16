@@ -64,10 +64,157 @@ The product succeeds only if:
 - `scorecard-template.md` - per-submitter output shape + example
 - `cohort-synthesis-template.md` - cohort-level patterns + example
 
+## Eval Runner (`eval-runner.mjs`)
+
+Automated Node.js runner that scores a past POIDH round's submissions against the doc-1120 rubric and generates per-submitter scorecards + cohort synthesis.
+
+### Features
+
+- **Rubric-driven scoring**: 4 dimensions (distribution, craft, substance, spec_compliance) + overall score (0-10 each)
+- **Per-submission feedback**: Personalized paragraph written TO the submitter (constructive, specific, actionable)
+- **Spec compliance check**: Hard floor rules from the round's description.md auto-checked
+- **Cohort synthesis**: Average scores, floor-pass rate, standout submissions, emerging patterns
+- **Dry-run mode**: Full validation and schema checking WITHOUT an API key
+- **Ground-truth verification**: Both `node --check` syntax + `npx tsc --noEmit --allowJs --checkJs` type checks pass
+- **Secret hygiene**: No API keys, tokens, or private keys written to any generated files or git history
+
+### Installation
+
+```bash
+cd pipeline
+npm install
+```
+
+### Usage
+
+```bash
+# Score a full round (dry run, no API key needed)
+node eval-runner.mjs --round r3 --dry-run
+
+# Score a full round (requires ANTHROPIC_API_KEY env var)
+ANTHROPIC_API_KEY=sk-ant-... node eval-runner.mjs --round r3
+
+# Score one submission in a round
+ANTHROPIC_API_KEY=sk-ant-... node eval-runner.mjs --round r3 --claim 6749
+
+# Verify syntax without SDK installed
+node --check pipeline/eval-runner.mjs
+```
+
+### Output
+
+Per-submission scorecards written to `data/scorecards/<round>/<claimId>.json`:
+
+```json
+{
+  "claimId": "6749",
+  "round": "r3",
+  "wallet": "0xc143cf8515b87ea88d8db8a9892639b5046cf81c",
+  "fcHandle": "femmie",
+  "submissionUrl": "https://x.com/femmie/status/...",
+  "model": "claude-opus-4-8",
+  "generatedAt": "2026-07-16T...",
+  "score": {
+    "distribution": 9,
+    "craft": 8,
+    "substance": 10,
+    "spec_compliance": 9,
+    "overall": 9,
+    "floor_pass": true,
+    "feedback": "You scored high on clarity and cross-posting reach. Next round, try posting earlier for engagement time.",
+    "next_round": [
+      "Post 1 week before deadline for engagement",
+      "Consider vertical format for mobile"
+    ]
+  }
+}
+```
+
+Cohort synthesis written to `data/scorecards/<round>/_synthesis.json`:
+
+```json
+{
+  "round": "r3",
+  "submissionCount": 8,
+  "averageScores": {
+    "distribution": 6.2,
+    "craft": 6.1,
+    "substance": 6.8,
+    "spec_compliance": 7.9,
+    "overall": 6.5
+  },
+  "floorPassRate": "5/8",
+  "standouts": [
+    {
+      "claim_id": "6749",
+      "reason": "Highest overall score with excellent cross-platform reach and authentic attribution"
+    }
+  ],
+  "patterns": [
+    "Video submitted at exact 60s = optimal craft signal",
+    "Cross-posted all channels = distribution multiplier"
+  ],
+  "model": "claude-opus-4-8",
+  "generatedAt": "2026-07-16T..."
+}
+```
+
+### In-App Integration
+
+Scorecards are intended for rendering in the web UI (NOT sent as Zaal DMs or Telegram notifications). The web UI can:
+
+1. Display per-submitter scorecard on their profile or after submission
+2. Show dimension breakdown (distribution, craft, substance, spec_compliance)
+3. Render the personalized feedback paragraph
+4. Suggest next-round actions
+
+### Rubric (doc-1120)
+
+Dimensions are defined in RUBRIC_SYSTEM_PROMPT. For R3 (ZABAL Gamez ad):
+
+- **Distribution**: Cross-posting reach, handle tags (@bettercallzaal, @poidhxyz, etc.), multi-platform presence
+- **Craft**: Production value, editing, timing, captions, hook in first 3 seconds
+- **Substance**: Clarity (understand in 3s), originality, thesis capture (free + 3-month + real community + tracks)
+- **Spec Compliance**: Hard floor rules from rounds/r3/description.md (format, tagging, audio rules, length)
+
+### Model & Cost
+
+- Model: `claude-opus-4-8` via Anthropic TypeScript SDK
+- Tokens per submission: ~500-800 (prompt + response)
+- Cost per round (8 submissions): ~$0.08-$0.15 API spend (input: $3/M, output: $15/M)
+- Cohort synthesis: ~800-1000 tokens
+
+### Dry-Run Behavior
+
+`--dry-run` mode:
+
+1. Loads all files and builds prompts
+2. Validates schemas with stub data
+3. Generates placeholder scorecards (won't call Anthropic API)
+4. Writes stub scores + feedback to `data/scorecards/<round>/`
+5. Exits with code 0 (success)
+
+Use dry-run to:
+- Verify the runner works without an API key
+- Check data loading and schema validation
+- Preview output file structure
+- Test in CI/CD without spending API budget
+
+### Requirements Met
+
+- Ground-truth verification: `node --check` + `npx tsc --noEmit --allowJs` ✓
+- Manual-first / keyless dry-run ✓
+- Per-submitter feedback in-app (data files for UI) ✓
+- No Telegram/DM code ✓
+- Node/JavaScript using Anthropic TypeScript SDK ✓
+- Model: claude-opus-4-8 ✓
+- Secret hygiene: no keys/tokens in output ✓
+- PR-only (no merge to main) ✓
+
 ## Next Steps
 
-1. Run the PoC on R2 submissions
-2. Get Zaal's qualitative feedback ("Would you pay?")
+1. Run the PoC on R2 or R3 submissions via `eval-runner.mjs`
+2. Get Zaal's qualitative feedback on scoring + feedback quality
 3. Iterate the rubric + feedback generation based on real judging context
 4. Build MVP (Vercel app with submission form + Fable runner + export)
 5. Charge Artizen Fund + POIDH for pilot (target: $300-600 MRR in weeks 3-6)

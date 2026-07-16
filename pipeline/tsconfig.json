@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "module": "esnext",
+    "target": "es2020",
+    "moduleResolution": "bundler",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "strict": false,
+    "resolveJsonModule": true
+  },
+  "include": ["eval-runner.mjs"],
+  "exclude": ["node_modules"]
+}
