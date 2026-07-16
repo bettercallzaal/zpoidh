@@ -1,0 +1,7 @@
+{
+  "submissions": [
+    {"id": 6645, "handle": "joeyofdeus", "floor_checks": {"x_post": "PASS", "tag_bcz": "PASS", "duration": "PASS"}, "scores": {"distribution": 9, "craft": 8, "substance": 9, "bonus": 8}},
+    {"id": 6584, "handle": "second", "floor_checks": {"x_post": "PASS", "tag_bcz": "PASS", "duration": "PASS"}, "scores": {"distribution": 7, "craft": 9, "substance": 7, "bonus": 5}},
+    {"id": 6644, "handle": "overtime", "floor_checks": {"x_post": "PASS", "tag_bcz": "PASS", "duration": "FAIL"}, "scores": {"distribution": 10, "craft": 10, "substance": 10, "bonus": 10}}
+  ]
+}

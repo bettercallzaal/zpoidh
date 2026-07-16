@@ -63,6 +63,11 @@ The product succeeds only if:
 - `run-eval.md` - step-by-step operational runbook (manual-first, no API keys)
 - `scorecard-template.md` - per-submitter output shape + example
 - `cohort-synthesis-template.md` - cohort-level patterns + example
+- `score.py` - the eval-runner's deterministic scoring backbone: floor-gating +
+  weighted aggregation + ranking + validation (the AI/judge supplies per-criterion
+  scores; this does the arithmetic the same way every time). No API keys; run
+  `python3 pipeline/score.py --selftest`. Example inputs: `rubric.example.json`,
+  `submissions.example.json`.
 
 ## Next Steps
 
