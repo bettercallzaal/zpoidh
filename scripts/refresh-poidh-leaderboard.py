@@ -79,6 +79,21 @@ def fetch_web3_bio(address: str) -> dict | None:
         return None
 
 
+def validate_claim_address(addr: str) -> bool:
+    """Check if address is a valid Ethereum address (0x + 40 hex chars)."""
+    if not isinstance(addr, str):
+        return False
+    if not addr.startswith("0x"):
+        return False
+    if len(addr) != 42:  # 0x + 40 hex chars
+        return False
+    try:
+        int(addr, 16)
+        return True
+    except ValueError:
+        return False
+
+
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--bounty", type=int, action="append", default=None)
@@ -95,8 +110,11 @@ def main() -> int:
     all_claims: list[dict] = []
     total_eth = 0.0
     total_claims = 0
+    rejected_claims: list[dict] = []
     # Track which bounties each address submitted to (for score = bounty count)
     bounties_by_addr: dict[str, set[int]] = {}
+    # Track unique (bounty_id, issuer) pairs to detect & reject duplicates
+    seen_submissions: set[tuple[int, str]] = set()
 
     for bid in bounty_ids:
         b = trpc("bounties.fetch", {"id": bid, "chainId": args.chain})
@@ -115,15 +133,60 @@ def main() -> int:
         print(f"Bounty {bid}: '{b['title'][:60]}' - {len(items)} claims, {amount_eth:.4f} ETH")
 
         for c in items:
-            addr = c["issuer"].lower()
-            if addr != issuer:
-                bounties_by_addr.setdefault(addr, set()).add(bid)
-                if addr not in seen:
-                    seen.add(addr)
-                    unique_order.append(addr)
+            claim_id = c.get("id")
+            claim_issuer = c.get("issuer")
+
+            # Validation: issuer field must exist and be a valid address
+            if not claim_issuer:
+                rejected_claims.append({
+                    "claim_id": claim_id,
+                    "bounty_id": bid,
+                    "reason": "missing issuer field",
+                })
+                continue
+
+            addr = claim_issuer.lower()
+
+            # Validation: issuer must be a valid Ethereum address
+            if not validate_claim_address(addr):
+                rejected_claims.append({
+                    "claim_id": claim_id,
+                    "bounty_id": bid,
+                    "reason": f"invalid issuer address format: {addr}",
+                    "issuer": addr,
+                })
+                continue
+
+            # Validation: reject if issuer is the bounty issuer (PoidhV3 enforces this on-chain)
+            if addr == issuer:
+                rejected_claims.append({
+                    "claim_id": claim_id,
+                    "bounty_id": bid,
+                    "issuer": addr,
+                    "reason": "issuer cannot claim their own bounty",
+                })
+                continue
+
+            # Deduplication: reject if this (bounty, issuer) pair already submitted
+            submission_key = (bid, addr)
+            if submission_key in seen_submissions:
+                rejected_claims.append({
+                    "claim_id": claim_id,
+                    "bounty_id": bid,
+                    "issuer": addr,
+                    "reason": "duplicate submission to same bounty",
+                })
+                continue
+
+            # Claim passed all validation; include it
+            seen_submissions.add(submission_key)
+            bounties_by_addr.setdefault(addr, set()).add(bid)
+            if addr not in seen:
+                seen.add(addr)
+                unique_order.append(addr)
             all_claims.append({
                 "bounty_id": bid,
-                "claim_id": c["id"],
+                "claim_id": claim_id,
                 "issuer": addr,
                 "title": (c.get("title") or ""),
                 "description": (c.get("description") or ""),
@@ -239,16 +302,23 @@ def main() -> int:
         "bounty_ids": bounty_ids,
         "chainId": args.chain,
         "issuers": sorted(issuers),
-        "total_claims": total_claims,
+        "total_claims_received": total_claims,
+        "total_claims_accepted": len(all_claims),
+        "total_claims_rejected": len(rejected_claims),
         "submitter_count": len(enriched_leaderboard),
         "total_eth_escrow": round(total_eth, 6),
         "bounties": bounty_meta,
         "claims": all_claims,
+        "rejected_claims": rejected_claims,
     }, indent=2) + "\n")
 
     print(f"\nWrote {feed_path.relative_to(REPO_ROOT)} (EB feed): {len(leaderboard_feed)} entries")
-    print(f"Wrote {claims_path.relative_to(REPO_ROOT)} (rich page data): {len(enriched_leaderboard)} submitters, {total_claims} claims")
-    print(f"Wrote {audit_path.relative_to(REPO_ROOT)} (audit trail)")
+    print(f"Wrote {claims_path.relative_to(REPO_ROOT)} (rich page data): {len(enriched_leaderboard)} submitters, {len(all_claims)} accepted claims")
+    print(f"Wrote {audit_path.relative_to(REPO_ROOT)} (audit trail: {len(all_claims)} accepted, {len(rejected_claims)} rejected)")
+    if rejected_claims:
+        print(f"\nRejected claims ({len(rejected_claims)}):")
+        for r in rejected_claims:
+            print(f"  Claim {r.get('claim_id')}: {r['reason']}")
     return 0
 
 
