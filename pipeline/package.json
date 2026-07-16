@@ -1,0 +1,16 @@
+{
+  "name": "zpoidh-eval-pipeline",
+  "version": "1.0.0",
+  "description": "Fable submission eval runner for POIDH bounty rounds",
+  "type": "module",
+  "main": "eval-runner.mjs",
+  "bin": {
+    "eval-runner": "eval-runner.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.28.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}
