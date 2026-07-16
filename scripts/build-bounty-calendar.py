@@ -43,6 +43,15 @@ MONTHS = (
 # month name (as POID descriptions are written in normal prose).
 DATE_RE = re.compile(rf"({MONTHS})\s+(\d{{1,2}}),?\s*(\d{{4}})")
 
+# Words that actually signal a submission cutoff. Word-boundary matched so "due"
+# does not fire inside "residue"/"produce". A date only counts as a deadline when
+# it sits shortly AFTER one of these. (Mirrors scan-poidh-deadlines.py; once that
+# fix merges these two parsers should share one module - see zpoidh issue #6.)
+DEADLINE_RE = re.compile(
+    r"\b(?:deadline|closes?|closing|due|ends?|ending|submit\s+by|until)\b",
+    re.IGNORECASE,
+)
+
 
 def trpc(proc: str, payload: dict) -> dict:
     inp = urllib.parse.quote(json.dumps({"0": {"json": payload}}))
@@ -53,23 +62,7 @@ def trpc(proc: str, payload: dict) -> dict:
         return json.loads(r.read())[0]["result"]["data"]["json"]
 
 
-def extract_deadline(description: str) -> tuple[str | None, str | None]:
-    """Find the free-text deadline in a bounty description.
-
-    Looks for the word "deadline" (case-insensitive) and reads the first
-    Month-DD-YYYY date after it. Falls back to scanning the whole description for
-    any date at all, since not every bounty labels the section "DEADLINE" (R1's
-    reads "Deadline to enter ..." inline, not as its own section).
-    Returns (iso_date_or_None, raw_matched_text_or_None).
-    """
-    lower = description.lower()
-    idx = lower.find("deadline")
-    window = description[idx : idx + 300] if idx >= 0 else description
-    m = DATE_RE.search(window)
-    if not m:
-        m = DATE_RE.search(description)
-    if not m:
-        return None, None
+def _parse_match(m: "re.Match[str]") -> tuple[str | None, str | None]:
     month_name, day, year = m.group(1), int(m.group(2)), int(m.group(3))
     try:
         dt = datetime.strptime(f"{month_name} {day} {year}", "%B %d %Y").replace(
@@ -80,7 +73,47 @@ def extract_deadline(description: str) -> tuple[str | None, str | None]:
     return dt.date().isoformat(), m.group(0)
 
 
+def extract_deadline(description: str) -> tuple[str | None, str | None]:
+    """Find the free-text submission deadline in a bounty description.
+
+    A date only counts as a deadline when it appears within ~300 chars AFTER a
+    deadline-signalling keyword (deadline / closes / due / ends / submit by / ...),
+    tried in text order. We do NOT fall back to grabbing an arbitrary date from
+    elsewhere in the text: that mislabelled unrelated dates (e.g. an event kickoff
+    "August 5") as the deadline even when the text said "no deadline stated".
+    Returns (iso_date_or_None, raw_matched_text_or_None).
+    """
+    for hit in DEADLINE_RE.finditer(description):
+        m = DATE_RE.search(description[hit.start() : hit.start() + 300])
+        if m:
+            return _parse_match(m)
+    return None, None
+
+
+def _selftest() -> int:
+    """Guard the deadline parser against the false-positive it used to have.
+    Run: python3 scripts/build-bounty-calendar.py --selftest"""
+    cases = [
+        ("Build a game. Event kickoff on August 5, 2026. No deadline stated.", None),
+        ("Submissions close on July 5, 2026. Prizes paid after.", "2026-07-05"),
+        ("Deadline to enter is August 12, 2026.", "2026-08-12"),
+        ("This bounty ends September 1, 2026.", "2026-09-01"),
+        ("Prize pool. Judging happens live.", None),
+    ]
+    fails = 0
+    for desc, want in cases:
+        got, _ = extract_deadline(desc)
+        ok = got == want
+        fails += 0 if ok else 1
+        print(f"  {'ok  ' if ok else 'FAIL'} want={want!r:>14} got={got!r:>14}  <- {desc[:50]}")
+    print(f"selftest: {len(cases) - fails}/{len(cases)} passed")
+    return 1 if fails else 0
+
+
 def main() -> int:
+    if "--selftest" in sys.argv:
+        return _selftest()
+
     now = datetime.now(timezone.utc).date()
     entries = []
 
