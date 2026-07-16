@@ -58,6 +58,33 @@ def trpc(proc: str, payload: dict) -> dict:
     return http_get(f"{POIDH_BASE}/{proc}?batch=1&input={inp}")[0]["result"]["data"]["json"]
 
 
+def fetch_all_claims(bid: int, chain: int, page_limit: int = 100) -> list[dict]:
+    """Fetch EVERY claim for a bounty, following the cursor.
+
+    The old code requested a single page of `limit=100` and used it as-is, which
+    silently dropped every submitter past #100. On the tokenless-empire
+    leaderboard each submission is supposed to count, so a silent truncation is a
+    real bug. Page 1 is identical to the old request (no cursor sent); we only
+    paginate if the API itself returns a nextCursor - so this is safe even if the
+    endpoint does not support cursors. A hard page cap prevents a bad cursor from
+    looping forever, and it WARNs rather than truncating silently.
+    """
+    items: list[dict] = []
+    cursor = None
+    for _ in range(50):
+        payload = {"bountyId": bid, "chainId": chain, "limit": page_limit}
+        if cursor is not None:
+            payload["cursor"] = cursor
+        resp = trpc("claims.fetchBountyClaims", payload)
+        items.extend(resp.get("items", []))
+        cursor = resp.get("nextCursor")
+        if not cursor:
+            return items
+        time.sleep(0.2)  # courtesy delay on someone else's public API
+    print(f"  WARN: claims pagination hit the 50-page cap for bounty {bid}; results may be incomplete")
+    return items
+
+
 def fetch_eb_leaderboard() -> dict:
     try:
         return http_get(f"{EB_BASE}/leaderboards/{POIDH_LEADERBOARD_UUID}", timeout=15)
@@ -79,12 +106,47 @@ def fetch_web3_bio(address: str) -> dict | None:
         return None
 
 
+def _selftest() -> int:
+    """Network-free proof that fetch_all_claims follows the cursor and stops.
+    Run: python3 scripts/refresh-poidh-leaderboard.py --selftest"""
+    global trpc
+    pages = [
+        {"items": [{"id": 1}, {"id": 2}], "nextCursor": "c1"},
+        {"items": [{"id": 3}], "nextCursor": None},
+    ]
+    calls = {"n": 0}
+
+    def fake_trpc(proc: str, payload: dict) -> dict:
+        i = calls["n"]
+        calls["n"] += 1
+        if i == 0:
+            assert "cursor" not in payload, "page 1 must not send a cursor (stays identical to old request)"
+        else:
+            assert payload.get("cursor") == "c1", "page 2 must thread the returned cursor"
+        return pages[i]
+
+    original = trpc
+    trpc = fake_trpc
+    try:
+        got = [c["id"] for c in fetch_all_claims(1, DEFAULT_CHAIN_ID)]
+    finally:
+        trpc = original
+    ok = got == [1, 2, 3] and calls["n"] == 2
+    print(f"  {'ok  ' if ok else 'FAIL'} paginated ids={got} in {calls['n']} calls (want [1,2,3] in 2)")
+    print(f"selftest: {'passed' if ok else 'FAILED'}")
+    return 0 if ok else 1
+
+
 def main() -> int:
     p = argparse.ArgumentParser()
+    p.add_argument("--selftest", action="store_true", help="run the pagination self-test (no network) and exit")
     p.add_argument("--bounty", type=int, action="append", default=None)
     p.add_argument("--chain", type=int, default=DEFAULT_CHAIN_ID)
     p.add_argument("--skip-web3bio", action="store_true", help="Skip web3.bio profile fetches (faster but no avatars/X)")
     args = p.parse_args()
+
+    if args.selftest:
+        return _selftest()
 
     bounty_ids = args.bounty if args.bounty else DEFAULT_BOUNTY_IDS
 
@@ -105,11 +167,7 @@ def main() -> int:
         amount_eth = int(b.get("amount", "0") or 0) / 1e18
         total_eth += amount_eth
 
-        claims_resp = trpc(
-            "claims.fetchBountyClaims",
-            {"bountyId": bid, "chainId": args.chain, "limit": 100},
-        )
-        items = claims_resp["items"]
+        items = fetch_all_claims(bid, args.chain)
         total_claims += len(items)
 
         print(f"Bounty {bid}: '{b['title'][:60]}' - {len(items)} claims, {amount_eth:.4f} ETH")
