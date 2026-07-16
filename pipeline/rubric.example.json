@@ -1,0 +1,10 @@
+{
+  "round": 2,
+  "criteria": [
+    {"key": "distribution", "label": "Distribution", "weight": 0.35, "max": 10},
+    {"key": "craft", "label": "Craft", "weight": 0.30, "max": 10},
+    {"key": "substance", "label": "Substance", "weight": 0.25, "max": 10},
+    {"key": "bonus", "label": "Bonus", "weight": 0.10, "max": 10}
+  ],
+  "floor_rules": ["x_post", "tag_bcz", "duration"]
+}
